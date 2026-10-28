@@ -91,7 +91,7 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
   <header class="top">
     <span class="eyebrow">WiB10 · Fit für die Probe · Themengebiet 4 von 4</span>
     <h1><span class="code">4</span> Innovation und Globalisierung</h1>
-    <p class="lead">4 Übungen mit 20 Aufgaben. Klicke eine Antwort an – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+    <p class="lead">3 Übungen mit 16 Aufgaben. Klicke eine Antwort an – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
   </header>
 
   <div class="status" role="status" aria-live="polite">
@@ -128,7 +128,7 @@ const SECTIONS = [
  { id:'quiz', type:'mc', title:'Quiz: Innovation und Globalisierung', task:'Klicke die richtige Antwort an.',
    items:[
     ['Was ist eine Innovation?',['eine Erneuerung durch neue Verfahren, Techniken oder Ideen','eine Preissenkung im Schlussverkauf','die Gründung einer AG']],
-    ['Was stellt Frau Kühls Unternehmen heute unter anderem her?',['Kamera-Monitor-Systeme für Nutzfahrzeuge','Hand- und Taschenspiegel','Fahrräder für die Stadt']],
+    ['Was droht einem Unternehmen, das sich nicht weiterentwickelt?',['Es scheitert am Markt.','Es wird automatisch zur AG.','Es bekommt mehr Kunden.']],
     ['Was ist bei Start-ups oft ein Problem?',['das Startkapital','zu starre Strukturen','zu wenige Ideen']],
     ['Was bedeutet „global“?',['weltweit','regional','national']],
     ['Seit wann nehmen die internationalen Verbindungen zu?',['seit dem Ende des Zweiten Weltkriegs','seit dem Jahr 2010','seit dem Mittelalter']],
@@ -146,13 +146,6 @@ const SECTIONS = [
    items:[
     ['Ein Supermarkt kauft Bananen aus Ecuador.','I'],['Ein bayerisches Auto wird nach China verkauft.','E'],
     ['Eine Maschine aus Bayern geht in die USA.','E'],['Eine Jeans aus Bangladesch kommt in den Laden.','I'],
-   ].map(([s,a]) => ({s,a}))
- },
- { id:'vn', type:'code', title:'Vorteil oder Nachteil des globalen Handels?', task:'Ordne zu.',
-   codes:[{k:'V',l:'Vorteil'},{k:'N',l:'Nachteil'}],
-   items:[
-    ['vielfältiges Produktangebot für die Konsumenten','V'],['Arbeitsplatzabbau im Inland','N'],
-    ['globaler Absatzmarkt für die Unternehmen','V'],['Schädigung von Natur, Umwelt und Klima','N'],
    ].map(([s,a]) => ({s,a}))
  },
 ];
