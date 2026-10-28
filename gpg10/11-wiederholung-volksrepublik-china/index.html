@@ -89,9 +89,9 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
 
 <div class="wrap">
   <header class="top">
-    <span class="eyebrow">GPG10 · Wiederholung der Vorstunde</span>
+    <span class="eyebrow">GPG10 · Wiederholung der Referatsthemen</span>
     <h1><span class="code">W</span> Wiederholung: Die Volksrepublik China</h1>
-    <p class="lead">5 Übungen mit 26 Aufgaben. Klicke eine Antwort an – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+    <p class="lead">5 Übungen mit 30 Aufgaben zu allen neun Referatsthemen. Klicke eine Antwort an oder tippe sie ein – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
   </header>
 
   <div class="status" role="status" aria-live="polite">
@@ -104,12 +104,15 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
   <details class="merke">
     <summary><small>MERKE</small>Spickzettel: Das musst du können</summary>
     <dl class="rules">
-      <dt>Naturräume</dt><dd><b>Weißes</b> (Hochland), <b>Braunes</b> (Wüsten), <b>Gelbes</b> (Löss) und <b>Grünes China</b> (Landwirtschaft, dicht besiedelt)</dd>
-      <dt>Geschichte</dt><dd>über 4000 Jahre alt · lange <b>Kaiserreich</b> · 1949 gründet <b>Mao</b> die Volksrepublik · ab 1979 <b>Wirtschaftsreformen</b> unter Deng Xiaoping</dd>
-      <dt>Politik</dt><dd>Herrschaft der <b>Kommunistischen Partei</b> · keine freien Wahlen, keine freie Presse · <b>Fünfjahrespläne</b></dd>
-      <dt>Wirtschaft</dt><dd><b>Sonderwirtschaftszonen</b> an der Küste · der Westen ist weniger entwickelt</dd>
-      <dt>Bevölkerung</dt><dd><b>Ein-Kind-Politik</b> bremste das Wachstum → die Bevölkerung <b>altert</b> · viele <b>Wanderarbeiter</b> ziehen in die Städte</dd>
-      <dt>Umwelt</dt><dd>Smog und Feinstaub, Wasserverschmutzung, Wüstenbildung · Energie vor allem aus <b>Kohle</b></dd>
+      <dt>Naturraum</dt><dd><b>Weißes China</b> (kaltes Hochland), <b>Braunes China</b> (Wüsten), <b>Gelbes China</b> (fruchtbarer Löss), <b>Grünes China</b> (Landwirtschaft, hier leben die meisten Menschen) · Huang He und Jangtsekiang bringen fruchtbare Böden, aber auch Dürren und Überschwemmungen</dd>
+      <dt>Geschichte</dt><dd>über 4000 Jahre alt · lange von <b>Kaisern</b> regiert (Erfindungen: Papier, Seide, Kompass) · 1949 gründet <b>Mao</b> die Volksrepublik · ab 1979 <b>Wirtschaftsreformen</b> unter Deng Xiaoping · <b>Taiwan</b> ist demokratisch, Hongkong war bis 1997 britisch</dd>
+      <dt>Politik</dt><dd>Die <b>Kommunistische Partei</b> (KPCh) hat die Macht · der Volkskongress segnet vor allem ab · keine freien Wahlen, keine freie Presse, keine unabhängige Justiz · Ziele in <b>Fünfjahresplänen</b></dd>
+      <dt>Wirtschaft</dt><dd><b>Sonderwirtschaftszonen</b> an der Küste, dort investieren ausländische Firmen · erst billige Waren, heute auch Hightech · der Westen ist weniger entwickelt</dd>
+      <dt>Bevölkerung</dt><dd>starkes Wachstum → <b>Ein-Kind-Politik</b> · heute drei Kinder erlaubt · die Bevölkerung <b>altert</b></dd>
+      <dt>Migration</dt><dd>wenige Arbeitsplätze auf dem Land → <b>Wanderarbeiter</b> arbeiten in den Städten der Ostküste auf Baustellen und in Fabriken (2019: etwa 290 Millionen)</dd>
+      <dt>Städte</dt><dd>mehr Arbeitsplätze und höhere Einkommen · Städte wachsen ins Umland, es entstehen <b>Cluster</b> · Probleme: Müll, hohe Mieten, Verlust von Ackerland</dd>
+      <dt>Umwelt</dt><dd><b>Smog</b> und Feinstaub durch Kohlekraftwerke, Fabriken und Autos · verschmutzte Flüsse und Grundwasser · <b>Überweidung</b> fördert Wüsten und Sandstürme</dd>
+      <dt>Energie</dt><dd>vor allem <b>Kohle</b>, dazu Wasserkraft, Kernkraft, erneuerbare Energien · <b>Drei-Schluchten-Damm</b> · Eco-Cities wie Tianjin</dd>
     </dl>
   </details>
 
@@ -124,21 +127,23 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
 <script>
 const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
 const SECTIONS = [
- { id:'quiz', type:'mc', title:'Quiz: China im Überblick', task:'Kreuze die richtige Antwort an.',
+ { id:'quiz', type:'mc', title:'Quiz: China im Überblick', task:'Klicke die richtige Antwort an.',
    items:[
     ['Wie alt ist die Geschichte Chinas?',['über 4000 Jahre','etwa 500 Jahre','rund 200 Jahre']],
-    ['Wer gründete 1949 die Volksrepublik China?',['Mao','Deng Xiaoping','ein Kaiser']],
-    ['Welche Partei regiert China seit 1949?',['die Kommunistische Partei Chinas','eine Koalition mehrerer Parteien','die Sozialdemokratische Partei']],
-    ['Was leitete Deng Xiaoping ab 1979 ein?',['Wirtschaftsreformen','die Ein-Kind-Politik','demokratische Wahlen']],
-    ['Wo entstanden die Sonderwirtschaftszonen?',['entlang der Küste','im Hochland im Westen','in den Wüsten im Norden']],
+    ['Wer leitete ab 1979 die Wirtschaftsreformen ein?',['Deng Xiaoping','Mao','der letzte Kaiser']],
+    ['Wer trifft in China die wichtigsten politischen Entscheidungen?',['die Führung der Kommunistischen Partei','das Volk in freien Wahlen','unabhängige Gerichte']],
+    ['Was sind Sonderwirtschaftszonen?',['Gebiete, in denen ausländische Firmen investieren können','Naturschutzgebiete im Hochland','Gebiete nur für die Landwirtschaft']],
+    ['Warum ziehen viele Chinesen vom Land in die Städte?',['Auf dem Land gibt es wenige Arbeitsplätze.','In den Städten sind die Mieten niedrig.','Auf dem Land ist die Luft schlechter.']],
+    ['Was fördert in China die Ausbreitung der Wüsten?',['Überweidung und hoher Wasserverbrauch','zu viel Regen im Westen','der Bau neuer Bahnstrecken']],
     ['Welche Energiequelle nutzt China am meisten?',['Kohle','Wasserkraft','Kernkraft']],
+    ['Was sind Cluster?',['große, miteinander verbundene Stadtgebiete','neue Fabriken auf dem Land','Wüstengebiete im Norden']],
    ].map(([q,o]) => ({q,opts:o,a:0}))
  },
  { id:'natur', type:'code', title:'Die vier Naturräume', task:'Welcher Naturraum ist gemeint?',
    codes:[{k:'W',l:'Weißes China'},{k:'B',l:'Braunes China'},{k:'Ge',l:'Gelbes China'},{k:'Gr',l:'Grünes China'}],
    items:[
-    ['kaltes Hochland im Westen','W'],
-    ['trockene Wüsten','B'],
+    ['kaltes Hochland mit Gletschern','W'],
+    ['trockene Wüsten wie die Wüste Gobi','B'],
     ['fruchtbare Lössgebiete','Ge'],
     ['gute Bedingungen für die Landwirtschaft – hier leben die meisten Menschen','Gr'],
    ].map(([s,a]) => ({s,a}))
@@ -146,38 +151,36 @@ const SECTIONS = [
  { id:'rf', type:'code', title:'Richtig oder falsch?', task:'Stimmt die Aussage?',
    codes:[{k:'r',l:'richtig'},{k:'f',l:'falsch'}],
    items:[
-    ['In China gibt es freie Wahlen und eine freie Presse.','f'],
-    ['Die Ein-Kind-Politik sollte das Bevölkerungswachstum bremsen.','r'],
-    ['Durch die Ein-Kind-Politik altert die Bevölkerung Chinas.','r'],
-    ['Kohlekraftwerke, Fabriken und Autos verursachen Smog und Feinstaub.','r'],
-    ['Der Westen Chinas ist wirtschaftlich stärker entwickelt als die Küste.','f'],
-    ['Taiwan wird von China regiert.','f'],
+    ['In China gibt es freie Wahlen und eine unabhängige Justiz.','f'],
+    ['Der Nationale Volkskongress segnet vor allem die Entscheidungen der Partei ab.','r'],
+    ['Huang He und Jangtsekiang bringen fruchtbare Böden, können aber auch Überschwemmungen verursachen.','r'],
+    ['Seit der Lockerung der Ein-Kind-Politik bekommen die meisten Paare wieder viele Kinder.','f'],
+    ['Die meisten Menschen in China leben im kalten, trockenen Westen.','f'],
+    ['Der Drei-Schluchten-Damm liefert Strom, griff aber stark in die Umwelt ein.','r'],
    ].map(([s,a]) => ({s,a}))
  },
- { id:'wort', type:'input', title:'Ein Wort genügt', task:'Setze das fehlende Wort ein.',
+ { id:'wort', type:'input', title:'Ein Wort genügt', task:'Tippe das fehlende Wort ein.',
    items:[
-    ['Menschen, die vom Land in die Städte ziehen, um dort zu arbeiten, heißen','Fachbegriff','.',['Wanderarbeiter','Wanderarbeiterinnen'],'Migration'],
-    ['Hongkong war bis 1997 eine Kolonie von','Land','.',['Großbritannien','England'],'Geschichte'],
-    ['China legt seine wirtschaftlichen Ziele in','Pläne','fest.',['Fünfjahresplänen','Fünfjahrespläne'],'Politik'],
-    ['Der große Staudamm am Jangtsekiang heißt Drei-','Name','-Damm.',['Schluchten'],'Energie'],
-    ['Den grauen Dunst aus Abgasen über den Städten nennt man','Fachbegriff','.',['Smog'],'Umwelt'],
+    ['Menschen, die vom Land in die Städte ziehen, um dort zu arbeiten, heißen','Fachbegriff','.',['Wanderarbeiter','Wanderarbeiterinnen','Wanderarbeiter*innen'],'Migration'],
+    ['Hongkong gehörte bis 1997 zu','Land','.',['Großbritannien','England','Grossbritannien'],'Geschichte'],
+    ['Die Insel, die demokratisch regiert, aber von China beansprucht wird, heißt','Name','.',['Taiwan'],'Geschichte'],
+    ['Ihre politischen und wirtschaftlichen Ziele legt die Regierung in','Pläne','fest.',['Fünfjahresplänen','Fünfjahrespläne','Fuenfjahresplaenen'],'Politik'],
+    ['Den gesundheitsschädlichen Dunst aus Abgasen über den Städten nennt man','Fachbegriff','.',['Smog'],'Umwelt'],
    ].map(([pre,inf,post,a,z]) => ({pre,inf,post,a,z}))
  },
- { id:'luecke', type:'cloze', title:'Lückentext: Städte und Bevölkerung', task:'Wähle in jeder Lücke das passende Wort.',
-   words:['Städte','Arbeitsplätze','Einkommen','Kinder','Lebenserwartung'],
+ { id:'luecke', type:'cloze', title:'Lückentext: Bevölkerung, Wirtschaft und Städte', task:'Wähle in jeder Lücke das passende Wort. Zwei Wörter bleiben übrig.',
+   words:['Ein-Kind-Politik','altert','Wirtschaftsmacht','Arbeitskräfte','Küste','Einkommen','landwirtschaftliche','Kohle','Wüsten'],
    text:[
-    'Zwischen 1950 und 1985 wuchs Chinas Bevölkerung stark, weil die Kindersterblichkeit sank und die ',{a:['Lebenserwartung']},' stieg. Heute sind mehrere ',{a:['Kinder']},' erlaubt. Viele Menschen ziehen in die ',{a:['Städte']},'. Dort gibt es mehr ',{a:['Arbeitsplätze']},' und höhere ',{a:['Einkommen']},'.'
+    'Um das starke Bevölkerungswachstum zu bremsen, führte die Regierung die ',{a:['Ein-Kind-Politik']},' ein. Eine Folge davon: Die Bevölkerung ',{a:['altert']},'. Seit den Reformen Ende der 1970er-Jahre ist China zu einer führenden ',{a:['Wirtschaftsmacht']},' aufgestiegen. Günstige ',{a:['Arbeitskräfte']},' halfen dabei. Industrie und Sonderwirtschaftszonen liegen vor allem im Osten und an der ',{a:['Küste']},'. Viele Menschen ziehen in die Städte, weil es dort mehr Arbeitsplätze und höhere ',{a:['Einkommen']},' gibt. Durch das Wachstum der Städte gehen ',{a:['landwirtschaftliche']},' Flächen verloren.'
    ]
  },
 ];
 
-const FB = {
- code:{s:'sachlich',M:'eigene Meinung',U:'Umgangssprache',A:'Appell / Aufforderung','Ü':'Übertreibung'},
-};
 const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
 const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
 const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const state = {};
+let ORDER = SECTIONS;
 
 function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
 function update(){
@@ -198,7 +201,7 @@ function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?
 function render(sec){
   const st = state[sec.id] = {ok:0, done:0};
   const card = document.getElementById(sec.id);
-  const idx = SECTIONS.indexOf(sec)+1;
+  const idx = ORDER.indexOf(sec)+1;
   let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
   if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
   html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
@@ -238,7 +241,7 @@ function render(sec){
   if (sec.type==='input'){
     shuffle(sec.items).forEach((it,n)=>{
       const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
-      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Verbform von ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
       const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
       const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
         inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
@@ -281,7 +284,8 @@ function render(sec){
 function start(){
   const main=document.getElementById('sections'), jump=document.getElementById('jump');
   main.innerHTML=''; jump.innerHTML='';
-  SECTIONS.forEach((s,i)=>{
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
     const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
     const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
     render(s);
