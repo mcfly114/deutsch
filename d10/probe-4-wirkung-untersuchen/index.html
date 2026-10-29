@@ -125,18 +125,18 @@ const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
 const SECTIONS = [
  { id:'wirkung', type:'mc', title:'Welche Erklärung passt?', task:'Klicke die beste Erklärung der Wirkung an.',
    items:[
-    ['„Meine Beine sind schwer wie Beton.“',['Man spürt, wie erschöpft der Läufer ist.','Der Läufer arbeitet auf dem Bau.','Der Text wird sachlich.']],
-    ['„Am Straßenrand jubelt ein Meer aus Menschen.“',['Es wird deutlich, wie viele Zuschauer da sind.','Die Straße liegt am Meer.','Die Zuschauer sind nass.']],
-    ['„Ich laufe weiter. Ich kämpfe weiter.“',['Die Wiederholung zeigt eindringlich seinen Willen.','Der Läufer will aufgeben.','Der Text wird lustig.']],
-    ['„Noch zwölf Kilometer. Zwölf!“',['Man spürt, wie lang und anstrengend der Weg noch ist.','Der Läufer zählt gern.','Der Weg ist ganz kurz.']],
-    ['„Na, ist es heute ein bisschen anstrengend?“ (Der Trainer sieht den erschöpften Läufer.)',['Es ist ironisch und wirkt humorvoll.','Der Trainer fragt ernst nach.','Der Trainer ist böse.']],
+    ['„Mein Rucksack ist schwer wie ein Sack Steine.“',['Man spürt, wie anstrengend das Tragen ist.','Im Rucksack sind wirklich Steine.','Der Text wird sachlich.']],
+    ['„Im Stadion tobt ein Ozean aus Fahnen.“',['Es wird deutlich, wie viele Fans da sind.','Das Stadion liegt am Ozean.','Die Fahnen sind nass.']],
+    ['„Ich übe weiter. Ich lerne weiter.“',['Die Wiederholung zeigt eindringlich ihren Willen.','Die Schülerin will aufgeben.','Der Text wird lustig.']],
+    ['„Noch drei Stunden Fahrt. Drei!“',['Man spürt, wie lang und anstrengend die Fahrt noch ist.','Der Erzähler zählt gern.','Die Fahrt ist ganz kurz.']],
+    ['„Na, war das Aufstehen heute leicht?“ (Die Mutter sieht den verschlafenen Sohn.)',['Es ist ironisch und wirkt humorvoll.','Die Mutter fragt ernst nach.','Die Mutter ist böse.']],
     ['„Draußen weint der Himmel leise vor sich hin.“',['Der Regen passt zur traurigen Stimmung.','Es ist ein sonniger Tag.','Der Himmel ist krank.']],
    ].map(([q,o]) => ({q,opts:o,a:0}))
  },
  { id:'ga', type:'code', title:'Gut erklärt oder zu allgemein?', task:'Ist die Erklärung gut (G) oder zu allgemein (A)?',
    codes:[{k:'G',l:'gut erklärt'},{k:'A',l:'zu allgemein'}],
    items:[
-    ['Das Stilmittel macht den Text schöner.','A'],['Die Metapher „ein Meer aus Menschen“ zeigt, wie viele Zuschauer da sind.','G'],['Das klingt gut.','A'],['Der Vergleich „schwer wie Beton“ zeigt, wie erschöpft der Läufer ist.','G'],['Das ist ein Stilmittel, weil es im Text steht.','A'],['Die kurzen Sätze erzeugen Spannung vor dem Auftritt.','G'],
+    ['Das Stilmittel macht den Text schöner.','A'],['Die Metapher „ein Ozean aus Fahnen“ zeigt, wie viele Fans da sind.','G'],['Das klingt gut.','A'],['Der Vergleich „schwer wie ein Sack Steine“ zeigt, wie anstrengend das Tragen ist.','G'],['Das ist ein Stilmittel, weil es im Text steht.','A'],['Die kurzen Sätze erzeugen Spannung vor dem Auftritt.','G'],
    ].map(([s,a]) => ({s,a}))
  },
  { id:'luecke', type:'cloze', title:'Lückentext: So gehst du vor', task:'Wähle das passende Wort. Zwei Wörter bleiben übrig.',
