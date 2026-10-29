@@ -232,7 +232,7 @@ function render(sec){
     shuffle(sec.items).forEach((it,n)=>{
       const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
       li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
-      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      li._it=it; const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
       const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
         inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
         fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
@@ -264,7 +264,7 @@ function render(sec){
       li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
     });
     if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
-      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+      if(fb.hidden){ const it=li._it; fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
     if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
     if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
       sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
