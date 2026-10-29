@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Innerer Monolog – Was ist das?</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">M</span> Innerer Monolog – Was ist das?</h1>
+    <p class="lead">6 Übungen mit 60 Aufgaben. Klicke eine Antwort an oder tippe sie ein – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: Innerer Monolog</summary>
+    <dl class="rules">
+      <dt>Was?</dt><dd>Die <b>Gedanken und Gefühle</b> einer Figur, die ihr in einem bestimmten Moment durch den Kopf gehen.</dd>
+      <dt>Ich-Form</dt><dd>ich, mir, mich, mein: „Ich kann mein Bein kaum bewegen.“</dd>
+      <dt>Präsens</dt><dd>Die Gedanken passieren <b>jetzt</b>: „Mein Knie brennt.“ Rückblick im Perfekt: „Warum bin ich so schnell gefahren?“</dd>
+      <dt>Fragen &amp; Ausrufe</dt><dd>„Findet mich hier jemand?“ – „So ein Mist!“</dd>
+      <dt>unvollst. Sätze</dt><dd>„Kalt. Nass. Allein.“</dd>
+      <dt>Gedankensprung</dt><dd>Die Gedanken wechseln plötzlich das Thema: „Das Handy ist kaputt … Mama wartet bestimmt schon.“</dd>
+      <dt>Nicht erlaubt</dt><dd><b>keine</b> Anführungszeichen, <b>kein</b> „dachte sie“</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'merkmal', type:'code', title:'Welches Merkmal zeigt die unterstrichene Stelle?', task:'Klicke das passende Kürzel an.',
+   codes:[{k:'I',l:'Ich-Form'},{k:'P',l:'Präsens'},{k:'F',l:'Frage'},{k:'A',l:'Ausruf'},{k:'U',l:'unvollständige Sätze'},{k:'G',l:'Gedankensprung'}],
+   items:[
+    ['Mein Herz **klopft** wie verrückt.','P'],
+    ['**Wer hat bloß die Tür offen gelassen?**','F'],
+    ['**Nicht schon wieder!**','A'],
+    ['**Regen. Wind. Kein Bus.**','U'],
+    ['Gleich kommt die Prüfung … **eine Pizza wäre jetzt toll.**','G'],
+    ['**Ich** muss mich jetzt konzentrieren.','I'],
+    ['**Mein** Fahrrad, **mein** Handy – alles kaputt.','I'],
+    ['Warum **ruft** sie denn nicht an?','P'],
+    ['**Was mache ich jetzt bloß?**','F'],
+    ['**So ein Pech!**','A'],
+    ['**Allein. Im Dunkeln. Ohne Handy.**','U'],
+    ['Der Lehrer schaut schon so streng … **morgen ist ja endlich Wochenende.**','G'],
+    ['Draußen **wird** es schon dunkel.','P'],
+    ['**Bloß weg hier!**','A'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'mew', type:'code', title:'Monolog, Erzähltext oder wörtliche Rede?', task:'Ist der Satz ein innerer Monolog (M), Erzähltext (E) oder wörtliche Rede (W)?',
+   codes:[{k:'M',l:'innerer Monolog'},{k:'E',l:'Erzähltext'},{k:'W',l:'wörtliche Rede'}],
+   items:[
+    ['Tim dachte, dass er den Zug verpassen würde.','E'],
+    ['Sie fragte sich, warum niemand anrief.','E'],
+    ['Er hoffte, dass alles gut gehen würde.','E'],
+    ['Lea ärgerte sich über ihren Fehler.','E'],
+    ['Den Zug verpasse ich bestimmt! Warum bin ich nicht früher los?','M'],
+    ['Warum ruft denn keiner an? Bin ich allen egal?','M'],
+    ['Bitte, bitte, lass alles gut gehen!','M'],
+    ['So ein dummer Fehler! Das passiert mir nie wieder.','M'],
+    ['„Ich verpasse den Zug!“, rief Tim.','W'],
+    ['„Warum ruft keiner an?“, fragte sie ihre Mutter.','W'],
+    ['„Das wird schon gut gehen“, sagte er.','W'],
+    ['„So ein Mist!“, schimpfte Lea laut.','W'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'umform', type:'mc', title:'Welcher Satz ist ein richtiger innerer Monolog?', task:'Der Satz stammt aus einem Erzähltext. Klicke die richtige Umformung an.',
+   items:[
+    ['Lina dachte, dass sie nie wieder so schnell fahren würde.',['Nie wieder fahre ich so schnell!','„Nie wieder fahre ich so schnell!“, dachte Lina.','Sie würde nie wieder so schnell fahren.']],
+    ['Tom fragte sich, was seine Eltern sagen würden.',['Was sagen bloß meine Eltern?','Tom fragte: „Was sagen meine Eltern?“','Was sagten bloß seine Eltern?']],
+    ['Elif hatte Angst, den Text zu vergessen.',['Bloß nicht den Text vergessen!','Elif hatte Angst: „Text vergessen!“','Hoffentlich vergaß sie den Text nicht.']],
+    ['Mira hoffte, dass Ben ihr verzeihen würde.',['Hoffentlich verzeiht mir Ben!','Mira dachte: Hoffentlich verzeiht mir Ben.','Hoffentlich verzieh ihr Ben.']],
+    ['Jonas ärgerte sich, weil er den Bus verpasst hatte.',['So ein Mist, der Bus ist weg!','„So ein Mist!“, dachte Jonas.','Jonas ärgerte sich sehr über den Bus.']],
+    ['Lea freute sich riesig über die Zusage.',['Ja! Ich habe die Stelle! Ich kann es kaum glauben!','Lea dachte, dass sie sich riesig freut.','Sie hatte die Stelle bekommen – super!']],
+    ['Paul fragte sich, ob er das Richtige getan hatte.',['War das wirklich richtig von mir?','Paul fragte sich: War das richtig?','War das wirklich richtig von ihm gewesen?']],
+    ['Sara war müde und wollte nur noch schlafen.',['Müde. Total müde. Nur noch ins Bett!','Sara dachte: „Ich bin müde.“','Sie war so müde und wollte schlafen.']],
+    ['Ali nahm sich vor, morgen früher aufzustehen.',['Morgen stehe ich früher auf, versprochen!','„Morgen stehe ich früher auf“, nahm Ali sich vor.','Morgen würde er früher aufstehen.']],
+    ['Ben war wütend auf seine große Schwester.',['Wie kann sie einfach abhauen? Das ist so gemein!','Ben dachte: „Sie ist so gemein.“','Er war so wütend auf sie.']],
+    ['Nina vermisste ihre beste Freundin Hanna.',['Ach, Hanna, du fehlst mir so!','Nina dachte, dass sie Hanna vermisst.','Sie vermisste Hanna so sehr.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'wissen', type:'mc', title:'Wissen rund um den inneren Monolog', task:'Klicke die richtige Antwort an.',
+   items:[
+    ['Was gibt ein innerer Monolog wieder?',['die Gedanken und Gefühle einer Figur','ein Gespräch zwischen zwei Figuren','eine sachliche Zusammenfassung']],
+    ['In welcher Form schreibt man einen inneren Monolog?',['in der Ich-Form','in der Er-/Sie-Form','in der Wir-Form']],
+    ['In welcher Zeit stehen die Gedanken meistens?',['im Präsens (Gegenwart)','im Präteritum','im Futur']],
+    ['Welche Zeit passt für einen Rückblick wie „Warum bin ich …?“',['das Perfekt','das Futur','das Präsens']],
+    ['Was gehört NICHT in einen inneren Monolog?',['Anführungszeichen und „dachte sie“','Fragen und Ausrufe','unvollständige Sätze']],
+    ['Was ist ein Gedankensprung?',['Die Gedanken wechseln plötzlich das Thema.','Die Figur springt vor Freude in die Luft.','Ein Satz wird mehrmals wiederholt.']],
+    ['Wann bekommt ein Gedanke in der Prüfung keinen Punkt?',['wenn er nicht zur Situation im Text passt','wenn er als Frage formuliert ist','wenn er im Präsens steht']],
+    ['Welcher Gedanke ist aussagekräftig?',['Mist, warum habe ich nur so fest geschossen?','Oh nein.','Hm, na ja.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'wort', type:'input', title:'Ein Wort genügt', task:'Tippe das fehlende Wort ein.',
+   items:[
+    ['Ein innerer Monolog steht in der','ein Wort','-Form.',['Ich'],'ich, mir, mein'],
+    ['Für die Gegenwart verwendet man die Zeitform','Fachbegriff','.',['Präsens','Praesens'],'z. B. „Mein Knie brennt.“'],
+    ['Im inneren Monolog setzt man keine','ein Wort','.',['Anführungszeichen','Anfuehrungszeichen'],'Anführungszeichen gehören zur wörtlichen Rede'],
+    ['„So ein Mist!“ ist ein','ein Wort','.',['Ausruf'],'kurzer, gefühlvoller Satz mit „!“'],
+    ['Wechseln die Gedanken plötzlich das Thema, nennt man das einen','ein Wort','.',['Gedankensprung'],'oft mit „…“'],
+    ['Ein Gespräch zwischen zwei Figuren heißt','ein Wort','.',['Dialog'],'das Gegenstück zum Monolog'],
+    ['Jeder Gedanke braucht einen Bezug zum','ein Wort','.',['Text'],'sonst gibt es keinen Punkt'],
+    ['Ein innerer Monolog ist wie ein Selbstgespräch im','ein Wort','.',['Kopf'],'Niemand hört die Gedanken'],
+   ].map(([pre,inf,post,a,z]) => ({pre,inf,post,a,z}))
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus.',
+   words:['Gedanken','Ich','Präsens','Fragen','Anführungszeichen','Situation','aussagekräftig','Er','Präteritum','Kommas'],
+   text:['Im inneren Monolog schreibe ich die ',{a:['Gedanken']},' einer Figur auf. Ich verwende die ',{a:['Ich']},'-Form und das ',{a:['Präsens']},'. ',{a:['Fragen']},' und Ausrufe machen den Text lebendig. Ich setze keine ',{a:['Anführungszeichen']},'. Jeder Gedanke passt zur ',{a:['Situation']},' im Text und ist ',{a:['aussagekräftig']},'.']
+ },
+];
+
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
