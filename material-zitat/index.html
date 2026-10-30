@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zitate auswerten</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">Z</span> Zitate auswerten</h1>
+    <p class="lead">6 Übungen mit 62 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: Zitate auswerten</summary>
+    <dl class="rules">
+      <dt>Material-Zitat</dt><dd>Aussage einer bekannten Person oder ein <b>Sprichwort</b> neben dem Text (M1, M2 …)</dd>
+      <dt>1 Wer?</dt><dd>Name, Beruf, Zeit – beim Sprichwort keine bestimmte Person</dd>
+      <dt>2 Bedeutung</dt><dd>in <b>eigenen Worten</b>, bildliche Wörter übertragen</dd>
+      <dt>3 Zusammenhang</dt><dd>Stimmt das Zitat dem Text zu oder widerspricht es?</dd>
+      <dt>4 Textstelle</dt><dd>wörtlich, mit Anführungszeichen und Zeile: „Allein schafft man wenig.“ (Z. 13)</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'bedeutung', type:'mc', title:'Was bedeutet das Sprichwort?', task:'Klicke die passende Bedeutung an.',
+   items:[
+    ['„Übung macht den Meister.“',['Wer etwas oft übt, wird gut darin.','Nur Meister dürfen üben.','Üben ist langweilig.','Wer nicht übt, bekommt Hilfe.']],
+    ['„Aller Anfang ist schwer.“',['Der Beginn ist oft am schwierigsten.','Man sollte nichts Neues anfangen.','Am Ende wird alles schwerer.','Jeder Anfang ist leicht.']],
+    ['„Geteilte Freude ist doppelte Freude.“',['Mit anderen zusammen ist die Freude größer.','Man sollte Freude für sich behalten.','Freude kann man nicht teilen.','Wer teilt, hat weniger.']],
+    ['„Wer A sagt, muss auch B sagen.“',['Wer etwas beginnt, muss es auch zu Ende bringen.','Man soll das Alphabet lernen.','Wer redet, muss leise sein.','Man soll immer zweimal fragen.']],
+    ['„Viele Hände, schnelles Ende.“',['Zusammen ist eine Arbeit schneller erledigt.','Viele Menschen machen eine Arbeit langsamer.','Man soll schnell aufhören.','Arbeit macht keinen Spaß.']],
+    ['„Der Ton macht die Musik.“',['Wie man etwas sagt, ist wichtig.','Laute Musik ist die beste Musik.','Nur Musiker können gut reden.','Leise Töne hört niemand.']],
+    ['„Es gibt nichts Gutes, außer: Man tut es.“ (Kästner)',['Gutes entsteht erst, wenn man handelt.','Es gibt nichts Gutes auf der Welt.','Man soll nur über Gutes reden.','Gute Taten muss man planen.']],
+    ['„… es ist nicht genug, zu wollen, man muss auch tun.“ (Goethe)',['Wollen allein reicht nicht – man muss handeln.','Man soll nichts wollen.','Tun ist weniger wichtig als Wollen.','Wer etwas will, bekommt es auch.']],
+    ['„Wer nichts tut, macht nichts falsch.“',['Wer nicht handelt, kann keine Fehler machen.','Wer viel tut, macht keine Fehler.','Fehler sind immer schlimm.','Man soll nie etwas tun.']],
+    ['„Gemeinsam sind wir stark.“',['Zusammen erreicht man mehr.','Starke Menschen arbeiten allein.','Gemeinschaft macht schwach.','Nur Sportler sind stark.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'zw', type:'code', title:'Stimmt zu oder widerspricht?', task:'Text: Jugendliche sollen sich engagieren – lieber anfangen als nur reden, gemeinsam erreicht man viel. Stimmt das Zitat dem Text zu (Z) oder widerspricht es (W)?',
+   codes:[{k:'Z',l:'stimmt zu'},{k:'W',l:'widerspricht'}],
+   items:[
+    ['„Es gibt nichts Gutes, außer: Man tut es.“','Z'],
+    ['„Wer nichts tut, macht nichts falsch.“','W'],
+    ['„Viele Hände, schnelles Ende.“','Z'],
+    ['„Jeder ist sich selbst der Nächste.“','W'],
+    ['„Gemeinsam sind wir stark.“','Z'],
+    ['„Was du heute kannst besorgen, das verschiebe nicht auf morgen.“','Z'],
+    ['„Kommt Zeit, kommt Rat.“','W'],
+    ['„Aller Anfang ist schwer.“','Z'],
+    ['„Viele Köche verderben den Brei.“','W'],
+    ['„Es ist nicht genug, zu wollen, man muss auch tun.“','Z'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'schritt', type:'code', title:'Welcher Schritt?', task:'Wer sagt es (1), Bedeutung (2), Zusammenhang (3) oder Textstelle (4)?',
+   codes:[{k:'1',l:'Wer sagt es?'},{k:'2',l:'Bedeutung'},{k:'3',l:'Zusammenhang'},{k:'4',l:'Textstelle'}],
+   items:[
+    ['Das Zitat stammt von Erich Kästner, einem deutschen Schriftsteller.','1'],
+    ['Damit ist gemeint, dass gute Absichten allein nicht reichen.','2'],
+    ['Das passt zum Text, denn auch Mia hat irgendwann einfach angefangen.','3'],
+    ['„Irgendwann habe ich einfach angefangen.“ (Z. 12)','4'],
+    ['Goethe war ein deutscher Dichter (1749–1832).','1'],
+    ['„Anwenden“ heißt hier: das Wissen auch benutzen.','2'],
+    ['Wie im Sprichwort erreichen die Jugendlichen im Team mehr.','3'],
+    ['„Allein schafft man wenig.“ (Z. 13)','4'],
+    ['Das Sprichwort hat keinen bestimmten Verfasser.','1'],
+    ['Der Satz bedeutet: Zusammen ist eine Arbeit schneller erledigt.','2'],
+    ['Der Text widerspricht dem Zitat, denn Lukas arbeitet gern im Team.','3'],
+    ['„Geld bekommt sie dafür nicht.“ (Z. 8)','4'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'zitieren', type:'mc', title:'Richtig zitieren', task:'Welche Zitierweise ist richtig?',
+   items:[
+    ['Textstelle in Zeile 13',['„Allein schafft man wenig.“ (Z. 13)','Allein schafft man wenig. (Z. 13)','„Allein schafft man wenig.“','(Z. 13) Allein schafft man wenig.']],
+    ['Textstelle über zwei Zeilen (11 und 12)',['„Lange habe ich nur darüber geredet […].“ (Z. 11 f.)','„Lange habe ich nur darüber geredet …“ (Z. 11)','Lange habe ich nur darüber geredet (Z. 11 f.)','„Lange habe ich nur darüber geredet“ Z. 11–12']],
+    ['Wie kennzeichnest du eine Auslassung?',['mit eckigen Klammern: […]','mit runden Klammern: (…)','mit drei Punkten ohne Klammern','gar nicht']],
+    ['Wo steht die Zeilenangabe?',['in runden Klammern hinter dem Zitat','vor dem Zitat','in eckigen Klammern im Zitat','unter dem Text']],
+    ['Was bedeutet „Z. 10 f.“?',['Zeile 10 und die folgende Zeile','Zeile 10 bis Ende','nur Zeile 10','Zeile 10 bis 15']],
+    ['Was ist ein Textzitat?',['eine wörtliche Stelle aus dem Prüfungstext','die Aussage einer bekannten Person neben dem Text','ein Sprichwort','die Überschrift des Textes']],
+    ['Was ist ein Material-Zitat (M1)?',['die Aussage einer bekannten Person oder ein Sprichwort neben dem Text','eine Stelle aus dem Prüfungstext','eine Grafik mit Zahlen','die Quelle eines Textes']],
+    ['Textstelle aus Zeile 9 mit Auslassung am Anfang',['„[…] ist das der schönste Lohn“ (Z. 9)','„… ist das der schönste Lohn“ (Z. 9)','[…] ist das der schönste Lohn (Z. 9)','„(…) ist das der schönste Lohn“ (Z. 9)']],
+    ['Was bedeutet „Z. 14–16“?',['Zeile 14 bis Zeile 16','nur Zeile 14 und 16','Zeile 14 und die folgende Zeile','Seite 14 bis 16']],
+    ['Wo stehen die Anführungszeichen bei einem Zitat?',['unten am Anfang, oben am Ende','oben am Anfang, unten am Ende','nur am Ende','nur am Anfang']],
+    ['Was gehört NICHT zu einem richtigen Textzitat?',['eigene Wörter im Zitat','Anführungszeichen unten und oben','die Zeilenangabe','wörtliche Übernahme']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'wissen', type:'mc', title:'Wissen rund ums Zitat', task:'Klicke die richtige Antwort an.',
+   items:[
+    ['Was machst du zuerst mit einem Zitat als Material?',['Ich kläre, wer es gesagt hat.','Ich schreibe es ab.','Ich suche die längste Textstelle.','Ich bewerte, ob es schön klingt.']],
+    ['„Formulieren Sie den Zusammenhang in eigenen Worten.“ Was sollst du tun?',['erklären, was Zitat und Text verbindet','das Zitat wörtlich wiederholen','den Text zusammenfassen','eine Überschrift finden']],
+    ['Welche Textstelle passt zu „Viele Hände, schnelles Ende.“?',['„Aber zusammen kann man richtig viel bewegen.“ (Z. 13)','„Geld bekommt sie dafür nicht.“ (Z. 8)','„Die Schule ist anstrengend […].“ (Z. 10 f.)','„Jeden Montagabend steht Lukas […].“ (Z. 1)']],
+    ['Was macht ein Sprichwort besonders?',['Es ist eine bekannte Lebensweisheit ohne bestimmten Verfasser.','Es stammt immer von Goethe.','Es steht immer im Prüfungstext.','Es ist immer eine Frage.']],
+    ['Ein Zitat ist bildlich. Was tust du?',['Ich übertrage das Bild in eine einfache Aussage.','Ich lasse das Bild weg.','Ich male das Bild.','Ich zitiere es zweimal.']],
+    ['Wie viele Punkte gibt es meist für einen Zitat-Bezug in der Prüfung?',['etwa 1 bis 3','etwa 10','etwa 22','gar keine']],
+    ['Welcher Satzanfang passt zur Bedeutung eines Zitats?',['„Damit ist gemeint, dass …“','„Im Vordergrund sieht man …“','„Laut der Grafik …“','„Es war einmal …“']],
+    ['Welche Angabe gehört zu „Wer sagt es?“',['Name, Beruf und Lebenszeit der Person','die Zeilenangabe im Text','die Bedeutung des Zitats','die eigene Meinung']],
+    ['Was zeigt ein Zitat, das dem Text zustimmt?',['Es sagt dasselbe wie der Text, nur kürzer oder bildhafter.','Es sagt das Gegenteil des Textes.','Es hat mit dem Text nichts zu tun.','Es stammt aus dem Text.']],
+    ['Welcher Satzanfang passt zum Zusammenhang?',['„Das passt zum Text, denn …“','„Das Zitat stammt von …“','„Laut der Quelle …“','„Im Hintergrund sieht man …“']],
+    ['Wann widerspricht ein Zitat dem Text?',['wenn es das Gegenteil von dem sagt, was der Text zeigt','wenn es länger ist als der Text','wenn es ein Sprichwort ist','wenn es alt ist']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
+   words:['Person','eigenen','Zusammenhang','widerspricht','Textstelle','Anführungszeichen','Zeile','Sprichwort','Grafik','Überschrift'],
+   text:['Ein Zitat als Material ist die Aussage einer bekannten ',{a:['Person']},' oder ein ',{a:['Sprichwort']},'. Ich erkläre es in ',{a:['eigenen']},' Worten. Dann zeige ich den ',{a:['Zusammenhang']},' zum Text: Stimmt das Zitat zu oder ',{a:['widerspricht']},' es? Als Beleg nenne ich eine ',{a:['Textstelle']},' mit ',{a:['Anführungszeichen']},' und ',{a:['Zeile']},'.']
+ },
+];
+
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
