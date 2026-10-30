@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mindmap und Tabelle ergänzen</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">M</span> Mindmap und Tabelle ergänzen</h1>
+    <p class="lead">6 Übungen mit 62 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: Mindmap und Tabelle</summary>
+    <dl class="rules">
+      <dt>Mindmap</dt><dd>Thema in der <b>Mitte</b>, Hauptäste = <b>Oberbegriffe</b> (Pro, Contra …), Unteräste = Stichworte</dd>
+      <dt>Schreibplan</dt><dd>Eine Mindmap eignet sich gut als Schreibplan: Jeder Hauptast wird ein Abschnitt.</dd>
+      <dt>Tabelle</dt><dd>stellt <b>gegenüber</b>: Pro/Contra, Personen, vorher/nachher</dd>
+      <dt>Zelle</dt><dd>passt zum <b>Zeilen-</b> und zum <b>Spaltenkopf</b></dd>
+      <dt>Eintragen</dt><dd>knapp, in <b>eigenen Worten</b> – Stichworte genügen</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'pck', type:'code', title:'Pro, Contra oder Kompromiss?', task:'Thema: Handyverbot an der Schule. Spricht der Satz für das Verbot (P), dagegen (C) oder ist er ein Kompromiss (K)?',
+   codes:[{k:'P',l:'Pro (dafür)'},{k:'C',l:'Contra (dagegen)'},{k:'K',l:'Kompromiss'}],
+   items:[
+    ['Schüler können sich im Unterricht besser konzentrieren.','P'],
+    ['Eltern erreichen ihre Kinder im Notfall.','C'],
+    ['Handys liegen im Unterricht in einer Handygarage.','K'],
+    ['In den Pausen reden die Schüler wieder miteinander.','P'],
+    ['Im Unterricht nutzt man Lern-Apps.','C'],
+    ['Es gibt weniger Cybermobbing.','P'],
+    ['Im Pausenhof gibt es eine handyfreie Zone.','K'],
+    ['Man lernt, vernünftig mit dem Handy umzugehen.','C'],
+    ['Lehrkräfte dürfen das Handy für Aufgaben freigeben.','K'],
+    ['Niemand filmt heimlich in der Umkleide.','P'],
+    ['Man kann im Internet schnell etwas nachschlagen.','C'],
+    ['Handys sind nur in der Mittagspause erlaubt.','K'],
+    ['Weniger Ablenkung durch Nachrichten und Spiele.','P'],
+    ['Wer einen langen Busweg hat, kann zu Hause Bescheid geben.','C'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'mt', type:'code', title:'Mindmap oder Tabelle?', task:'Welche Darstellung passt besser: Mindmap (M) oder Tabelle (T)?',
+   codes:[{k:'M',l:'Mindmap'},{k:'T',l:'Tabelle'}],
+   items:[
+    ['Du sammelst Ideen für eine Erörterung.','M'],
+    ['Du vergleichst die Meinungen von drei Personen.','T'],
+    ['Du stellst „vorher“ und „nachher“ gegenüber.','T'],
+    ['Du planst die Abschnitte deines Aufsatzes.','M'],
+    ['Ein Thema hat viele Unterpunkte mit eigenen Stichworten.','M'],
+    ['Du vergleichst zwei Handys nach Preis, Akku und Kamera.','T'],
+    ['Du schreibst einen Schreibplan mit Pro, Contra und Schluss.','M'],
+    ['Du trägst für jede Person Rolle und Meinung ein.','T'],
+    ['Du ordnest Gedanken rund um ein Thema in der Mitte.','M'],
+    ['Du stellst Vorteile und Nachteile in zwei Spalten gegenüber.','T'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'ober', type:'mc', title:'Welcher Hauptast passt?', task:'Die Unteräste sind schon da. Welcher Oberbegriff gehört auf den Hauptast?',
+   items:[
+    ['Konzentration · weniger Cybermobbing · mehr Gespräche',['Pro (für das Verbot)','Contra (gegen das Verbot)','Kompromiss','Einleitung']],
+    ['Notfall · Lern-Apps · Umgang lernen',['Contra (gegen das Verbot)','Pro (für das Verbot)','Kompromiss','Beispiele']],
+    ['Handygarage · Freigabe für Aufgaben · handyfreie Zone',['Kompromiss','Pro (für das Verbot)','Contra (gegen das Verbot)','Definition']],
+    ['Äpfel · Bananen · Birnen',['Obst','Gemüse','Getränke','Süßigkeiten']],
+    ['Fahrrad · Bus · Zug',['Verkehrsmittel','Sportarten','Berufe','Werkzeuge']],
+    ['weniger Müll · Geld sparen · Neues lernen',['Vorteile eines Repaircafés','Nachteile eines Repaircafés','Ablauf einer Reparatur','Kosten']],
+    ['Wartezeit · nicht alles reparierbar · Ersatzteile fehlen',['Nachteile eines Repaircafés','Vorteile eines Repaircafés','Ziele eines Repaircafés','Helfer']],
+    ['Thema nennen · Anlass · Leitfrage',['Einleitung','Hauptteil','Schluss','Quellen']],
+    ['eigene Meinung · Ausblick · Wunsch',['Schluss','Einleitung','Pro-Argumente','Personen']],
+    ['Frau Kaya · Tim · Frau Berg',['Personen im Text','Argumente dafür','Orte','Vorschläge']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'ast', type:'code', title:'Hauptast oder Unterast?', task:'Mindmap „Handyverbot an der Schule?“ – Ist der Eintrag ein Oberbegriff (H = Hauptast) oder ein Stichwort dazu (U = Unterast)?',
+   codes:[{k:'H',l:'Hauptast'},{k:'U',l:'Unterast'}],
+   items:[
+    ['Pro','H'],
+    ['keine Konzentration im Unterricht','U'],
+    ['Contra','H'],
+    ['Erreichbarkeit im Notfall','U'],
+    ['Kompromiss','H'],
+    ['Handygarage','U'],
+    ['Lern-Apps im Unterricht','U'],
+    ['eigene Meinung','H'],
+    ['weniger Cybermobbing','U'],
+    ['handyfreie Zone im Pausenhof','U'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'tab', type:'mc', title:'Tabelle lesen und ergänzen', task:'Tabelle aus dem Text: Spalten „Person – Rolle – Meinung zum Verbot – Argument oder Vorschlag“. Was gehört in die Zelle?',
+   items:[
+    ['Zeile Frau Kaya, Spalte „Rolle“',['Schulleiterin','Schülersprecherin','Elternbeirat','Lehrerin']],
+    ['Zeile Frau Kaya, Spalte „Meinung zum Verbot“',['dafür','dagegen','Kompromiss','egal']],
+    ['Zeile Frau Kaya, Spalte „Argument“',['Schüler können sich nicht konzentrieren.','Eltern müssen anrufen können.','Handygarage im Klassenzimmer','Lern-Apps im Unterricht']],
+    ['Zeile Tim, Spalte „Rolle“',['Schülersprecher','Schulleiter','Hausmeister','Elternbeirat']],
+    ['Zeile Tim, Spalte „Meinung zum Verbot“',['dagegen','dafür','Kompromiss','weiß nicht']],
+    ['Zeile Tim, Spalte „Argument“',['Eltern müssen ihre Kinder im Notfall erreichen.','In den Pausen redet niemand mehr.','Peinliche Fotos in Klassenchats','Handyfreie Zone im Pausenhof']],
+    ['Zeile Frau Berg, Spalte „Rolle“',['Elternbeiratsvorsitzende','Schulleiterin','Schülersprecherin','Lehrerin']],
+    ['Zeile Frau Berg, Spalte „Meinung zum Verbot“',['Kompromiss','dafür','dagegen','keine Meinung']],
+    ['Zeile Frau Berg, Spalte „Vorschlag“',['Handygarage im Unterricht, Freigabe für Aufgaben','Handys komplett verbieten','Handys immer erlauben','Abstimmung abschaffen']],
+    ['Zeile Tim, Spalte „weiteres Argument“',['Ohne Handy lernt man nie den vernünftigen Umgang.','Handys stören die Konzentration.','Fotos aus der Umkleide gehen herum.','In den Pausen redet niemand mehr.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
+   words:['Mitte','Hauptäste','Oberbegriffe','Unteräste','Schreibplan','gegenüber','Spaltenkopf','Stichworte','Pfeile','Zitat'],
+   text:['In einer Mindmap steht das Thema in der ',{a:['Mitte']},'. Die ',{a:['Hauptäste']},' tragen ',{a:['Oberbegriffe']},' wie Pro und Contra, die ',{a:['Unteräste']},' passende Stichworte. Eine Mindmap eignet sich gut als ',{a:['Schreibplan']},'. Eine Tabelle stellt Dinge ',{a:['gegenüber']},'. Ein Eintrag muss zum Zeilen- und zum ',{a:['Spaltenkopf']},' passen. Ich schreibe knapp – ',{a:['Stichworte']},' genügen.']
+ },
+];
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
