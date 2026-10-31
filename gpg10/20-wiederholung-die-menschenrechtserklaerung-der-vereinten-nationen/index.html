@@ -106,7 +106,7 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
     <dl class="rules">
       <dt>UN</dt><dd>Am 26. Juli <b>1945</b> wurden in New York die <b>Vereinten Nationen</b> gegründet – nach den Verbrechen im Zweiten Weltkrieg.</dd>
       <dt>Erklärung</dt><dd>Am 10. Dezember <b>1948</b> wurde die <b>Allgemeine Erklärung der Menschenrechte</b> verkündet. Sie hat <b>30 Artikel</b>.</dd>
-      <dt>Artikel</dt><dd>z. B. Art. 3 Recht auf <b>Leben, Freiheit und Sicherheit</b>, Art. 4 Verbot der <b>Sklaverei</b>, Art. 5 Verbot der <b>Folter</b>, Art. 13 freie Wahl des Wohnsitzes.</dd>
+      <dt>Beispiele</dt><dd>z. B. Recht auf <b>Leben, Freiheit und Sicherheit</b>, Verbot der <b>Sklaverei</b>, Verbot der <b>Folter</b>, Schutz vor <b>Festnahme ohne Grund</b>, freie Wahl des <b>Wohnorts</b>.</dd>
       <dt>Rechte</dt><dd>Menschenrechte sind <b>Rechte, keine Verbote</b>. Man kann sie vor <b>Gericht</b> einklagen.</dd>
       <dt>Grenzen</dt><dd>Nur selten und <b>zeitlich begrenzt</b> dürfen Rechte eingeschränkt werden (öffentliche Sicherheit, Gesundheit) – <b>nie</b> das Verbot von Sklaverei und Folter.</dd>
       <dt>Nürnberg</dt><dd>Die <b>Straße der Menschenrechte</b> (1993, 20 Säulen) erinnert an die Verbrechen der Nationalsozialisten.</dd>
@@ -134,13 +134,14 @@ const SECTIONS = [
     ['Wofür steht die Skulptur „Non Violence“ vor der UN in New York?',['für Gewaltlosigkeit','für Frieden durch Waffen','für den Sport']],
    ].map(([q,o]) => ({q,opts:o,a:0}))
  },
- { id:'artikel', type:'code', title:'Welcher Artikel?', task:'Ordne die Aussage dem richtigen Artikel zu.',
-   codes:[{k:'3',l:'Art. 3'},{k:'4',l:'Art. 4'},{k:'5',l:'Art. 5'},{k:'13',l:'Art. 13'}],
+ { id:'artikel', type:'code', title:'Welches Menschenrecht wird verletzt?', task:'Lies die Situation und wähle das Menschenrecht, das verletzt wird.',
+   codes:[{k:'A',l:'Recht auf Leben'},{k:'B',l:'Sklavereiverbot'},{k:'C',l:'Folterverbot'},{k:'D',l:'Schutz vor Festnahme ohne Grund'},{k:'E',l:'freier Wohnort'}],
    items:[
-    ['Jeder Mensch hat das Recht auf Leben, Freiheit und Sicherheit der Person.','3'],
-    ['Sklaverei und Sklavenhandel sind in allen Formen verboten.','4'],
-    ['Niemand darf der Folter unterworfen werden.','5'],
-    ['Jeder Mensch hat das Recht auf freie Wahl seines Wohnsitzes.','13'],
+    ['Soldaten greifen ein Dorf an und töten die Bewohner.','A'],
+    ['Ein Mädchen wird verkauft und muss ohne Lohn als Dienerin arbeiten.','B'],
+    ['Ein Gefangener wird geschlagen und gequält, damit er etwas gesteht.','C'],
+    ['Ein Mann wird von der Polizei mitgenommen, obwohl er nichts getan hat.','D'],
+    ['Der Staat verbietet einer Familie, in eine andere Stadt zu ziehen.','E'],
    ].map(([s,a]) => ({s,a}))
  },
  { id:'rf', type:'code', title:'Richtig oder falsch?', task:'Stimmt die Aussage?',
