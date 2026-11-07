@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Material als Beleg nutzen</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">M</span> Material als Beleg nutzen</h1>
+    <p class="lead">6 Übungen mit 60 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: So baust du Material ein</summary>
+    <dl class="rules">
+      <dt>Quelle</dt><dd><b>Laut M1</b> … · <b>In M2 heißt es:</b> „…“ (Z. 3)</dd>
+      <dt>Genau</dt><dd>Zahlen richtig wiedergeben, <b>nicht übertreiben</b>; Zitate in „…“ mit Zeile</dd>
+      <dt>Deuten</dt><dd><b>Das zeigt, dass</b> … · Das bedeutet, dass …</dd>
+      <dt>Passend</dt><dd>Der Beleg passt zur Behauptung und steht nach der Begründung.</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'richtig', type:'code', title:'Richtig wiedergegeben?', task:'M1 (400 Jugendliche mit Nebenjob): eigenes Geld 78 % · Erfahrung für den Beruf 46 % · für etwas Größeres sparen 41 % · Familie unterstützen 19 % · gegen Langeweile 12 %. Gibt der Satz M1 richtig (R) oder falsch (F) wieder?',
+   codes:[{k:'R',l:'richtig'},{k:'F',l:'falsch'}],
+   items:[
+    ['Laut M1 jobben 78 Prozent der Befragten, um eigenes Geld zu haben.','R'],
+    ['Laut M1 jobben fast alle, um Erfahrung für den Beruf zu sammeln.','F'],
+    ['M1 zeigt, dass nur wenige aus Langeweile jobben.','R'],
+    ['Laut M1 hat jeder fünfte Jugendliche in Deutschland einen Nebenjob.','F'],
+    ['Laut M1 jobben 41 Prozent der Befragten, um für etwas Größeres zu sparen.','R'],
+    ['Laut M1 unterstützen 46 Prozent mit ihrem Job die Familie.','F'],
+    ['Mehr als drei Viertel der Befragten wollen eigenes Geld haben.','R'],
+    ['Die meisten Befragten jobben gegen Langeweile.','F'],
+    ['Weniger als die Hälfte will Erfahrung für den Beruf sammeln.','R'],
+    ['M1 zeigt, wie viele Stunden Jugendliche pro Woche arbeiten.','F'],
+    ['Die Befragten konnten mehrere Gründe nennen.','R'],
+    ['Laut M1 jobben 12 Prozent, um die Familie zu unterstützen.','F'],
+    ['Fast jeder Fünfte der Befragten unterstützt mit dem Job die Familie.','R'],
+    ['Befragt wurden 400 Erwachsene.','F'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'fehler', type:'code', title:'Fehlerdetektiv', task:'Was fehlt oder ist falsch? Q = Quelle fehlt · Z = Zahl falsch · D = Deutung fehlt',
+   codes:[{k:'Q',l:'Quelle fehlt'},{k:'Z',l:'Zahl falsch'},{k:'D',l:'Deutung fehlt'}],
+   items:[
+    ['41 Prozent sparen für etwas Größeres. Das zeigt, dass ein Job beim Sparen hilft.','Q'],
+    ['Laut M1 jobben 19 Prozent gegen Langeweile. Das zeigt, dass Jobs Spaß machen.','Z'],
+    ['Laut M1 jobben 78 Prozent der Befragten, um eigenes Geld zu haben.','D'],
+    ['46 Prozent wollen Erfahrung sammeln. Das bedeutet, dass ein Job bei der Berufswahl hilft.','Q'],
+    ['Laut M1 wollen 64 Prozent eigenes Geld haben. Das zeigt, dass Jugendliche unabhängig sein wollen.','Z'],
+    ['In M2 heißt es: „Das sehen Betriebe gern.“ (Z. 3)','D'],
+    ['Laut M1 unterstützen 41 Prozent ihre Familie. Daran sieht man, dass viele helfen müssen.','Z'],
+    ['Eine Berufsberaterin sagt, dass acht Stunden genug sind. Das zeigt, dass Jobs schaden können.','Q'],
+    ['Laut M1 jobben 46 Prozent der Befragten, um Erfahrung für den Beruf zu sammeln.','D'],
+    ['Laut M1 jobben 78 Prozent aus Langeweile. Das zeigt, dass Jugendliche Abwechslung suchen.','Z'],
+    ['Leon war ständig müde. Das zeigt, dass zu viel Arbeit schadet.','Q'],
+    ['In M2 sagt Leon: „Darauf bin ich richtig stolz.“ (Z. 8)','D'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'zitat', type:'mc', title:'Zitate aus M2', task:'M2: Berufsberaterin Frau Krüger und Leon (17) sprechen über Nebenjobs. Welche Antwort stimmt?',
+   items:[
+    ['Wie zitiert man richtig?',['„Das sehen Betriebe gern.“ (Z. 3)','Das sehen Betriebe gern (Z. 3)','„Das sehen Betriebe gern.“','Betriebe sehen das gern, Zeile drei.']],
+    ['Welches Zitat spricht GEGEN einen Nebenjob?',['„Ich war ständig müde, und meine Noten sind schlechter geworden.“','„Darauf bin ich richtig stolz.“','„Das sehen Betriebe gern.“','„Ein Nebenjob ist ein erster Schritt in die Arbeitswelt.“']],
+    ['Welches Zitat spricht FÜR einen Nebenjob?',['„Wer jobbt, lernt, pünktlich zu sein und Verantwortung zu übernehmen.“','„Sonst leidet die Schule.“','„Ich war ständig müde.“','„Mehr als acht Stunden pro Woche sollten es nicht sein.“']],
+    ['Wer sagt „Mehr als acht Stunden pro Woche sollten es nicht sein“?',['die Berufsberaterin Frau Krüger','Leon','ein Betrieb','ein Lehrer']],
+    ['Wofür spart Leon sein Geld?',['für einen Roller','für den Führerschein','für ein Handy','für einen Urlaub']],
+    ['Wie viele Stunden hat Leon am Anfang gearbeitet?',['fast zwölf Stunden pro Woche','acht Stunden pro Woche','zwei Stunden pro Woche','vierzig Stunden pro Woche']],
+    ['Was gehört zu einem Zitat?',['Anführungszeichen und Zeilenangabe','nur die Zeilenangabe','eine Überschrift','ein Fragezeichen']],
+    ['Was bedeutet „(Z. 6 f.)“?',['Zeile 6 und die folgende Zeile','Zeile 6 bis Ende','Seite 6','Zeile 6, fett gedruckt']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'deutung', type:'mc', title:'Die passende Deutung', task:'Welche Deutung passt am besten zum Beleg?',
+   items:[
+    ['Laut M1 jobben 78 Prozent der Befragten, um eigenes Geld zu haben.',['Das zeigt, dass ein Job Jugendliche unabhängiger macht.','Das zeigt, dass Jugendliche faul sind.','Das zeigt, dass alle Jugendlichen jobben.','Das zeigt, dass Geld unwichtig ist.']],
+    ['Laut M1 jobben 46 Prozent, um Erfahrung für den Beruf zu sammeln.',['Das zeigt, dass viele den Job zur Berufsorientierung nutzen.','Das zeigt, dass alle schon einen Beruf haben.','Das zeigt, dass Erfahrung nichts bringt.','Das zeigt, dass niemand Geld will.']],
+    ['Leon sagt: „Ich war ständig müde.“ (Z. 6)',['Das zeigt, dass zu viel Arbeit der Schule schaden kann.','Das zeigt, dass Leon gern arbeitet.','Das zeigt, dass Jobs gesund sind.','Das zeigt, dass Leon viel Geld hat.']],
+    ['Frau Krüger: „Das sehen Betriebe gern.“ (Z. 3)',['Das zeigt, dass Joberfahrung bei der Bewerbung hilft.','Das zeigt, dass Betriebe keine Azubis wollen.','Das zeigt, dass Pünktlichkeit egal ist.','Das zeigt, dass Frau Krüger jobbt.']],
+    ['Laut M1 jobben 41 Prozent, um für etwas Größeres zu sparen.',['Das zeigt, dass Jugendliche lernen, auf ein Ziel hinzuarbeiten.','Das zeigt, dass alle einen Führerschein haben.','Das zeigt, dass Sparen sinnlos ist.','Das zeigt, dass die Grafik falsch ist.']],
+    ['Laut M1 unterstützen 19 Prozent mit ihrem Job die Familie.',['Das zeigt, dass manche Jugendliche zu Hause finanziell helfen.','Das zeigt, dass alle Familien arm sind.','Das zeigt, dass niemand jobbt.','Das zeigt, dass Familien keine Hilfe brauchen.']],
+    ['Leon: „Darauf bin ich richtig stolz.“ (Z. 8)',['Das zeigt, dass ein Job das Selbstbewusstsein stärken kann.','Das zeigt, dass Leon müde ist.','Das zeigt, dass Roller teuer sind.','Das zeigt, dass Leon nicht spart.']],
+    ['Mit welchen Worten beginnt eine Deutung?',['Das zeigt, dass …','Laut M1 …','In M2 heißt es …','Wer kennt das nicht?']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'passt', type:'mc', title:'Passt der Beleg?', task:'Welcher Beleg passt am besten zur Behauptung?',
+   items:[
+    ['Ein Nebenjob macht Jugendliche unabhängiger.',['M1: 78 % jobben, um eigenes Geld zu haben.','M1: 12 % jobben gegen Langeweile.','M2: Leon war ständig müde (Z. 6).','M2: Frau Krüger ist Berufsberaterin (Z. 1).']],
+    ['Ein Nebenjob verbessert die Chancen bei der Bewerbung.',['M2: „Das sehen Betriebe gern.“ (Z. 3)','M1: 19 % unterstützen die Familie.','M2: Leon spart für einen Roller (Z. 7 f.).','M1: 12 % jobben gegen Langeweile.']],
+    ['Zu viel Arbeit schadet der Schule.',['M2: „Sonst leidet die Schule.“ (Z. 4 f.)','M1: 78 % wollen eigenes Geld.','M1: 41 % sparen für etwas Größeres.','M2: „Darauf bin ich richtig stolz.“ (Z. 8)']],
+    ['Ein Nebenjob stärkt das Selbstbewusstsein.',['M2: „Darauf bin ich richtig stolz.“ (Z. 8)','M1: 12 % jobben gegen Langeweile.','M2: Leon war ständig müde (Z. 6).','M1: 19 % unterstützen die Familie.']],
+    ['Ein Nebenjob kann der Gesundheit schaden.',['M2: Leon war bei zwölf Stunden „ständig müde“ (Z. 6).','M1: 78 % wollen eigenes Geld.','M2: „Das sehen Betriebe gern.“ (Z. 3)','M1: 46 % wollen Erfahrung sammeln.']],
+    ['Ein Nebenjob lehrt, mit Geld zu planen.',['M1: 41 % sparen für etwas Größeres.','M1: 12 % jobben gegen Langeweile.','M2: „Sonst leidet die Schule.“ (Z. 4 f.)','M2: Frau Krüger ist Berufsberaterin (Z. 1).']],
+    ['Ein Nebenjob bereitet auf das Berufsleben vor.',['M2: Wer jobbt, lernt Pünktlichkeit und Verantwortung (Z. 2 f.).','M1: 19 % unterstützen die Familie.','M2: Leon spart für einen Roller (Z. 7 f.).','M1: 12 % jobben gegen Langeweile.']],
+    ['Ein Nebenjob hilft bei der Berufswahl.',['M1: 46 % wollen Erfahrung für den Beruf sammeln.','M1: 12 % jobben gegen Langeweile.','M2: Leon arbeitet in einem Getränkemarkt (Z. 5).','M2: Leon war ständig müde (Z. 6).']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
+   words:['Beleg','Quelle','Laut','genau','übertreiben','Anführungszeichen','Zeile','zeigt','Behauptung','Begründung','Einleitung','Streitfrage'],
+   text:['Ein ',{a:['Beleg']},' aus dem Material macht ein Argument überprüfbar. Ich nenne immer die ',{a:['Quelle']},', zum Beispiel: „',{a:['Laut']},' M1 …“. Zahlen gebe ich ',{a:['genau']},' wieder und darf nicht ',{a:['übertreiben']},'. Ein Zitat steht in ',{a:['Anführungszeichen']},' und bekommt eine Angabe der ',{a:['Zeile']},'. Danach deute ich den Beleg: „Das ',{a:['zeigt']},', dass …“. Der Beleg muss zur ',{a:['Behauptung']},' passen und steht nach der ',{a:['Begründung']},'.']
+ },
+];
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
