@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Textsorte bestimmen und begründen</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">T</span> Textsorte bestimmen und begründen</h1>
+    <p class="lead">6 Übungen mit 60 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: Textsorten bestimmen</summary>
+    <dl class="rules">
+      <dt>Bericht</dt><dd>sachlich, das Wichtigste zuerst, Präteritum – <b>informieren</b></dd>
+      <dt>Reportage</dt><dd>szenischer Einstieg, Präsens, Zitate, Eindrücke – <b>informieren</b></dd>
+      <dt>Kommentar</dt><dd>eigene <b>Meinung</b> mit Begründung, wertende Wörter – <b>Meinung bilden</b></dd>
+      <dt>Kurzgeschichte</dt><dd>Anfang <b>mitten im Geschehen</b>, Alltag, <b>offenes Ende</b> – unterhalten, nachdenklich machen</dd>
+      <dt>Romanauszug</dt><dd><b>Ausschnitt</b> aus einem Roman, Figuren schon bekannt</dd>
+      <dt>Begründen</dt><dd>Textsorte + Merkmal + <b>Beleg mit Zeile</b> + Absicht</dd>
+      <dt>Basissatz</dt><dd>Textsorte, Titel, Verfasser, Quelle/Jahr, Thema</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'sorte', type:'code', title:'Welche Textsorte ist das?', task:'B = Bericht · R = Reportage · K = Kommentar · KG = Kurzgeschichte · RA = Romanauszug',
+   codes:[{k:'B',l:'Bericht'},{k:'R',l:'Reportage'},{k:'K',l:'Kommentar'},{k:'KG',l:'Kurzgeschichte'},{k:'RA',l:'Romanauszug'}],
+   items:[
+    ['Kelheim. Am Sonntag ist auf der B 16 ein Auto von der Straße abgekommen. Der Fahrer wurde leicht verletzt.','B'],
+    ['Der Motor heult auf. Anna (17) klammert sich ans Lenkrad. „Jetzt nur nicht abwürgen“, murmelt sie.','R'],
+    ['Die Stadt will das Jugendzentrum schließen. Das ist ein Fehler. Wer bei der Jugend spart, spart an der Zukunft.','K'],
+    ['Er stand schon wieder an der Haltestelle. Ich kannte nicht einmal seinen Namen. … Am nächsten Morgen war er nicht da.','KG'],
+    ['Wie schon am Vortag wartete Kim im Hof auf Jonas. (aus dem Roman „Sommer ohne Ende“, Kapitel 7)','RA'],
+    ['Nach Angaben der Polizei entstand ein Schaden von rund 20 000 Euro.','B'],
+    ['Es riecht nach Hefe. Mira knetet den ersten Teig. In Bayern arbeiten rund 30 000 Menschen im Bäckerhandwerk.','R'],
+    ['Ich halte die neue Regel für überflüssig, denn sie löst kein einziges Problem.','K'],
+    ['„Und jetzt?“, fragte sie. Er zuckte mit den Schultern. Dann ging er. Sie blieb sitzen, bis es dunkel wurde.','KG'],
+    ['Seit Hagen in Kapitel 3 aus dem Internat geflohen war, hatte niemand mehr von ihm gehört. (Romanausschnitt)','RA'],
+    ['Höchste Zeit, dass die Bahn pünktlicher wird. Liebe Verantwortliche: Handelt endlich!','K'],
+    ['Am Freitag eröffnete in Passau ein neues Hallenbad. Es kostete 18 Millionen Euro.','B'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'merkmal', type:'code', title:'Welches Merkmal gehört zu welcher Textsorte?', task:'B = Bericht · R = Reportage · K = Kommentar · KG = Kurzgeschichte · RA = Romanauszug',
+   codes:[{k:'B',l:'Bericht'},{k:'R',l:'Reportage'},{k:'K',l:'Kommentar'},{k:'KG',l:'Kurzgeschichte'},{k:'RA',l:'Romanauszug'}],
+   items:[
+    ['offenes Ende','KG'],
+    ['das Wichtigste zuerst','B'],
+    ['szenischer Einstieg','R'],
+    ['eigene Meinung mit Begründung','K'],
+    ['Ausschnitt aus einem langen Buch','RA'],
+    ['Anfang mitten im Geschehen, Alltagssituation','KG'],
+    ['streng sachlich, Präteritum','B'],
+    ['Szenen im Präsens, Sinneseindrücke','R'],
+    ['wertende Wörter wie „Fehler“, „richtig“, „Skandal“','K'],
+    ['Figuren werden nicht vorgestellt, weil sie schon vorher vorkamen.','RA'],
+    ['W-Fragen gleich im ersten Satz','B'],
+    ['wenige Figuren, kurze Zeitspanne','KG'],
+    ['„Ich halte … für …“','K'],
+    ['Wechsel zwischen Szene und Sachinformation','R'],
+    ['Die Quelle nennt ein langes erzählendes Buch und ein Kapitel.','RA'],
+    ['persönliche Eindrücke des Reporters vor Ort','R'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'wissen', type:'mc', title:'Kommentar, Kurzgeschichte, Romanauszug', task:'Wähle die richtige Antwort.',
+   items:[
+    ['Was will ein Kommentar vor allem?',['eine Meinung bilden','unterhalten','nur informieren','eine Geschichte erzählen']],
+    ['Woran erkennst du einen Kommentar?',['Der Verfasser sagt und begründet seine Meinung.','Er beginnt mit einer Szene.','Er hat ein offenes Ende.','Er hat erfundene Figuren.']],
+    ['Wie beginnt eine Kurzgeschichte oft?',['mitten im Geschehen','mit einer Inhaltsangabe','mit den W-Fragen','mit einer Quellenangabe']],
+    ['Wie endet eine Kurzgeschichte oft?',['offen – der Leser muss weiterdenken','mit einem Appell','mit einer Zahl','mit „Und wenn sie nicht gestorben sind …“']],
+    ['Worum geht es in einer Kurzgeschichte meist?',['um eine Alltagssituation','um Könige und Feen','um Statistiken','um politische Forderungen']],
+    ['Was ist ein Romanauszug?',['ein Ausschnitt aus einem langen erzählenden Buch','ein kurzer Zeitungsbericht','ein Leserbrief','ein Interview']],
+    ['Warum werden Figuren in einem Romanauszug oft nicht vorgestellt?',['Sie kamen schon vorher im Roman vor.','Weil der Text erfunden ist.','Weil der Verfasser seine Meinung sagt.','Weil es ein Sachtext ist.']],
+    ['Welche Absicht hat eine Kurzgeschichte vor allem?',['unterhalten und nachdenklich machen','informieren','zum Kauf auffordern','eine Meinung begründen']],
+    ['„Liebe Schulleitungen: Bleibt hart!“ – was zeigt der Satz?',['einen Appell (Aufforderung)','eine Sachinformation','einen szenischen Einstieg','ein offenes Ende']],
+    ['Wie begründest du eine Textsorte vollständig?',['Textsorte + Merkmal + Beleg mit Zeile','nur die Textsorte nennen','den Titel abschreiben','den ganzen Text zusammenfassen']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'basis', type:'mc', title:'Der Basissatz', task:'Wähle die richtige Antwort.',
+   items:[
+    ['Was gehört NICHT in den Basissatz?',['die eigene Meinung zum Text','die Textsorte','der Titel','das Thema']],
+    ['Welcher Basissatz ist vollständig?',['In dem Kommentar „Handyverbot? Endlich!“ von Max Berger (Landshuter Tagblatt, 2026) geht es um das Handyverbot in Pausen.','Der Text ist gut und handelt von Handys.','Max Berger findet Handys schlecht.','In dem Text geht es um Handys.']],
+    ['Welcher Basissatz nennt die Textsorte richtig?',['In der Reportage „Retten statt wegwerfen“ geht es um Jugendliche, die Lebensmittel retten.','In dem Gedicht „Retten statt wegwerfen“ …','In dem Märchen „Retten statt wegwerfen“ …','In dem Kommentar „Retten statt wegwerfen“ erzählt eine Figur …']],
+    ['Wo findest du Verfasser und Erscheinungsjahr?',['in der Quellenangabe unter dem Text','in der ersten Zeile','in der Überschrift','gar nicht']],
+    ['Welche Zeit verwendest du im Basissatz?',['Präsens','Präteritum','Futur','Plusquamperfekt']],
+    ['„In der Kurzgeschichte „Die rote Mütze“ von Lena Stein (2019) geht es um …“ – was fehlt noch?',['das Thema','die Textsorte','der Titel','die Verfasserin']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'beleg', type:'mc', title:'Der passende Beleg', task:'Welcher Beleg zeigt das genannte Merkmal?',
+   items:[
+    ['Kommentar – eigene Meinung',['„Ich halte das Verbot für richtig.“','„Ab dem neuen Schuljahr gilt ein Handyverbot.“','„Viele Schüler sind empört.“','„Natürlich ist das Handy praktisch.“']],
+    ['Kommentar – Appell',['„Liebe Schulleitungen: Bleibt hart!“','„Viele Schüler sind empört.“','„Bewegung kommt zu kurz.“','„Ab dem neuen Schuljahr …“']],
+    ['Kurzgeschichte – Anfang mitten im Geschehen',['„Er stand schon wieder an der Haltestelle …“','„Heute kam der Bus nicht.“','„Wir warteten.“','„Er stieg hinten ein, ich vorne.“']],
+    ['Kurzgeschichte – offenes Ende',['„Am nächsten Morgen lag die rote Mütze auf der Bank. Er war nicht da.“','„Jeden Morgen um 7.12 Uhr.“','„Ich zählte die Pflastersteine.“','„Er stand schon wieder an der Haltestelle.“']],
+    ['Reportage – szenischer Einstieg',['„Kurz vor 20 Uhr. Hinter dem Supermarkt quietscht ein Rolltor.“','„Vieles davon könnte man noch essen.“','„Bezahlen muss hier niemand.“','„rund elf Millionen Tonnen“']],
+    ['Bericht – Quelle',['„Nach Angaben der Stadtwerke …“','„Es riecht nach frischem Brot.“','„Ich finde …“','„Mach mit!“']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
+   words:['Meinung','begründet','Geschehen','offen','Alltag','Ausschnitt','Roman','Merkmal','Zeile','Thema','Reim','Zahlen'],
+   text:['Im Kommentar sagt der Verfasser seine ',{a:['Meinung']},' und ',{a:['begründet']},' sie. Eine Kurzgeschichte beginnt mitten im ',{a:['Geschehen']},' und endet oft ',{a:['offen']},'. Sie erzählt meist vom ',{a:['Alltag']},'. Ein Romanauszug ist ein ',{a:['Ausschnitt']},' aus einem ',{a:['Roman']},'. Ich begründe die Textsorte mit einem ',{a:['Merkmal']},' und einem Beleg mit ',{a:['Zeile']},'. Im Basissatz nenne ich Textsorte, Titel, Verfasser, Quelle und ',{a:['Thema']},'.']
+ },
+];
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
