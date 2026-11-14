@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Was ist ein appellativer Text? Absicht und Merkmale</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">A</span> Was ist ein appellativer Text? Absicht und Merkmale</h1>
+    <p class="lead">7 Übungen mit 75 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: Absicht und Merkmale eines appellativen Textes</summary>
+    <dl class="rules">
+      <dt>Absicht</dt><dd>Die Leser sollen <b>überzeugt</b> werden und <b>etwas tun</b> (appellieren = auffordern).</dd>
+      <dt>Leser</dt><dd>werden <b>direkt angesprochen</b>: du, ihr, Sie – „Liebe Mitschüler …“</dd>
+      <dt>Forderung</dt><dd>Der Schreiber sagt klar, was er will: der <b>Appell</b>.</dd>
+      <dt>Gründe</dt><dd><b>Gründe</b> und <b>Beispiele</b> machen die Forderung überzeugend.</dd>
+      <dt>Sprache</dt><dd><b>Aufforderungen</b> (Macht mit!) · <b>Fragen an die Leser</b> · <b>Wir-Gefühl</b> (gemeinsam)</dd>
+      <dt>Aufbau</dt><dd>Einleitung: Anrede und Problem · Hauptteil: Gründe · Schluss: Appell</dd>
+      <dt>Textformen</dt><dd>Aufruf · Leserbrief · Rede · Flyer/Plakat · Werbetext · Brief</dd>
+      <dt>Bericht</dt><dd>informiert nur sachlich – <b>kein</b> appellativer Text</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'absicht', type:'code', title:'Informieren, unterhalten oder appellieren?', task:'I = informieren · U = unterhalten · A = appellieren',
+   codes:[{k:'I',l:'informieren'},{k:'U',l:'unterhalten'},{k:'A',l:'appellieren'}],
+   items:[
+    ['Das neue Hallenbad öffnet am 1. März um 8 Uhr.','I'],
+    ['Kommt alle am Samstag zum Müllsammeln in den Stadtpark!','A'],
+    ['Mein Herz klopfte, als sich der Vorhang langsam öffnete.','U'],
+    ['Liebe Eltern, bitte unterstützen Sie unseren Spendenlauf!','A'],
+    ['Der Schulbus fährt ab Montag zehn Minuten früher ab.','I'],
+    ['Wollt ihr wirklich, dass unser Jugendtreff schließt?','A'],
+    ['„Lauf!“, schrie Tom, und wir rannten in letzter Sekunde los.','U'],
+    ['An der Umfrage nahmen 312 Schülerinnen und Schüler teil.','I'],
+    ['Lasst euer Fahrrad nicht unabgeschlossen stehen!','A'],
+    ['Plötzlich ging das Licht aus, und irgendwo knarrte eine Tür.','U'],
+    ['Die Bibliothek bleibt in den Ferien geschlossen.','I'],
+    ['Spendet eure alten Handys – jedes Gerät hilft!','A'],
+    ['Mit zitternden Fingern öffnete ich den Brief.','U'],
+    ['Sehr geehrter Herr Bürgermeister, bitte erhalten Sie unseren Bolzplatz!','A'],
+    ['Der Kiosk verkauft ab sofort auch Obst und Salate.','I'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'merkmal', type:'mc', title:'Merkmale eines appellativen Textes', task:'Wähle die richtige Antwort.',
+   items:[
+    ['Was will ein appellativer Text?',['die Leser überzeugen und zum Handeln bewegen','die Leser spannend unterhalten','die Leser nur sachlich informieren','ein Erlebnis nacherzählen']],
+    ['Was bedeutet „appellieren“?',['jemanden auffordern','jemanden unterhalten','etwas sachlich berichten','etwas zusammenfassen']],
+    ['Wie werden die Leser angesprochen?',['direkt mit du, ihr oder Sie','gar nicht','nur in der dritten Person (er, sie)','nur in der Überschrift']],
+    ['Was ist der Appell?',['die klare Forderung an die Leser','die Überschrift','der erste Satz','die Unterschrift']],
+    ['Was macht eine Forderung überzeugend?',['Gründe und Beispiele','möglichst viele Ausrufezeichen','eine spannende Geschichte','Fremdwörter']],
+    ['Welcher Satz ist eine Aufforderung?',['Macht alle mit!','Das Fest beginnt um 15 Uhr.','Ich ging nach Hause.','Es regnete den ganzen Tag.']],
+    ['Was zeigt ein Wir-Gefühl?',['Gemeinsam schaffen wir das!','Ihr müsst das machen.','Ich finde das gut.','Die Schule plant ein Fest.']],
+    ['Was steht meist in der Einleitung?',['Anrede und Problem: Worum geht es?','die Unterschrift','alle Gründe auf einmal','der Höhepunkt der Geschichte']],
+    ['Was gehört in den Schluss?',['noch einmal der Appell','ein neues Thema','eine spannende Wendung','nur die Unterschrift']],
+    ['Ist die Meinung des Schreibers erkennbar?',['ja, ganz klar','nein, er bleibt neutral','nur im Bericht','nur in der Überschrift']],
+    ['Welche Textform ist KEIN appellativer Text?',['der Unfallbericht','der Aufruf','der Werbetext','der Leserbrief']],
+    ['Wozu dient eine Frage wie „Wollt ihr das wirklich?“',['Die Leser sollen nachdenken und zustimmen.','Der Schreiber weiß die Antwort nicht.','Sie informiert über eine Zahl.','Sie erzählt eine Handlung.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'form', type:'code', title:'Welche Textform?', task:'A = Aufruf · L = Leserbrief · R = Rede · W = Werbetext',
+   codes:[{k:'A',l:'Aufruf'},{k:'L',l:'Leserbrief'},{k:'R',l:'Rede'},{k:'W',l:'Werbetext'}],
+   items:[
+    ['„Liebe Mitschüler, als eure Schülersprecherin stehe ich heute hier vor euch …“','R'],
+    ['„Zu Ihrem Artikel ‚Kein Geld für den Skatepark‘ vom 3. Mai möchte ich Stellung nehmen.“','L'],
+    ['„Der neue Sneaker – leicht wie eine Feder. Jetzt im Laden testen!“','W'],
+    ['„Helfer gesucht! Am 12. Juni pflanzen wir 200 Bäume am Ortsrand. Mach mit!“','A'],
+    ['„Ich danke euch allen, dass ihr mir heute so aufmerksam zuhört.“','R'],
+    ['„Ihr Bericht über unsere Schule vom Montag hat mich sehr geärgert.“','L'],
+    ['„Nur diese Woche: zwei Pizzen zum Preis von einer!“','W'],
+    ['„Blutspender gesucht! Kommt am Freitag ins Rathaus – jeder Tropfen zählt!“','A'],
+    ['„Liebe Gäste, liebe Eltern, heute verabschieden wir unsere Abschlussklasse.“','R'],
+    ['„Mit freundlichen Grüßen, Jonas Weber, 16 Jahre, aus Landshut“','L'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'mittel', type:'code', title:'So werden die Leser angesprochen', task:'D = direkte Anrede · A = Aufforderung · F = Frage an die Leser · W = Wir-Gefühl',
+   codes:[{k:'D',l:'Anrede'},{k:'A',l:'Aufforderung'},{k:'F',l:'Frage'},{k:'W',l:'Wir-Gefühl'}],
+   items:[
+    ['Liebe Mitschülerinnen und Mitschüler,','D'],
+    ['Tragt euch bis Freitag in die Liste ein!','A'],
+    ['Wer möchte schon in einem grauen Klassenzimmer lernen?','F'],
+    ['Gemeinsam schaffen wir das!','W'],
+    ['Sehr geehrte Frau Bürgermeisterin,','D'],
+    ['Bringt eure Freunde mit!','A'],
+    ['Wollt ihr wirklich auf euren Jugendtreff verzichten?','F'],
+    ['Zeigen wir zusammen, dass uns die Schule wichtig ist!','W'],
+    ['Liebe Eltern,','D'],
+    ['Spendet eure alten Bücher für unseren Flohmarkt!','A'],
+    ['Ist euch eigentlich klar, wie viel Müll wir jeden Tag machen?','F'],
+    ['Wir alle sind diese Schule.','W'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'auff', type:'input', title:'Aufforderungen bilden', task:'Tippe die Aufforderung in der ihr-Form ein (z. B. kommen → Kommt).',
+   items:[
+    {pre:'', inf:'kommen', post:'am Samstag zum Aktionstag!', a:['Kommt'], z:'kommen → Kommt!'},
+    {pre:'', inf:'mitmachen', post:'bei unserer Aktion mit!', a:['Macht'], z:'mitmachen → Macht mit!'},
+    {pre:'', inf:'helfen', post:'uns beim Aufräumen!', a:['Helft'], z:'helfen → Helft!'},
+    {pre:'', inf:'mitbringen', post:'eure Freunde mit!', a:['Bringt'], z:'mitbringen → Bringt … mit!'},
+    {pre:'', inf:'unterschreiben', post:'unsere Liste!', a:['Unterschreibt'], z:'unterschreiben → Unterschreibt!'},
+    {pre:'', inf:'spenden', post:'eure alten Handys!', a:['Spendet'], z:'spenden → Spendet!'},
+    {pre:'', inf:'zeigen', post:'allen, was ihr könnt!', a:['Zeigt'], z:'zeigen → Zeigt!'},
+    {pre:'', inf:'sein', post:'dabei, wenn es losgeht!', a:['Seid'], z:'sein → Seid dabei!'},
+    {pre:'', inf:'nehmen', post:'euch ein Beispiel daran!', a:['Nehmt'], z:'nehmen → Nehmt!'},
+    {pre:'', inf:'denken', post:'auch an die Kleinen!', a:['Denkt'], z:'denken → Denkt!'},
+   ]
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
+   words:['überzeugen','tun','direkt','Forderung','Gründen','Beispielen','Aufforderungen','Fragen','gemeinsam','Appell','Präteritum','spannend'],
+   text:['Ein appellativer Text will die Leser ',{a:['überzeugen']},' und sie dazu bringen, etwas zu ',{a:['tun']},'. Er spricht die Leser ',{a:['direkt']},' an. Der Schreiber stellt eine klare ',{a:['Forderung']},' und begründet sie mit ',{a:['Gründen']},' und ',{a:['Beispielen']},'. Typisch sind ',{a:['Aufforderungen']},' wie „Macht mit!“, ',{a:['Fragen']},' an die Leser und das Wort „',{a:['gemeinsam']},'“. Im Schluss steht noch einmal der ',{a:['Appell']},'.']
+ },
+ { id:'besser', type:'mc', title:'Was überzeugt mehr?', task:'Wähle die Fassung, die am besten überzeugt.',
+   items:[
+    ['Thema: Aktionstag Pausenhof',['Kommt am Samstag und packt mit an – gemeinsam machen wir den Hof grün!','Am Samstag findet übrigens ein Aktionstag statt, falls jemand gerade Zeit und Lust hat.','Man könnte mal etwas am Pausenhof machen.','Der Pausenhof ist grau.']],
+    ['Thema: Spendenlauf',['Lauft mit! Jede Runde bringt 2 Euro für das Kinderheim.','Am Freitag gibt es auf dem Sportplatz einen Spendenlauf für ein Kinderheim in der Stadt.','Laufen ist gesund.','Wer will, kann ja mitlaufen.']],
+    ['Thema: Müll in der Pause',['Werft euren Müll in die Tonne – sonst sieht unser Hof bald aus wie eine Deponie!','Müll ist schlecht.','Manche Schüler werfen ihren Müll in der Pause einfach auf den Boden, andere nicht.','Es gibt Mülltonnen.']],
+    ['Thema: Brief an den Bürgermeister',['Sehr geehrter Herr Bürgermeister, bitte erhalten Sie den Bolzplatz, denn er ist unser einziger Treffpunkt.','Hey Bürgermeister, lass den Bolzplatz in Ruhe, sonst gibt es richtig Ärger mit uns allen!','Der Bolzplatz ist alt.','Wir finden das doof.']],
+    ['Thema: Schülerzeitung',['Schreibt für uns! Eure Ideen machen die Zeitung lebendig.','Die Schülerzeitung erscheint zweimal im Jahr und kostet einen Euro.','Es gibt eine Schülerzeitung.','Zeitung lesen ist okay.']],
+    ['Thema: Blutspende',['Spendet Blut – eine Stunde eurer Zeit kann ein Leben retten!','Blut ist rot.','Man kann am Freitag im Rathaus Blut spenden, wenn man mindestens 18 Jahre alt ist.','Blutspenden gibt es schon lange.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+];
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
