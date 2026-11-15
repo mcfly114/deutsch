@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Überschrift und Titel deuten</title>
+
+<style>
+/* Layout: eine ruhige Lernspalte; jede Übung als Arbeitsblatt-Karte mit blauem Kürzel wie auf dem AB. Lösungen erscheinen gelb markiert wie in der PowerPoint. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+.jump a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+.rules{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:10px;font-size:14px}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.legend{border:1px solid var(--ink);padding:6px 10px;text-align:center;font-size:13px}
+.legend b{color:var(--ink)}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0}
+.q .nr{font-weight:bold;min-width:22px}
+.q i{font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:44px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted)} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.fill{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:14px;width:9.5em;max-width:100%;padding:4px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink)}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.inf{color:var(--muted);font-size:13px}
+.small{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.cloze{line-height:2.6;font-size:15px}
+select.gap{font:inherit;font-size:14px;padding:3px 4px;border:1px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink)}
+select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{border-color:var(--bad);background:var(--bad-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:7px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.btn.primary{background:var(--blue);color:var(--paper)}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+@media (max-width:520px){.rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">D10 · Übungen zur Stunde</span>
+    <h1><span class="code">Ü</span> Überschrift und Titel deuten</h1>
+    <p class="lead">6 Übungen mit 61 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 richtig</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <button class="btn" id="resetAll" type="button">Alles neu starten</button>
+  </div>
+  <nav class="jump" id="jump" aria-label="Zu den Übungen"></nav>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Spickzettel: Überschrift und Titel</summary>
+    <dl class="rules">
+      <dt>Überschrift</dt><dd>nennt das Thema oder macht neugierig – oft mit <b>zwei Bedeutungen</b></dd>
+      <dt>Begriff erklären</dt><dd>1. <b>wörtlich</b> 2. Bedeutung <b>im Text</b> 3. Textstelle mit Zeile</dd>
+      <dt>Sachtext</dt><dd>Überschrift <b>informiert</b>: „Stadt baut neuen Radweg“</dd>
+      <dt>Erzählung</dt><dd>Titel oft <b>bildhaft</b> oder rätselhaft: „Funkstille“</dd>
+      <dt>Titel finden</dt><dd>passt zum <b>Kern</b> des Textes, nicht nur zu einem Detail; kurz; macht neugierig</dd>
+      <dt>Begründen</dt><dd>„Der Titel passt, weil … (Z. …)“</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+</div>
+
+<script>
+const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
+const SECTIONS = [
+ { id:'bedeutung', type:'mc', title:'Was bedeutet die Überschrift hier?', task:'Lies Überschrift und Textanfang. Was ist im Text gemeint?',
+   items:[
+    ['„Eiszeit im Klassenzimmer“ – Seit dem Streit sprechen die 9b und ihr Lehrer nur das Nötigste.',['kühle, unfreundliche Stimmung','die Heizung ist kaputt','im Klassenzimmer liegt Schnee','es gibt Eis zur Belohnung']],
+    ['„Ein Herz für Igel“ – Familie Brandt päppelt jeden Winter kranke Igel auf.',['Sie lieben Igel und kümmern sich um sie.','Igel haben ein großes Herz.','Sie malen Herzen auf Igel.','Ein Igel wurde operiert.']],
+    ['„Am seidenen Faden“ – Bis zur letzten Minute war unklar, ob der Treff gerettet wird.',['Es war sehr knapp und unsicher.','Der Treff wird mit Seide geschmückt.','Es geht um eine Näherei.','Alles war von Anfang an sicher.']],
+    ['„Funkstille“ – Seit drei Wochen schreiben sich Jana und Mira keine Nachrichten mehr.',['Die Freundinnen haben keinen Kontakt.','Das Funknetz ist ausgefallen.','Sie sind sehr leise.','Sie spielen Funkgerät.']],
+    ['„Gegen den Strom“ – Als einzige in der Klasse will Pia kein Handy.',['Sie macht es anders als alle anderen.','Sie schwimmt im Fluss.','Sie hat keinen Strom.','Sie streitet mit dem Stromanbieter.']],
+    ['„Der Groschen fällt“ – Nach einer Stunde Grübeln versteht Ben endlich die Aufgabe.',['Er versteht es endlich.','Er verliert Geld.','Er wirft eine Münze.','Er gibt auf.']],
+    ['„Auf dünnem Eis“ – Der Bürgermeister hat schon zwei Versprechen gebrochen.',['in einer gefährlichen, unsicheren Lage','beim Schlittschuhlaufen','in einer bequemen Lage','auf einem gefrorenen See']],
+    ['„Grünes Licht für den Skatepark“ – Der Stadtrat stimmt dem Bau zu.',['Der Bau ist erlaubt.','Der Park wird grün beleuchtet.','An der Ampel ist Grün.','Der Bau wird verboten.']],
+    ['„Im Schatten der Schwester“ – Alle loben nur Lenas ältere Schwester.',['Lena wird kaum beachtet.','Lena sitzt gern im Schatten.','Lenas Schwester ist sehr groß.','Lena ist eifersüchtig auf die Sonne.']],
+    ['„Ein Sprung ins kalte Wasser“ – Am ersten Tag muss der Azubi gleich allein arbeiten.',['etwas Neues ohne Vorbereitung beginnen','ins Schwimmbad gehen','sich erkälten','eine Pause machen']],
+    ['„Brücken bauen“ – Eine Schülerin übersetzt für neue Mitschüler aus der Ukraine.',['Menschen zusammenbringen','eine Brücke konstruieren','Mathe lernen','über einen Fluss gehen']],
+    ['„Hinter der Fassade“ – Der beliebte Klassensprecher fühlt sich oft einsam.',['Wie es innen wirklich aussieht, sieht man nicht.','Das Schulhaus wird renoviert.','Er versteckt sich hinter der Wand.','Er wohnt in einem schönen Haus.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'sorte', type:'code', title:'Sachtext oder Erzählung?', task:'S = Überschrift eines Sachtextes (informiert) · E = Titel einer Erzählung (bildhaft, rätselhaft)',
+   codes:[{k:'S',l:'Sachtext'},{k:'E',l:'Erzählung'}],
+   items:[
+    ['Stadt baut neuen Radweg an der B 12','S'],
+    ['Der Schatten am Fenster','E'],
+    ['Gewitter: Zwei Bäume auf Bahngleise gestürzt','S'],
+    ['Das Lächeln des Busfahrers','E'],
+    ['Neue Regeln für E-Scooter ab Januar','S'],
+    ['Zwei blaue Haken','E'],
+    ['Schulkiosk verkauft jetzt Obst','S'],
+    ['Die Nacht, in der alles anders wurde','E'],
+    ['Umfrage: Jeder dritte Jugendliche liest täglich','S'],
+    ['Der Schlüssel unter der Matte','E'],
+    ['Feuerwehr rettet Katze aus 12 Metern Höhe','S'],
+    ['Wenn der Regen kommt','E'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'beste', type:'mc', title:'Die beste Überschrift', task:'Welche Überschrift passt am besten zum Inhalt?',
+   items:[
+    ['Text: Seit September bleiben an der Schule die Handys im Spind. Es wird mehr geredet, es gibt weniger Streit.',['Drei Monate ohne Handy: mehr Gespräche, weniger Streit','Die Schule','Fußball in der Pause','Handys an allen Schulen verboten']],
+    ['Text: Ein Rentner repariert im Jugendtreff mit Jugendlichen kostenlos Fahrräder.',['Opa Kurt und die Fahrrad-Werkstatt','Fahrräder','Der Jugendtreff hat Türen','Rentner verkauft Fahrräder']],
+    ['Text: Wegen des Sturms fällt der Unterricht an drei Schulen aus. Niemand wird verletzt.',['Sturm: Unterricht an drei Schulen fällt aus','Das Wetter','Schüler freuen sich','Sturm zerstört die Stadt']],
+    ['Text: Die Klasse 10a sammelt beim Spendenlauf 4 000 Euro für das Tierheim.',['10a erläuft 4 000 Euro für das Tierheim','Laufen ist gesund','Das Tierheim','Tierheim muss schließen']],
+    ['Text: Ein Mädchen findet im Zug einen Koffer voller Briefe und sucht den Besitzer.',['Der vergessene Koffer','Zugfahren','Briefe schreiben lernen','Die Bahn ist pünktlich']],
+    ['Text: Nach 40 Jahren schließt die einzige Bäckerei im Dorf. Viele Bewohner sind traurig.',['Das Dorf verliert seine Bäckerei','Brot','Ein Bewohner','Neue Bäckerei eröffnet']],
+    ['Text: Zwei Brüder streiten um das letzte Stück Kuchen – am Ende frisst es der Hund.',['Das letzte Stück','Kuchen backen','Der Garten','Die Brüder teilen gerecht']],
+    ['Text: Die Gemeinde pflanzt 300 Bäume, damit es im Sommer in der Stadt kühler wird.',['300 neue Bäume gegen die Sommerhitze','Bäume','Der Sommer','Gemeinde fällt 300 Bäume']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'fehler', type:'code', title:'Warum passt die Überschrift nicht?', task:'Zum Text über das Handyverbot: A = zu allgemein · D = nur ein Detail · F = stimmt nicht mit dem Text überein',
+   codes:[{k:'A',l:'zu allgemein'},{k:'D',l:'nur ein Detail'},{k:'F',l:'stimmt nicht'}],
+   items:[
+    ['Die Schule','A'],
+    ['Fußball in der Pause','D'],
+    ['Handys werden an allen Schulen verboten','F'],
+    ['Ein Bericht','A'],
+    ['Der Spind','D'],
+    ['Schüler dürfen ihr Handy jetzt immer benutzen','F'],
+    ['Neuigkeiten','A'],
+    ['Die Mittagspause','D'],
+    ['Mehr Streit wegen Handyverbot','F'],
+    ['Handys','A'],
+    ['Weniger Streit in Chats','D'],
+    ['Lehrer verbieten Fußball','F'],
+   ].map(([s,a]) => ({s,a}))
+ },
+ { id:'funkstille', type:'mc', title:'Der Titel „Funkstille“', task:'Denk an die Geschichte vom Arbeitsblatt.',
+   items:[
+    ['Was bedeutet „Funkstille“ wörtlich?',['Funkgeräte senden nicht.','Es ist sehr laut.','Ein Feuer brennt.','Das Handy ist kaputt.']],
+    ['Was bedeutet „Funkstille“ in der Geschichte?',['Jana und Mira haben keinen Kontakt.','Janas Handy ist kaputt.','Die Schule hat kein WLAN.','Mira ist krank.']],
+    ['Welche Textstelle passt zur Funkstille?',['Janas Handy lag stumm auf dem Schreibtisch.','Jana hörte zufällig die Lehrerin.','Miras Oma kam ins Krankenhaus.','Die Haken wurden blau.']],
+    ['Womit beginnt die Funkstille?',['Jana schreibt: „Brauchst dich nicht mehr zu melden.“','Mira zieht um.','Die Lehrerin trennt die beiden.','Jana verliert ihr Handy.']],
+    ['Warum war Mira nicht auf der Party?',['Ihre Oma kam ins Krankenhaus.','Sie hatte keine Lust.','Sie war im Urlaub.','Sie war mit Lukas unterwegs.']],
+    ['Was zeigen die blauen Haken am Ende?',['Mira hat die Nachricht gelesen.','Die Nachricht ist verloren.','Jana hat die Nachricht gelöscht.','Mira antwortet nie.']],
+    ['Welcher andere Titel passt am besten?',['Zwei blaue Haken','Die Schule','Lukas','Der Schreibtisch']],
+    ['Wie begründest du einen Titel?',['Der Titel passt, weil … (Z. …)','Ich finde ihn schön.','Er ist kurz.','Weil es so ist.']],
+   ].map(([q,o]) => ({q,opts:o,a:0}))
+ },
+ { id:'merke', type:'cloze', title:'Lückentext: Das Wichtigste', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
+   words:['Thema','neugierig','wörtliche','Text','Zeile','informiert','bildhaft','Kern','Detail','Präteritum','Reim'],
+   text:['Eine Überschrift nennt das ',{a:['Thema']},' oder macht ',{a:['neugierig']},'. Will ich einen Begriff aus der Überschrift erklären, nenne ich zuerst die ',{a:['wörtliche']},' Bedeutung und dann die Bedeutung im ',{a:['Text']},'. Als Beleg gebe ich eine Textstelle mit ',{a:['Zeile']},' an. Die Überschrift eines Sachtextes ',{a:['informiert']},', der Titel einer Erzählung ist oft ',{a:['bildhaft']},'. Ein guter Titel passt zum ',{a:['Kern']},' des Textes und nicht nur zu einem ',{a:['Detail']},'.']
+ },
+];
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
+const esc = (s) => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const state = {};
+let ORDER = SECTIONS;
+
+function total(sec){ return sec.type==='cloze' ? sec.text.filter(x=>typeof x!=='string').length : sec.items.length; }
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s=>{ const st=state[s.id]; ok+=st.ok; ans+=st.done; all+=total(s);
+    document.getElementById('sc-'+s.id).textContent = `${st.ok} / ${total(s)} richtig`;
+    const j=document.getElementById('j-'+s.id); j.classList.toggle('done', st.done===total(s)); });
+  document.getElementById('total').textContent = `${ok} / ${all} richtig`;
+  document.getElementById('totalbar').style.width = (ans/all*100)+'%';
+  const box=document.getElementById('doneBox');
+  if (ans===all){ box.hidden=false; const p=ok/all;
+    document.getElementById('doneText').textContent = `Geschafft: ${ok} von ${all} richtig (${Math.round(p*100)} %)`;
+    document.getElementById('doneTip').textContent = p>=0.9 ? 'Super – du bist bestens vorbereitet!' : p>=0.7 ? 'Gut! Schau dir die rot markierten Aufgaben noch einmal an.' : 'Lies den Spickzettel oben noch einmal genau und starte die Übungen neu.';
+  } else box.hidden=true;
+}
+function mark(st, li, good){ st.done++; if(good) st.ok++; li.classList.add(good?'ok':'bad'); update(); }
+
+function render(sec){
+  const st = state[sec.id] = {ok:0, done:0};
+  const card = document.getElementById(sec.id);
+  const idx = ORDER.indexOf(sec)+1;
+  let html = `<h2><span class="n">${idx}</span> ${sec.title}<span class="sc" id="sc-${sec.id}"></span></h2><p class="task">${sec.task}</p>`;
+  if (sec.codes) html += `<div class="legend">${sec.codes.map(c=>`<b>${c.k}</b> = ${c.l}`).join('  ·  ')}</div>`;
+  html += `<ol class="items" id="it-${sec.id}"></ol><div class="actions"><button type="button" class="btn primary" data-act="new">Neu mischen</button><button type="button" class="btn" data-act="show">Alle Lösungen zeigen</button></div>`;
+  card.innerHTML = html;
+  const ol = card.querySelector('.items');
+
+  if (sec.type==='mc'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span>${esc(it.q)}</span></div><div class="opts"></div>`;
+      const box=li.querySelector('.opts');
+      shuffle(it.opts.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=o; b.dataset.right = i===it.a ? '1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong'); mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='code'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><i>${esc(it.s).replace(/\*\*(.+?)\*\*/g,'<u>$1</u>')}</i></div><div class="opts"></div><div class="fb" hidden></div>`;
+      const box=li.querySelector('.opts'), fb=li.querySelector('.fb');
+      sec.codes.forEach(c=>{
+        const b=document.createElement('button'); b.type='button'; b.className='opt code'; b.textContent=c.k; b.title=c.l; b.dataset.right = c.k===it.a?'1':'';
+        b.onclick=()=>{ box.querySelectorAll('button').forEach(x=>{x.disabled=true; if(x.dataset.right) x.classList.add('right');});
+          if(!b.dataset.right) b.classList.add('wrong');
+          const lab=sec.codes.find(c=>c.k===it.a).l; fb.hidden=false; fb.innerHTML=`Lösung: <b>${it.a}</b> = ${lab}`;
+          mark(st,li,!!b.dataset.right); };
+        box.appendChild(b);
+      });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='input'){
+    shuffle(sec.items).forEach((it,n)=>{
+      const li=document.createElement('li'); li.className='item'; const id=`in-${sec.id}-${n}`;
+      li.innerHTML=`<div class="q"><span class="nr">${n+1}</span><span class="fill">${esc(it.pre)} <label class="inf" for="${id}">(${esc(it.inf)})</label><input class="gap" id="${id}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort: ${esc(it.inf)}"> ${esc(it.post)} <button type="button" class="small">Prüfen</button></span></div><div class="fb" hidden></div>`;
+      const inp=li.querySelector('input'), btn=li.querySelector('button.small'), fb=li.querySelector('.fb');
+      const check=()=>{ if(!inp.value.trim()||inp.disabled) return; const good=it.a.some(a=>norm(a)===norm(inp.value));
+        inp.disabled=true; btn.disabled=true; inp.classList.add(good?'ok':'bad');
+        fb.hidden=false; fb.innerHTML = good ? `Richtig – <b>${it.z}</b>.` : `Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`;
+        mark(st,li,good); };
+      btn.onclick=check; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') check(); });
+      ol.appendChild(li);
+    });
+  }
+  if (sec.type==='cloze'){
+    const li=document.createElement('li'); li.className='item';
+    const p=document.createElement('p'); p.className='cloze'; p.style.margin='0';
+    let g=0;
+    sec.text.forEach(part=>{
+      if(typeof part==='string'){ p.appendChild(document.createTextNode(part)); return; }
+      g++; const sel=document.createElement('select'); sel.className='gap'; sel.id=`sel-${sec.id}-${g}`; sel.setAttribute('aria-label','Lücke '+g);
+      const cap=(w)=>part.cap ? w.charAt(0).toUpperCase()+w.slice(1) : w;
+      sel.innerHTML=`<option value="">(${g}) …</option>`+shuffle(sec.words).map(w=>`<option value="${w}">${cap(w)}</option>`).join('');
+      sel.onchange=()=>{ if(!sel.value) return; const good=part.a.includes(sel.value); sel.disabled=true; sel.classList.add(good?'ok':'bad');
+        if(!good){ const s=document.createElement('span'); s.className='mark'; s.textContent=' '+cap(part.a[0])+' '; sel.after(s); }
+        st.done++; if(good) st.ok++; update(); };
+      p.appendChild(sel);
+    });
+    li.appendChild(p); ol.appendChild(li);
+  }
+  card.querySelector('[data-act="new"]').onclick=()=>{ render(sec); update(); };
+  card.querySelector('[data-act="show"]').onclick=()=>{
+    card.querySelectorAll('.item').forEach(li=>{
+      li.querySelectorAll('.opts button').forEach(b=>{ if(!b.disabled){ b.disabled=true; if(b.dataset.right) b.classList.add('right'); }});
+      li.querySelectorAll('input.gap:not(:disabled)').forEach(inp=>{ inp.disabled=true; });
+    });
+    if(sec.type==='input') sec.items && card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); const inp=li.querySelector('input');
+      if(fb.hidden){ const inf=li.querySelector('.inf').textContent.slice(1,-1); const it=sec.items.find(x=>x.inf===inf); fb.hidden=false; fb.innerHTML=`Lösung: <span class="mark">${it.a[0]}</span> (${it.z})`; li.querySelector('button.small').disabled=true; }});
+    if(sec.type==='code') card.querySelectorAll('.item').forEach(li=>{ const fb=li.querySelector('.fb'); if(fb.hidden){ const r=li.querySelector('[data-right="1"]'); fb.hidden=false; fb.innerHTML=`Lösung: <b>${r.textContent}</b> = ${r.title}`; }});
+    if(sec.type==='cloze') card.querySelectorAll('select.gap:not(:disabled)').forEach(sel=>{ const n=+sel.id.split('-').pop(); const part=sec.text.filter(x=>typeof x!=='string')[n-1];
+      sel.disabled=true; const s=document.createElement('span'); s.className='mark'; s.textContent=' '+(part.cap?part.a[0][0].toUpperCase()+part.a[0].slice(1):part.a[0])+' '; sel.after(s); });
+  };
+}
+
+function start(){
+  const main=document.getElementById('sections'), jump=document.getElementById('jump');
+  main.innerHTML=''; jump.innerHTML='';
+  ORDER = shuffle(SECTIONS);
+  ORDER.forEach((s,i)=>{
+    const sec=document.createElement('section'); sec.className='card'; sec.id=s.id; main.appendChild(sec);
+    const a=document.createElement('a'); a.href='#'+s.id; a.id='j-'+s.id; a.textContent=(i+1)+' '+s.title; jump.appendChild(a);
+    render(s);
+  });
+  update();
+}
+document.getElementById('resetAll').onclick=()=>{ start(); window.scrollTo({top:0}); };
+start();
+</script>
+
+</body>
+</html>
