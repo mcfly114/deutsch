@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Deutsch A1 · Blatt 14 · In der Stadt</title>
+
+<style>
+/* Layout: one calm learning column; every exercise is a worksheet card with a blue number like on the paper sheet. Correct answers are marked yellow. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 60px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.slow{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.slow input{width:18px;height:18px;accent-color:var(--blue)}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:4px 11px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.note{margin:0;background:var(--bad-soft);border:1px solid var(--bad);border-radius:8px;padding:10px 14px;font-size:13px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+details.merke > *:not(summary){margin-top:10px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.rules{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:14px;margin-bottom:0}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+h3.grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;font-weight:normal}
+.vocab{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:0;font-size:14px;border-top:1px solid var(--line)}
+.vocab > *{padding:6px 8px 6px 0;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.vocab .de{font-weight:bold}
+.vocab .tl{color:var(--muted);font-style:italic}
+.say{font:inherit;display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--blue);cursor:pointer;flex:none;padding:0}
+.say:hover{background:var(--blue-soft);border-color:var(--blue)}
+.say svg{width:17px;height:17px;display:block}
+.say.wide{width:auto;padding:0 12px;gap:6px;font-size:14px;height:36px}
+.dialog{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.dialog .ln{display:flex;gap:8px;align-items:flex-start}
+.dialog .who{color:var(--blue);font-weight:bold;white-space:nowrap}
+.dialog .tx{min-width:0}
+.vtable{border-collapse:collapse;font-size:14px;width:100%;max-width:520px}
+.vtable th,.vtable td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.vtable th{background:var(--blue-soft);color:var(--blue)}
+.vtable td b{color:var(--blue)}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .de{font-size:13px;font-weight:normal;color:var(--muted);font-style:italic}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0;align-items:center;flex-wrap:wrap}
+.q .nr{font-weight:bold;min-width:22px}
+.q .de{font-weight:bold}
+.blank{display:inline-block;min-width:4.5em;border-bottom:2px solid var(--ink);text-align:center;padding:0 4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 13px;cursor:pointer;text-align:left;min-height:38px}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:64px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default;color:var(--ink);opacity:1}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.line{min-height:44px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:6px;padding:4px 0;align-items:center}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:38px}
+.tile{font:inherit;font-size:15px;background:var(--blue-soft);color:var(--ink);border:1px solid var(--blue);border-radius:6px;padding:7px 12px;cursor:pointer;min-height:38px}
+.tile:disabled{cursor:default;opacity:1;color:var(--ink)}
+.fill{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:16px;width:15em;max-width:100%;padding:6px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:0}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.key{font:inherit;font-size:16px;min-width:40px;height:38px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
+.small{font:inherit;font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:8px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+.key-list{margin:0;padding-left:1.3em;font-size:14px}
+.key-list li{margin-bottom:6px}
+footer{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:560px){
+  .rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}
+  .vocab{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr)}
+  .vocab .tl{grid-column:2 / -1;border-bottom:1px solid var(--line);padding-top:0;margin-top:-4px}
+  .vocab .sp.row,.vocab .de,.vocab .en{border-bottom:none}
+  section.card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Deutsch A1 · Blatt 14 von 30 · Online practice</span>
+    <h1><span class="code">14</span> In der Stadt – Places in town and Wo? with in, an, auf</h1>
+    <p class="lead"><span id="leadCount"></span> Tap an answer or type it – you see at once if it is right. The correct answer is marked <span class="mark">yellow</span>. Tap the speaker button to hear the German. <span id="best"></span></p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 correct</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <label class="slow"><input type="checkbox" id="slow"> slow audio</label>
+  </div>
+  <nav class="jump" id="jump" aria-label="Go to an exercise"></nav>
+
+  <p class="note" id="noVoice" hidden>Your browser cannot read German aloud. Please open this page in Chrome (Android) or Safari (iPhone). You can still do all exercises except the listening exercise.</p>
+
+  <details class="merke" open>
+    <summary><small>STEP 1</small>Listen and repeat: all words of this sheet</summary>
+    <p class="hint">Tap a speaker button, listen, and say the word aloud two times. No sound? Turn off silent mode and turn the volume up.</p>
+    <div id="vocab"></div>
+    <h3 class="grp">The two dialogs</h3>
+    <div id="dialogs" style="display:flex;flex-direction:column;gap:14px"></div>
+  </details>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Cheat sheet: the grammar of this sheet</summary>
+    <dl class="rules">
+      <dt>Wo? + dative</dt><dd>To say <b>where</b> something is, use <span lang="de">in, an, auf, neben, vor, hinter</span> + the <b>dative</b>: <i>der / das</i> → <b lang="de">dem</b>, <i>die</i> → <b lang="de">der</b>. <span lang="de">in dem = im</span>, <span lang="de">an dem = am</span>.
+        <div style="overflow-x:auto"><table class="vtable" style="margin-top:6px;font-size:12px">
+          <tr><th></th><th lang="de">der / das word</th><th lang="de">die word</th></tr>
+          <tr><td><b>in</b></td><td lang="de">im Park</td><td lang="de">in der Stadt</td></tr>
+          <tr><td><b>an</b></td><td lang="de">am Bahnhof</td><td lang="de">an der Haltestelle</td></tr>
+          <tr><td><b>auf</b></td><td lang="de">auf dem Markt</td><td lang="de">auf der Straße</td></tr>
+          <tr><td><b>neben</b></td><td lang="de">neben dem Hotel</td><td lang="de">neben der Post</td></tr>
+          <tr><td><b>vor</b></td><td lang="de">vor dem Bahnhof</td><td lang="de">vor der Schule</td></tr>
+          <tr><td><b>hinter</b></td><td lang="de">hinter dem Haus</td><td lang="de">hinter der Bank</td></tr>
+        </table></div></dd>
+      <dt>in · an · auf</dt><dd><b lang="de">in</b> = inside (<span lang="de">im Supermarkt</span>) · <b lang="de">an</b> = at, by (<span lang="de">am Bahnhof, an der Ecke</span>) · <b lang="de">auf</b> = on (<span lang="de">auf dem Platz, auf dem Markt</span>).</dd>
+      <dt>Phrases</dt><dd>Learn these as one piece: <span lang="de">Wo ist die Bank?</span> – <span lang="de">Die Bank ist neben der Post.</span> · <span lang="de">Gibt es hier ein Restaurant?</span> – <span lang="de">Ja, im Hotel.</span></dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+
+  <div class="actions" style="justify-content:center"><button class="btn" id="resetAll" type="button">Start all exercises again</button></div>
+
+  <details class="merke" id="key">
+    <summary><small>LÖSUNGEN</small>Answer key for the paper worksheet</summary>
+    <p class="hint">Do the paper exercises first. Then check your answers here.</p>
+    <ol class="key-list" type="A">
+      <li><b>dem, der, im or am?</b> 1 <span lang="de">der</span> · 2 <span lang="de">im</span> · 3 <span lang="de">am</span> · 4 <span lang="de">der</span> · 5 <span lang="de">dem</span> · 6 <span lang="de">dem</span></li>
+      <li><b>Where is it?</b> 1 <span lang="de">Die Haltestelle ist vor dem Bahnhof.</span> · 2 <span lang="de">Das Restaurant ist im Hotel.</span> · 3 <span lang="de">Das Café ist an der Ecke.</span></li>
+      <li><b>Questions.</b> Example: <span lang="de">Ich wohne in Manila. / Ich wohne in der Stadt. Die Post ist neben der Bank.</span> Your answers are different – ask your partner to check them.</li>
+      <li><b>My town.</b> Example: <span lang="de">Es gibt eine Bank und eine Post. Die Bank ist neben der Post. Der Park ist hinter dem Hotel.</span></li>
+    </ol>
+  </details>
+
+  <footer>Deutsch A1 · Blatt 14 von 30 · In der Stadt</footer>
+</div>
+
+<script>
+const DATA = {"vocab":[{"group":"Places","words":[["die Stadt","city, town","lungsod"],["der Bahnhof","station","istasyon ng tren"],["die Haltestelle","stop","hintuan"],["die Post","post office","koreo"],["die Bank","bank","bangko"],["das Krankenhaus","hospital","ospital"],["die Schule","school","paaralan"]]},{"group":"Where? – small words","words":[["in","in","sa loob ng"],["an","at, by","sa tabi ng"],["auf","on","sa ibabaw ng"],["neben","next to","katabi ng"],["vor","in front of","sa harap ng"],["hinter","behind","sa likod ng"]]},{"group":"More places","words":[["die Bibliothek","library","aklatan"],["das Restaurant","restaurant","restawran"],["das Hotel","hotel","hotel"],["das Museum","museum","museo"],["die Kirche","church","simbahan"],["die Polizei","police","pulis"]]},{"group":"Street · near · far","words":[["die Straße","street","kalye"],["der Platz","square","plaza"],["die Ecke","corner","kanto"],["das Zentrum","centre","sentro"],["in der Nähe","nearby","malapit"],["weit","far","malayo"],["da","there","doon"]]},{"group":"More words – listen and repeat","words":[["die Brücke","bridge","tulay"],["der Flughafen","airport","paliparan"],["der Spielplatz","playground","palaruan"],["das Café","café","kapihan"]],"online":true}],"dialogs":[{"label":"Dialog 1 · informal (du)","intro":"Maria (M) asks Anna (A) about the town.","short":{"Maria":"M","Anna":"A"},"lines":[["Maria","Anna, wo ist die Bank?"],["Anna","Die Bank ist in der Stadt, neben der Post."],["Maria","Und wo ist die Haltestelle?"],["Anna","Die Haltestelle ist vor dem Bahnhof."],["Maria","Ist der Supermarkt auch in der Nähe?"],["Anna","Ja, er ist an der Ecke, hinter dem Hotel."]]},{"label":"Dialog 2 · formal (Sie)","intro":"Frau Santos (S) asks Herr Becker (B) about places.","short":{"Frau Santos":"S","Herr Becker":"B"},"lines":[["Frau Santos","Entschuldigung, Herr Becker. Wo ist die Apotheke?"],["Herr Becker","Die Apotheke ist am Platz, neben der Bäckerei."],["Frau Santos","Und wo ist das Krankenhaus?"],["Herr Becker","Das Krankenhaus ist nicht weit. Es ist neben dem Park."],["Frau Santos","Gibt es hier ein Restaurant?"],["Herr Becker","Ja, das Restaurant ist im Hotel."]]}]};
+
+const SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+
+const SECTIONS = [
+ { id:"words", type:"mc", title:"What does it mean?", de:"Was bedeutet das?", task:"Tap the English meaning. Tap the speaker button to hear the German word.",
+   items:[
+    ["die Stadt",["city, town","station","street","square"]],["der Bahnhof",["station","stop","bank","hotel"]],["die Haltestelle",["stop","station","school","corner"]],
+    ["die Post",["post office","bank","police","church"]],["die Bank",["bank","post office","school","library"]],["das Krankenhaus",["hospital","hotel","school","museum"]],
+    ["die Schule",["school","church","library","hospital"]],["die Bibliothek",["library","museum","bank","school"]],["das Hotel",["hotel","restaurant","hospital","station"]],
+    ["die Kirche",["church","school","museum","bank"]],["die Polizei",["police","post office","hospital","library"]],["die Straße",["street","square","corner","city, town"]]
+   ].map(([q,o]) => ({q, de:true, say:q, opts:o}))
+ },
+ { id:"listen", type:"mc", listen:true, title:"Listen: what do you hear?", de:"Was hörst du?", task:"Tap “Play”, listen, and then tap the sentence you heard.",
+   items:[
+    ["Die Bank ist neben der Post.",["Die Bank ist neben der Post.","Die Bank ist vor der Post.","Die Bank ist neben dem Park."],"The bank is next to the post office."],
+    ["Die Haltestelle ist vor dem Bahnhof.",["Die Haltestelle ist vor dem Bahnhof.","Die Haltestelle ist hinter dem Bahnhof.","Die Haltestelle ist vor der Schule."],"The stop is in front of the station."],
+    ["Ich bin im Park.",["Ich bin im Park.","Ich bin im Hotel.","Ich bin am Park."],"I am in the park."],
+    ["Wir sind am Bahnhof.",["Wir sind am Bahnhof.","Wir sind an der Haltestelle.","Wir sind im Bahnhof."],"We are at the station."],
+    ["Das Krankenhaus ist nicht weit.",["Das Krankenhaus ist nicht weit.","Das Krankenhaus ist sehr weit.","Das Krankenhaus ist nicht neu."],"The hospital is not far."],
+    ["Das Restaurant ist im Hotel.",["Das Restaurant ist im Hotel.","Das Restaurant ist am Hotel.","Das Restaurant ist im Park."],"The restaurant is in the hotel."],
+    ["Die Bäckerei ist an der Ecke.",["Die Bäckerei ist an der Ecke.","Die Bäckerei ist an der Post.","Die Apotheke ist an der Ecke."],"The bakery is on the corner."],
+    ["Wo ist der Platz?",["Wo ist der Platz?","Wo ist die Post?","Wo ist der Park?"],"Where is the square?"],
+    ["Maria ist auf dem Markt.",["Maria ist auf dem Markt.","Maria ist auf dem Platz.","Anna ist auf dem Markt."],"Maria is at the market."],
+    ["Gibt es hier eine Bibliothek?",["Gibt es hier eine Bibliothek?","Gibt es hier ein Museum?","Gibt es hier einen Park?"],"Is there a library here?"]
+   ].map(([say,o,en]) => ({say, opts:o, fb:en, optsDe:true}))
+ },
+ { id:"pron", type:"mc", code:true, title:"Say it short", de:"Wie sagt man das kurz?", task:"in dem = im, an dem = am. Listen and tap the short form.",
+   items:[
+    ["in dem Park",["im Park","in Park","ins Park"]],["in dem Hotel",["im Hotel","in Hotel","ins Hotel"]],
+    ["in dem Supermarkt",["im Supermarkt","in Supermarkt","ins Supermarkt"]],["in dem Restaurant",["im Restaurant","in Restaurant","ins Restaurant"]],
+    ["in dem Museum",["im Museum","in Museum","ins Museum"]],["in dem Zentrum",["im Zentrum","in Zentrum","ins Zentrum"]],
+    ["an dem Bahnhof",["am Bahnhof","an Bahnhof","ans Bahnhof"]],["an dem Platz",["am Platz","an Platz","ans Platz"]],
+    ["an dem Park",["am Park","an Park","ans Park"]],["an dem Hotel",["am Hotel","an Hotel","ans Hotel"]],
+    ["an dem Markt",["am Markt","an Markt","ans Markt"]],["an dem Museum",["am Museum","an Museum","ans Museum"]]
+   ].map(([q,o]) => ({q, de:true, say:o[0], opts:o}))
+ },
+ { id:"split", type:"mc", title:"Which place?", de:"Welcher Ort ist das?", task:"Read the sentence and tap the place.",
+   items:[
+    ["Hier kaufe ich Brot. Das ist die ___.",["Bäckerei","Bank","Post"],"Here I buy bread. – the bakery"],
+    ["Hier lernen Kinder. Das ist die ___.",["Schule","Bank","Post"],"Here children learn. – the school"],
+    ["Hier sind Bücher. Das ist die ___.",["Bibliothek","Apotheke","Kirche"],"Here are books. – the library"],
+    ["Hier esse ich. Das ist das ___.",["Restaurant","Krankenhaus","Museum"],"Here I eat. – the restaurant"],
+    ["Hier kaufe ich Obst und Milch. Das ist der ___.",["Supermarkt","Bahnhof","Park"],"Here I buy fruit and milk. – the supermarket"],
+    ["Hier ist der Arzt. Das ist das ___.",["Krankenhaus","Hotel","Restaurant"],"Here is the doctor. – the hospital"],
+    ["Hier schwimme ich. Das ist das ___.",["Schwimmbad","Kino","Museum"],"Here I swim. – the swimming pool"],
+    ["Hier sehe ich einen Film. Das ist das ___.",["Kino","Schwimmbad","Hotel"],"Here I watch a film. – the cinema"],
+    ["Hier spiele ich Fußball. Das ist der ___.",["Park","Bahnhof","Bank"],"Here I play football. – the park"],
+    ["Hier fahre ich nach Hause. Das ist der ___.",["Bahnhof","Park","Supermarkt"],"Here I travel home. – the station"]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"verb", type:"mc", title:"dem, der, im or am?", de:"Welches Wort passt?", task:"Where? → dative: der / das word → dem (im, am), die word → der. Tap the word that fits.",
+   items:[
+    ["Die Bank ist neben ___ Post.",["der","dem","den"],"The bank is next to the post office."],
+    ["Das Hotel ist neben ___ Park.",["dem","der","den"],"The hotel is next to the park."],
+    ["Ich bin ___ Park.",["im","ins","ans"],"I am in the park."],
+    ["Wir sind ___ Bahnhof.",["am","ans","ins"],"We are at the station."],
+    ["Die Haltestelle ist vor ___ Schule.",["der","dem","den"],"The stop is in front of the school."],
+    ["Der Supermarkt ist hinter ___ Hotel.",["dem","der","den"],"The supermarket is behind the hotel."],
+    ["Das Restaurant ist ___ Hotel.",["im","ins","ans"],"The restaurant is in the hotel."],
+    ["Die Bäckerei ist an ___ Ecke.",["der","dem","den"],"The bakery is on the corner."],
+    ["Maria ist auf ___ Markt.",["dem","der","den"],"Maria is at the market."],
+    ["Anna wohnt in ___ Stadt.",["der","dem","den"],"Anna lives in the city."],
+    ["Ich bin ___ Supermarkt.",["im","ins","ans"],"I am in the supermarket."],
+    ["Das Café ist ___ Platz.",["am","ans","ins"],"The café is on the square."]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"build", type:"build", title:"Build the sentence", de:"Bilde den Satz.", task:"Tap the words in the right order. Tap a word in your sentence to take it back.",
+   items:[
+    ["Where is the bank?",["Wo","ist","die","Bank?"]],
+    ["The bank is next to the post office.",["Die","Bank","ist","neben","der","Post."]],
+    ["The stop is in front of the station.",["Die","Haltestelle","ist","vor","dem","Bahnhof."]],
+    ["The restaurant is in the hotel.",["Das","Restaurant","ist","im","Hotel."]],
+    ["The supermarket is behind the hotel.",["Der","Supermarkt","ist","hinter","dem","Hotel."]],
+    ["Is there a library here?",["Gibt","es","hier","eine","Bibliothek?"]],
+    ["I am at the station.",["Ich","bin","am","Bahnhof."]],
+    ["The hospital is not far.",["Das","Krankenhaus","ist","nicht","weit."]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"type", type:"type", title:"Write it in German", de:"Schreib auf Deutsch.", task:"Type the German word and tap “Check”. Capital letters and punctuation are not counted here.",
+   items:[
+    ["city",["Stadt"]],["station",["Bahnhof"]],["stop",["Haltestelle"]],["post office",["Post"]],["bank",["Bank"]],
+    ["hospital",["Krankenhaus"]],["school",["Schule"]],["library",["Bibliothek"]],["street",["Straße"]],["square",["Platz"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"reply", type:"mc", title:"Review of sheets 12 and 13: choose the best answer", de:"Wiederholung: Was antwortest du?", task:"These are sentences from sheets 12 and 13. Someone says this to you. Tap the answer that fits.",
+   items:[
+    ["Wie ist dein Zimmer?",["Klein, aber sehr hell.","Klein, aber im Park.","Es gibt einen Zimmer."]],
+    ["Gibt es einen Balkon?",["Ja, es gibt einen Balkon.","Ja, es gibt eine Balkon.","Ja, ich bin Balkon."]],
+    ["Was kostet die Miete?",["Sie kostet fünfhundert Euro.","Sie ist fünf Uhr.","Ich kostet fünf Euro."]],
+    ["Kannst du tanzen?",["Ja, ich kann gut tanzen.","Ja, ich kannst tanzen.","Ja, ich tanzen gut."]],
+    ["Was willst du am Wochenende?",["Ich will schwimmen.","Ich willst schwimmen.","Ich schwimmen will."]],
+    ["Ist die Wohnung groß?",["Nein, sie ist zu klein.","Nein, sie ist am klein.","Nein, es gibt klein."]],
+    ["Hast du ein Hobby?",["Ja, ich spiele gern Fußball.","Ja, ich bin gern Fußball.","Ja, ich spielen Fußball."]],
+    ["Wie ist das Wohnzimmer?",["Es ist hell und gemütlich.","Es gibt hell und gemütlich.","Es ist am hell."]]
+   ].map(([q,o]) => ({q:"„"+q+"“", de:true, say:q, opts:o, optsDe:true, sayAfter:o[0]}))
+ }
+];
+
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.!?,;:„“”"]/g," ").replace(/\s+/g," ").trim()
+  .replace(/ß/g,"ss").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue");
+
+/* ---------- speech ---------- */
+const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+let deVoice = null;
+function pickVoice(){
+  if (!synth) return;
+  const vs = synth.getVoices() || [];
+  deVoice = vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null;
+}
+function speak(text){
+  if (!synth) return;
+  try {
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[„“”]/g,"").replace(/…/g,""));
+    u.lang = "de-DE";
+    if (deVoice) u.voice = deVoice;
+    u.rate = $("slow").checked ? 0.55 : 0.85;
+    synth.speak(u);
+  } catch (e) {}
+}
+if (synth) { pickVoice(); try { synth.addEventListener("voiceschanged", pickVoice); } catch (e) {} }
+else { $("noVoice").hidden = false; }
+function sayBtn(text, label){
+  const b = el("button", label ? "say wide" : "say");
+  b.type = "button"; b.innerHTML = SPK + (label ? "<span>"+label+"</span>" : "");
+  b.setAttribute("aria-label", label ? label : "Listen: " + text);
+  b.addEventListener("click", () => speak(text));
+  return b;
+}
+
+/* ---------- step 1: words and dialogs ---------- */
+function renderLearn(){
+  const box = $("vocab");
+  DATA.vocab.forEach(g => {
+    box.append(el("h3","grp",g.group));
+    const grid = el("div","vocab");
+    g.words.forEach(([de,en,tl]) => {
+      const c0 = el("div","sp row"); c0.append(sayBtn(de.replace(" · ",", ").replace("(aus)","aus").replace("(in)","in").replace("…","")));
+      const c1 = el("div","de",de); c1.lang = "de";
+      const c2 = el("div","en",en);
+      const c3 = el("div","tl",tl); c3.lang = "tl";
+      grid.append(c0,c1,c2,c3);
+    });
+    box.append(grid);
+  });
+  const dbox = $("dialogs");
+  DATA.dialogs.forEach(d => {
+    const wrap = el("div","dialog");
+    wrap.append(el("b",null,d.label));
+    d.lines.forEach(([who,tx]) => {
+      const ln = el("div","ln");
+      ln.append(sayBtn(tx));
+      const t = el("span","tx"); const w = el("span","who",who+": "); const s = el("span",null,tx); s.lang = "de";
+      t.append(w,s); ln.append(t); wrap.append(ln);
+    });
+    dbox.append(wrap);
+  });
+}
+
+/* ---------- exercises ---------- */
+const state = {};
+const total = (sec) => sec.items.length;
+
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s => { const st = state[s.id]; ok += st.ok; ans += st.done; all += total(s);
+    $("sc-"+s.id).textContent = st.ok + " / " + total(s) + " correct";
+    $("j-"+s.id).classList.toggle("done", st.done === total(s)); });
+  $("total").textContent = ok + " / " + all + " correct";
+  $("totalbar").style.width = (ans/all*100) + "%";
+  const box = $("doneBox");
+  if (ans === all){
+    box.hidden = false; const p = ok/all, pct = Math.round(p*100);
+    $("doneText").textContent = "Geschafft! " + ok + " of " + all + " correct (" + pct + " %)";
+    $("doneTip").textContent = p >= 0.9 ? "Sehr gut! You are ready for sheet 15. Come back in two days and repeat this page once."
+      : p >= 0.7 ? "Gut! Tap “Start all exercises again” tomorrow and try to beat your score."
+      : "Read the cheat sheet again, listen to the words once more and then start again. Repeating is how the words stay.";
+    saveBest(pct);
+  } else box.hidden = true;
+}
+function saveBest(pct){
+  try { const old = parseInt(localStorage.getItem("a1-14-best") || "0", 10); if (pct > old) localStorage.setItem("a1-14-best", String(pct)); } catch (e) {}
+  showBest();
+}
+function showBest(){
+  try { const b = localStorage.getItem("a1-14-best"); if (b) $("best").textContent = "Your best result so far: " + b + " %."; } catch (e) {}
+}
+function count(sec, ok){ const st = state[sec.id]; st.done++; if (ok) st.ok++; update(); }
+
+function feedback(li, de, en){
+  if (!de && !en) return;
+  const fb = el("div","fb");
+  if (de){ fb.append(sayBtn(de)); const b = el("b",null,de); b.lang = "de"; fb.append(b); }
+  if (en) fb.append(el("span",null,(de ? "= " : "") + en));
+  li.append(fb);
+}
+
+function mcItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."));
+  let blank = null;
+  if (sec.listen){
+    q.append(sayBtn(it.say,"Play"));
+  } else {
+    if (it.say) q.append(sayBtn(it.say));
+    if (it.q.includes("___")){
+      const parts = it.q.split("___"); const s = el("span","de"); s.lang = "de";
+      blank = el("span","blank"," ");
+      s.append(document.createTextNode(parts[0]), blank, document.createTextNode(parts[1])); q.append(s);
+    } else { const s = el("span", it.de ? "de" : null, it.q); if (it.de) s.lang = "de"; q.append(s); }
+  }
+  const opts = el("div","opts");
+  const order = it.fixed ? it.fixed.map(t => ({t, right: t === it.opts[0]})) : shuffle(it.opts.map((t,i) => ({t, right: i === 0})));
+  const btns = order.map(o => {
+    const b = el("button", sec.code ? "opt code" : "opt", o.t); b.type = "button"; if (it.optsDe) b.lang = "de";
+    b.addEventListener("click", () => finish(o.right, b)); opts.append(b); return {b, right:o.right};
+  });
+  let done = false;
+  function finish(ok, chosen){
+    if (done) return; done = true;
+    btns.forEach(x => { x.b.disabled = true; if (x.right) x.b.classList.add("right"); });
+    if (chosen && !ok) chosen.classList.add("wrong");
+    if (blank){ blank.textContent = it.opts[0]; blank.classList.add("mark"); }
+    if (chosen) li.classList.add(ok ? "ok" : "bad");
+    feedback(li, sec.listen ? it.say : it.sayAfter, it.fb);
+    count(sec, !!ok);
+  }
+  li.append(q, opts);
+  li.reveal = () => finish(false, null);
+  li.isDone = () => done;
+  return li;
+}
+
+function buildItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const line = el("div","line"); line.lang = "de"; line.setAttribute("aria-label","Your sentence");
+  const pool = el("div","pool"); pool.lang = "de";
+  let order = shuffle(it.a);
+  for (let k=0; k<8 && order.join(" ") === it.a.join(" "); k++) order = shuffle(it.a);
+  let done = false;
+  order.forEach(w => {
+    const t = el("button","tile",w); t.type = "button";
+    t.addEventListener("click", () => {
+      if (done) return;
+      if (t.parentNode === pool) line.append(t); else pool.append(t);
+      if (!pool.children.length) check();
+    });
+    pool.append(t);
+  });
+  function check(){
+    const got = Array.from(line.children).map(c => c.textContent).join(" ");
+    finish(got === it.a.join(" "), true);
+  }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    Array.from(li.querySelectorAll(".tile")).forEach(t => t.disabled = true);
+    if (tried) li.classList.add(ok ? "ok" : "bad");
+    const full = it.a.join(" ");
+    const fb = el("div","fb"); fb.append(sayBtn(full));
+    const m = el("span","mark",full); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  li.append(q, line, pool);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+let lastInput = null;
+function typeItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const fill = el("div","fill");
+  const inp = el("input","gap"); inp.type = "text"; inp.lang = "de";
+  inp.setAttribute("autocomplete","off"); inp.setAttribute("autocapitalize","off"); inp.setAttribute("autocorrect","off"); inp.spellcheck = false;
+  inp.setAttribute("aria-label","Your answer in German for: " + it.en);
+  const btn = el("button","small","Check"); btn.type = "button";
+  inp.addEventListener("focus", () => { lastInput = inp; });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  btn.addEventListener("click", check);
+  let done = false;
+  function check(){ if (!inp.value.trim()) { inp.focus(); return; } finish(it.a.some(a => norm(a) === norm(inp.value)), true); }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    inp.readOnly = true; btn.disabled = true; btn.hidden = true;
+    if (tried){ inp.classList.add(ok ? "ok" : "bad"); li.classList.add(ok ? "ok" : "bad"); }
+    const fb = el("div","fb"); fb.append(sayBtn(it.a[0]));
+    const m = el("span","mark",it.a[0]); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  fill.append(inp, btn); li.append(q, fill);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+function renderSection(sec, card){
+  state[sec.id] = {ok:0, done:0};
+  const old = card.querySelector(".items"); if (old) old.remove();
+  const ul = el("ul","items");
+  shuffle(sec.items).forEach((it,i) => {
+    ul.append(sec.type === "build" ? buildItem(sec,it,i+1) : sec.type === "type" ? typeItem(sec,it,i+1) : mcItem(sec,it,i+1));
+  });
+  card.insertBefore(ul, card.querySelector(".tail"));
+}
+
+function render(){
+  const main = $("sections"), jump = $("jump");
+  main.innerHTML = ""; jump.innerHTML = "";
+  let all = 0;
+  SECTIONS.forEach((sec, si) => {
+    all += total(sec);
+    const card = el("section","card"); card.id = "s-" + sec.id;
+    const h = el("h2");
+    const n = el("span","n",String(si+1)); const t = el("span",null,sec.title); const d = el("span","de",sec.de); d.lang = "de";
+    const sc = el("span","sc"); sc.id = "sc-" + sec.id;
+    h.append(n,t,d,sc);
+    const task = el("p","task",sec.task);
+    const tail = el("div","tail"); tail.style.cssText = "display:flex;flex-direction:column;gap:10px";
+    if (sec.type === "type"){
+      const keys = el("div","keys"); keys.append(el("span",null,"Special letters:"));
+      ["ä","ö","ü","ß"].forEach(ch => { const k = el("button","key",ch); k.type = "button"; k.lang = "de";
+        k.addEventListener("mousedown", e => e.preventDefault());
+        k.addEventListener("click", () => { const inp = lastInput; if (!inp || inp.readOnly) return;
+          const s = inp.selectionStart ?? inp.value.length, e2 = inp.selectionEnd ?? inp.value.length;
+          inp.value = inp.value.slice(0,s) + ch + inp.value.slice(e2); inp.focus(); try { inp.setSelectionRange(s+1,s+1); } catch (e) {} });
+        keys.append(k); });
+      tail.append(keys);
+    }
+    const act = el("div","actions");
+    const again = el("button","btn","Shuffle and try again"); again.type = "button";
+    again.addEventListener("click", () => { renderSection(sec, card); update(); });
+    const show = el("button","btn","Show the answers"); show.type = "button";
+    show.addEventListener("click", () => { card.querySelectorAll(".item").forEach(li => { if (!li.isDone()) li.reveal(); }); });
+    act.append(again, show); tail.append(act);
+    card.append(h, task, tail);
+    main.append(card);
+    renderSection(sec, card);
+    const a = el("a",null,(si+1) + " · " + sec.title); a.href = "#s-" + sec.id; a.id = "j-" + sec.id; jump.append(a);
+  });
+  $("leadCount").textContent = SECTIONS.length + " exercises with " + all + " tasks.";
+  update();
+}
+
+$("resetAll").addEventListener("click", () => { render(); window.scrollTo({top:0, behavior:"smooth"}); });
+renderLearn(); render(); showBest();
+</script>
+</body>
+</html>
