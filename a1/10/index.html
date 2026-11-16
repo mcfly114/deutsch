@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Deutsch A1 · Blatt 10 · Mein Tag</title>
+
+<style>
+/* Layout: one calm learning column; every exercise is a worksheet card with a blue number like on the paper sheet. Correct answers are marked yellow. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 60px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.slow{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.slow input{width:18px;height:18px;accent-color:var(--blue)}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:4px 11px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.note{margin:0;background:var(--bad-soft);border:1px solid var(--bad);border-radius:8px;padding:10px 14px;font-size:13px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+details.merke > *:not(summary){margin-top:10px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.rules{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:14px;margin-bottom:0}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+h3.grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;font-weight:normal}
+.vocab{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:0;font-size:14px;border-top:1px solid var(--line)}
+.vocab > *{padding:6px 8px 6px 0;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.vocab .de{font-weight:bold}
+.vocab .tl{color:var(--muted);font-style:italic}
+.say{font:inherit;display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--blue);cursor:pointer;flex:none;padding:0}
+.say:hover{background:var(--blue-soft);border-color:var(--blue)}
+.say svg{width:17px;height:17px;display:block}
+.say.wide{width:auto;padding:0 12px;gap:6px;font-size:14px;height:36px}
+.dialog{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.dialog .ln{display:flex;gap:8px;align-items:flex-start}
+.dialog .who{color:var(--blue);font-weight:bold;white-space:nowrap}
+.dialog .tx{min-width:0}
+.vtable{border-collapse:collapse;font-size:14px;width:100%;max-width:520px}
+.vtable th,.vtable td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.vtable th{background:var(--blue-soft);color:var(--blue)}
+.vtable td b{color:var(--blue)}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .de{font-size:13px;font-weight:normal;color:var(--muted);font-style:italic}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0;align-items:center;flex-wrap:wrap}
+.q .nr{font-weight:bold;min-width:22px}
+.q .de{font-weight:bold}
+.blank{display:inline-block;min-width:4.5em;border-bottom:2px solid var(--ink);text-align:center;padding:0 4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 13px;cursor:pointer;text-align:left;min-height:38px}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:64px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default;color:var(--ink);opacity:1}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.line{min-height:44px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:6px;padding:4px 0;align-items:center}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:38px}
+.tile{font:inherit;font-size:15px;background:var(--blue-soft);color:var(--ink);border:1px solid var(--blue);border-radius:6px;padding:7px 12px;cursor:pointer;min-height:38px}
+.tile:disabled{cursor:default;opacity:1;color:var(--ink)}
+.fill{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:16px;width:15em;max-width:100%;padding:6px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:0}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.key{font:inherit;font-size:16px;min-width:40px;height:38px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
+.small{font:inherit;font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:8px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+.key-list{margin:0;padding-left:1.3em;font-size:14px}
+.key-list li{margin-bottom:6px}
+footer{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:560px){
+  .rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}
+  .vocab{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr)}
+  .vocab .tl{grid-column:2 / -1;border-bottom:1px solid var(--line);padding-top:0;margin-top:-4px}
+  .vocab .sp.row,.vocab .de,.vocab .en{border-bottom:none}
+  section.card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Deutsch A1 · Blatt 10 von 30 · Online practice</span>
+    <h1><span class="code">10</span> Mein Tag – Daily routine and separable verbs</h1>
+    <p class="lead"><span id="leadCount"></span> Tap an answer or type it – you see at once if it is right. The correct answer is marked <span class="mark">yellow</span>. Tap the speaker button to hear the German. <span id="best"></span></p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 correct</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <label class="slow"><input type="checkbox" id="slow"> slow audio</label>
+  </div>
+  <nav class="jump" id="jump" aria-label="Go to an exercise"></nav>
+
+  <p class="note" id="noVoice" hidden>Your browser cannot read German aloud. Please open this page in Chrome (Android) or Safari (iPhone). You can still do all exercises except the listening exercise.</p>
+
+  <details class="merke" open>
+    <summary><small>STEP 1</small>Listen and repeat: all words of this sheet</summary>
+    <p class="hint">Tap a speaker button, listen, and say the word aloud two times. No sound? Turn off silent mode and turn the volume up.</p>
+    <div id="vocab"></div>
+    <h3 class="grp">The two dialogs</h3>
+    <div id="dialogs" style="display:flex;flex-direction:column;gap:14px"></div>
+  </details>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Cheat sheet: the grammar of this sheet</summary>
+    <dl class="rules">
+      <dt>Separable verbs</dt><dd>Two parts: prefix + verb: <span lang="de">auf|stehen · an|fangen · ein|kaufen · fern|sehen · an|rufen · auf|räumen</span>. The verb is in <b>position 2</b>, the prefix goes to the <b>end</b>: <span lang="de">Ich stehe um 7 Uhr auf. · Der Kurs fängt um 9 Uhr an.</span> (= <span lang="de">beginnt</span>). In a question the verb is first: <span lang="de">Stehst du um 7 Uhr auf?</span> · With a question word: <span lang="de">Wann stehst du auf?</span></dd>
+      <dt>aufstehen · anfangen</dt><dd>
+        <div style="overflow-x:auto"><table class="vtable" style="font-size:12px">
+          <tr><th></th><th lang="de">aufstehen</th><th lang="de">anfangen</th></tr>
+          <tr><td><b>ich</b></td><td lang="de">stehe auf</td><td lang="de">fange an</td></tr>
+          <tr><td><b>du</b></td><td lang="de">stehst auf</td><td lang="de"><b>fängst</b> an</td></tr>
+          <tr><td style="white-space:nowrap"><b>er / sie</b></td><td lang="de">steht auf</td><td lang="de"><b>fängt</b> an</td></tr>
+          <tr><td><b>wir</b></td><td lang="de">stehen auf</td><td lang="de">fangen an</td></tr>
+          <tr><td><b>ihr</b></td><td lang="de">steht auf</td><td lang="de">fangt an</td></tr>
+          <tr><td style="white-space:nowrap"><b>sie / Sie</b></td><td lang="de">stehen auf</td><td lang="de">fangen an</td></tr>
+        </table></div>
+        <span class="hint"><span lang="de">anfangen</span> changes: <span lang="de">du fängst an, er fängt an</span> (a → ä).</span></dd>
+      <dt>Order</dt><dd><span lang="de">Zuerst stehe ich auf. Dann frühstücke ich. Danach gehe ich zur Arbeit.</span> The verb stays in position 2!</dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+
+  <div class="actions" style="justify-content:center"><button class="btn" id="resetAll" type="button">Start all exercises again</button></div>
+
+  <details class="merke" id="key">
+    <summary><small>LÖSUNGEN</small>Answer key for the paper worksheet</summary>
+    <p class="hint">Do the paper exercises first. Then check your answers here.</p>
+    <ol class="key-list" type="A">
+      <li><b>The verb.</b> 1 <span lang="de">stehe</span> · 2 <span lang="de">fängst</span> · 3 <span lang="de">kauft</span> · 4 <span lang="de">sehen</span> · 5 <span lang="de">ruft</span> · 6 <span lang="de">steht</span></li>
+      <li><b>Word order.</b> 1 <span lang="de">Ich fange um 8 Uhr an.</span> · 2 <span lang="de">Maria kauft heute ein.</span> · 3 <span lang="de">Wir sehen heute Abend fern.</span></li>
+      <li><b>Questions.</b> Example: <span lang="de">Ich stehe um sieben Uhr auf. · Mein Kurs fängt um neun Uhr an.</span></li>
+      <li><b>My day.</b> Example: <span lang="de">Zuerst stehe ich um sieben Uhr auf. Dann frühstücke ich. Danach kaufe ich ein.</span> Ask your partner to check your sentences.</li>
+    </ol>
+  </details>
+
+  <footer>Deutsch A1 · Blatt 10 von 30 · Mein Tag</footer>
+</div>
+
+<script>
+const DATA = {"vocab":[{"group":"Separable verbs","words":[["aufstehen","to get up","bumangon"],["anfangen","to start","magsimula"],["einkaufen","to shop","mamili"],["fernsehen","to watch TV","manood ng TV"],["anrufen","to call (phone)","tumawag"],["aufräumen","to tidy up","mag-ayos"]]},{"group":"Daily routine","words":[["frühstücken","to have breakfast","mag-almusal"],["kochen","to cook","magluto"],["arbeiten","to work","magtrabaho"],["schlafen","to sleep","matulog"],["duschen","to shower","maligo"],["gehen","to go","pumunta"],["lernen","to learn","mag-aral"]]},{"group":"Meals · place","words":[["das Frühstück","breakfast","almusal"],["das Mittagessen","lunch","tanghalian"],["das Abendessen","dinner","hapunan"],["die Arbeit","work","trabaho"],["die Pause","break","pahinga"],["zu Hause","at home","sa bahay"]]},{"group":"Order · more","words":[["der Tag","day","araw"],["zuerst","first","una"],["dann","then","pagkatapos"],["danach","afterwards","pagkatapos nito"],["nach Hause","(to) home","pauwi"],["auch","also","din"],["müde","tired","pagod"]]},{"group":"More words – listen and repeat","words":[["putzen","to clean","maglinis"],["waschen","to wash","maglaba"],["abholen","to pick up","sunduin"],["aufwachen","to wake up","magising"]],"online":true}],"dialogs":[{"label":"Dialog 1 · informal (du)","intro":"Maria (M) and Anna (A) talk about their day.","short":{"Maria":"M","Anna":"A"},"lines":[["Maria","Wann stehst du auf, Anna?"],["Anna","Ich stehe um halb sieben auf. Und du?"],["Maria","Um sieben Uhr. Dann frühstücke ich."],["Anna","Wann fängt dein Kurs an?"],["Maria","Um neun Uhr. Danach kaufe ich ein, und heute Abend sehe ich fern."],["Anna","Ich rufe heute Abend an, okay?"]]},{"label":"Dialog 2 · formal (Sie)","intro":"Herr Becker (B) asks Frau Santos (S) about her day.","short":{"Herr Becker":"B","Frau Santos":"S"},"lines":[["Herr Becker","Guten Morgen, Frau Santos. Wann stehen Sie auf?"],["Frau Santos","Ich stehe um sechs Uhr auf."],["Herr Becker","Und wann fängt die Arbeit an?"],["Frau Santos","Um acht Uhr. Sie ist von acht bis siebzehn Uhr."],["Herr Becker","Und danach? Kaufen Sie ein?"],["Frau Santos","Ja, ich kaufe ein und koche. Dann bin ich zu Hause."]]}]};
+
+const SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+
+const SECTIONS = [
+ { id:"words", type:"mc", title:"What does it mean?", de:"Was bedeutet das?", task:"Tap the English meaning. Tap the speaker button to hear the German word.",
+   items:[
+    ["aufstehen",["to get up","to start","to shop","to sleep"]],["anfangen",["to start","to get up","to call","to cook"]],["einkaufen",["to shop","to cook","to tidy up","to start"]],
+    ["fernsehen",["to watch TV","to call","to shop","to sleep"]],["anrufen",["to call (phone)","to watch TV","to get up","to work"]],["aufräumen",["to tidy up","to get up","to cook","to start"]],
+    ["frühstücken",["to have breakfast","to cook","to shower","to learn"]],["kochen",["to cook","to sleep","to work","to shop"]],["schlafen",["to sleep","to shower","to work","to go"]],
+    ["das Mittagessen",["lunch","breakfast","dinner","break"]],["das Abendessen",["dinner","lunch","breakfast","work"]],["danach",["afterwards","first","then","also"]]
+   ].map(([q,o]) => ({q, de:true, say:q, opts:o}))
+ },
+ { id:"listen", type:"mc", listen:true, title:"Listen: what do you hear?", de:"Was hörst du?", task:"Tap “Play”, listen, and then tap the sentence you heard.",
+   items:[
+    ["Ich stehe um sieben Uhr auf.",["Ich stehe um sieben Uhr auf.","Ich stehe um sechs Uhr auf.","Ich fange um sieben Uhr an."],"I get up at seven."],
+    ["Der Kurs fängt um neun Uhr an.",["Der Kurs fängt um neun Uhr an.","Der Kurs fängt um zehn Uhr an.","Der Kurs ist von neun bis zehn."],"The course starts at nine."],
+    ["Maria kauft heute ein.",["Maria kauft heute ein.","Maria kocht heute.","Maria ruft heute an."],"Maria goes shopping today."],
+    ["Wir sehen heute Abend fern.",["Wir sehen heute Abend fern.","Wir schlafen heute Abend.","Wir kochen heute Abend."],"We watch TV tonight."],
+    ["Anna ruft Maria an.",["Anna ruft Maria an.","Anna kauft Maria ein.","Maria ruft Anna an."],"Anna calls Maria."],
+    ["Stehst du um sechs Uhr auf?",["Stehst du um sechs Uhr auf?","Fängst du um sechs Uhr an?","Stehst du um sieben Uhr auf?"],"Do you get up at six?"],
+    ["Zuerst frühstücke ich.",["Zuerst frühstücke ich.","Danach frühstücke ich.","Zuerst koche ich."],"First I have breakfast."],
+    ["Danach gehe ich zur Arbeit.",["Danach gehe ich zur Arbeit.","Dann gehe ich nach Hause.","Danach schlafe ich."],"Afterwards I go to work."],
+    ["Dann bin ich zu Hause.",["Dann bin ich zu Hause.","Dann gehe ich nach Hause.","Dann bin ich müde."],"Then I am at home."],
+    ["Ich bin müde und schlafe.",["Ich bin müde und schlafe.","Ich bin müde und koche.","Ich bin pünktlich und arbeite."],"I am tired and sleep."]
+   ].map(([say,o,en]) => ({say, opts:o, fb:en, optsDe:true}))
+ },
+ { id:"pron", type:"mc", code:true, title:"Which form?", de:"Welche Form ist richtig?", task:"Listen to the verb and tap the correct sentence part. Remember: the prefix goes to the end!",
+   items:[
+    ["aufstehen: du",["du stehst auf","du stehe auf","du steht auf"]],["aufstehen: er",["er steht auf","er stehe auf","er stehst auf"]],
+    ["aufstehen: wir",["wir stehen auf","wir steht auf","wir stehe auf"]],["anfangen: ich",["ich fange an","ich fängt an","ich fängst an"]],
+    ["anfangen: du",["du fängst an","du fangst an","du fange an"]],["anfangen: er",["er fängt an","er fangt an","er fange an"]],
+    ["einkaufen: ich",["ich kaufe ein","ich kauft ein","ich kaufst ein"]],["einkaufen: sie",["sie kauft ein","sie kaufe ein","sie kaufst ein"]],
+    ["fernsehen: du",["du siehst fern","du sehst fern","du sieht fern"]],["fernsehen: er",["er sieht fern","er seht fern","er siehst fern"]],
+    ["anrufen: ich",["ich rufe an","ich ruft an","ich rufst an"]],["anrufen: wir",["wir rufen an","wir ruft an","wir rufe an"]]
+   ].map(([q,o]) => ({q, de:true, say:o[0], opts:o}))
+ },
+ { id:"split", type:"mc", title:"Which prefix?", de:"Welches Wort kommt ans Ende?", task:"The prefix jumps to the end of the sentence. Tap the prefix that fits.",
+   items:[
+    ["Ich stehe um 7 Uhr ___.",["auf","an","ein"],"I get up at 7."],
+    ["Der Kurs fängt um 9 Uhr ___.",["an","auf","fern"],"The course starts at 9."],
+    ["Maria kauft heute ___.",["ein","an","auf"],"Maria goes shopping today."],
+    ["Wir sehen heute Abend ___.",["fern","ein","auf"],"We watch TV tonight."],
+    ["Anna ruft Maria ___.",["an","ein","fern"],"Anna calls Maria."],
+    ["Wann stehst du ___?",["auf","an","fern"],"When do you get up?"],
+    ["Wann fängt der Film ___?",["an","auf","ein"],"When does the film start?"],
+    ["Kaufst du heute ___?",["ein","fern","auf"],"Are you shopping today?"],
+    ["Sehen Sie heute ___?",["fern","an","ein"],"Are you watching TV today?"],
+    ["Ich rufe Herrn Becker ___.",["an","auf","ein"],"I call Mr Becker."]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"verb", type:"mc", title:"Choose the right verb form", de:"Welche Form passt?", task:"The verb changes, the prefix stays at the end. Tap the form that fits.",
+   items:[
+    ["Du ___ um 7 Uhr auf.",["stehst","stehe","steht"],"You get up at 7."],
+    ["Maria ___ um 6 Uhr auf.",["steht","stehe","stehen"],"Maria gets up at 6."],
+    ["Wir ___ um 8 Uhr an.",["fangen","fängt","fange"],"We start at 8."],
+    ["Er ___ um 9 Uhr an.",["fängt","fangt","fange"],"He starts at 9."],
+    ["Du ___ um 10 Uhr an.",["fängst","fangst","fängt"],"You start at 10."],
+    ["Ich ___ im Supermarkt ein.",["kaufe","kaufst","kauft"],"I shop in the supermarket."],
+    ["Anna ___ heute ein.",["kauft","kaufe","kaufen"],"Anna shops today."],
+    ["Er ___ heute Abend fern.",["sieht","sehe","siehst"],"He watches TV tonight."],
+    ["Ich ___ heute Abend fern.",["sehe","sieht","siehst"],"I watch TV tonight."],
+    ["Anna ___ Maria an.",["ruft","rufe","rufen"],"Anna calls Maria."],
+    ["Wir ___ Herrn Becker an.",["rufen","ruft","rufe"],"We call Mr Becker."],
+    ["Ihr ___ um 7 Uhr auf.",["steht","stehen","stehst"],"You (plural) get up at 7."]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"build", type:"build", title:"Build the sentence", de:"Bilde den Satz.", task:"Tap the words in the right order. The prefix goes to the end. Tap a word in your sentence to take it back.",
+   items:[
+    ["I get up at seven.",["Ich","stehe","um","sieben","Uhr","auf."]],
+    ["The course starts at nine.",["Der","Kurs","fängt","um","neun","Uhr","an."]],
+    ["Maria goes shopping today.",["Maria","kauft","heute","ein."]],
+    ["We watch TV tonight.",["Wir","sehen","heute","Abend","fern."]],
+    ["When do you get up?",["Wann","stehst","du","auf?"]],
+    ["When does the film start?",["Wann","fängt","der","Film","an?"]],
+    ["First I have breakfast.",["Zuerst","frühstücke","ich."]],
+    ["Then I am at home.",["Dann","bin","ich","zu","Hause."]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"type", type:"type", title:"Write it in German", de:"Schreib auf Deutsch.", task:"Type the German word and tap “Check”. Capital letters and punctuation are not counted here.",
+   items:[
+    ["to get up",["aufstehen"]],["to shop",["einkaufen"]],["to watch TV",["fernsehen"]],["to call (phone)",["anrufen"]],["breakfast",["Frühstück"]],
+    ["lunch",["Mittagessen"]],["dinner",["Abendessen"]],["first",["zuerst"]],["afterwards",["danach"]],["tired",["müde"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"reply", type:"mc", title:"Review of sheets 8 and 9: choose the best answer", de:"Wiederholung: Was antwortest du?", task:"These are sentences from sheets 8 and 9. Someone says this to you. Tap the answer that fits.",
+   items:[
+    ["Wie spät ist es?",["Es ist halb drei.","Es ist drei Euro.","Ich bin drei."]],
+    ["Wann beginnt der Kurs?",["Um neun Uhr.","Von neun Euro.","Ich bin neun."]],
+    ["Was kostet das?",["Das kostet drei Euro.","Das ist drei Uhr.","Ich nehme drei Euro."]],
+    ["Ist der Supermarkt geöffnet?",["Ja, von acht bis zwanzig Uhr.","Ja, um acht Euro.","Ja, ich bin geöffnet."]],
+    ["Wie viel Uhr ist es?",["Es ist zehn Uhr.","Es kostet zehn Uhr.","Ich habe zehn Uhr."]],
+    ["Sonst noch etwas?",["Nein, danke.","Ja, ich bin Lehrerin.","Das macht Hunger."]],
+    ["Was macht das?",["Das macht vier Euro.","Ich mache vier Euro.","Danke, gut."]],
+    ["Hast du einen Termin?",["Ja, um zehn Uhr.","Ja, von zehn Uhr.","Nein, ich bin Termin."]]
+   ].map(([q,o]) => ({q:"„"+q+"“", de:true, say:q, opts:o, optsDe:true, sayAfter:o[0]}))
+ }
+];
+
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.!?,;:„“”"]/g," ").replace(/\s+/g," ").trim()
+  .replace(/ß/g,"ss").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue");
+
+/* ---------- speech ---------- */
+const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+let deVoice = null;
+function pickVoice(){
+  if (!synth) return;
+  const vs = synth.getVoices() || [];
+  deVoice = vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null;
+}
+function speak(text){
+  if (!synth) return;
+  try {
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[„“”]/g,"").replace(/…/g,""));
+    u.lang = "de-DE";
+    if (deVoice) u.voice = deVoice;
+    u.rate = $("slow").checked ? 0.55 : 0.85;
+    synth.speak(u);
+  } catch (e) {}
+}
+if (synth) { pickVoice(); try { synth.addEventListener("voiceschanged", pickVoice); } catch (e) {} }
+else { $("noVoice").hidden = false; }
+function sayBtn(text, label){
+  const b = el("button", label ? "say wide" : "say");
+  b.type = "button"; b.innerHTML = SPK + (label ? "<span>"+label+"</span>" : "");
+  b.setAttribute("aria-label", label ? label : "Listen: " + text);
+  b.addEventListener("click", () => speak(text));
+  return b;
+}
+
+/* ---------- step 1: words and dialogs ---------- */
+function renderLearn(){
+  const box = $("vocab");
+  DATA.vocab.forEach(g => {
+    box.append(el("h3","grp",g.group));
+    const grid = el("div","vocab");
+    g.words.forEach(([de,en,tl]) => {
+      const c0 = el("div","sp row"); c0.append(sayBtn(de.replace(" · ",", ").replace("(aus)","aus").replace("(in)","in").replace("…","")));
+      const c1 = el("div","de",de); c1.lang = "de";
+      const c2 = el("div","en",en);
+      const c3 = el("div","tl",tl); c3.lang = "tl";
+      grid.append(c0,c1,c2,c3);
+    });
+    box.append(grid);
+  });
+  const dbox = $("dialogs");
+  DATA.dialogs.forEach(d => {
+    const wrap = el("div","dialog");
+    wrap.append(el("b",null,d.label));
+    d.lines.forEach(([who,tx]) => {
+      const ln = el("div","ln");
+      ln.append(sayBtn(tx));
+      const t = el("span","tx"); const w = el("span","who",who+": "); const s = el("span",null,tx); s.lang = "de";
+      t.append(w,s); ln.append(t); wrap.append(ln);
+    });
+    dbox.append(wrap);
+  });
+}
+
+/* ---------- exercises ---------- */
+const state = {};
+const total = (sec) => sec.items.length;
+
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s => { const st = state[s.id]; ok += st.ok; ans += st.done; all += total(s);
+    $("sc-"+s.id).textContent = st.ok + " / " + total(s) + " correct";
+    $("j-"+s.id).classList.toggle("done", st.done === total(s)); });
+  $("total").textContent = ok + " / " + all + " correct";
+  $("totalbar").style.width = (ans/all*100) + "%";
+  const box = $("doneBox");
+  if (ans === all){
+    box.hidden = false; const p = ok/all, pct = Math.round(p*100);
+    $("doneText").textContent = "Geschafft! " + ok + " of " + all + " correct (" + pct + " %)";
+    $("doneTip").textContent = p >= 0.9 ? "Sehr gut! You are ready for sheet 11. Come back in two days and repeat this page once."
+      : p >= 0.7 ? "Gut! Tap “Start all exercises again” tomorrow and try to beat your score."
+      : "Read the cheat sheet again, listen to the words once more and then start again. Repeating is how the words stay.";
+    saveBest(pct);
+  } else box.hidden = true;
+}
+function saveBest(pct){
+  try { const old = parseInt(localStorage.getItem("a1-10-best") || "0", 10); if (pct > old) localStorage.setItem("a1-10-best", String(pct)); } catch (e) {}
+  showBest();
+}
+function showBest(){
+  try { const b = localStorage.getItem("a1-10-best"); if (b) $("best").textContent = "Your best result so far: " + b + " %."; } catch (e) {}
+}
+function count(sec, ok){ const st = state[sec.id]; st.done++; if (ok) st.ok++; update(); }
+
+function feedback(li, de, en){
+  if (!de && !en) return;
+  const fb = el("div","fb");
+  if (de){ fb.append(sayBtn(de)); const b = el("b",null,de); b.lang = "de"; fb.append(b); }
+  if (en) fb.append(el("span",null,(de ? "= " : "") + en));
+  li.append(fb);
+}
+
+function mcItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."));
+  let blank = null;
+  if (sec.listen){
+    q.append(sayBtn(it.say,"Play"));
+  } else {
+    if (it.say) q.append(sayBtn(it.say));
+    if (it.q.includes("___")){
+      const parts = it.q.split("___"); const s = el("span","de"); s.lang = "de";
+      blank = el("span","blank"," ");
+      s.append(document.createTextNode(parts[0]), blank, document.createTextNode(parts[1])); q.append(s);
+    } else { const s = el("span", it.de ? "de" : null, it.q); if (it.de) s.lang = "de"; q.append(s); }
+  }
+  const opts = el("div","opts");
+  const order = it.fixed ? it.fixed.map(t => ({t, right: t === it.opts[0]})) : shuffle(it.opts.map((t,i) => ({t, right: i === 0})));
+  const btns = order.map(o => {
+    const b = el("button", sec.code ? "opt code" : "opt", o.t); b.type = "button"; if (it.optsDe) b.lang = "de";
+    b.addEventListener("click", () => finish(o.right, b)); opts.append(b); return {b, right:o.right};
+  });
+  let done = false;
+  function finish(ok, chosen){
+    if (done) return; done = true;
+    btns.forEach(x => { x.b.disabled = true; if (x.right) x.b.classList.add("right"); });
+    if (chosen && !ok) chosen.classList.add("wrong");
+    if (blank){ blank.textContent = it.opts[0]; blank.classList.add("mark"); }
+    if (chosen) li.classList.add(ok ? "ok" : "bad");
+    feedback(li, sec.listen ? it.say : it.sayAfter, it.fb);
+    count(sec, !!ok);
+  }
+  li.append(q, opts);
+  li.reveal = () => finish(false, null);
+  li.isDone = () => done;
+  return li;
+}
+
+function buildItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const line = el("div","line"); line.lang = "de"; line.setAttribute("aria-label","Your sentence");
+  const pool = el("div","pool"); pool.lang = "de";
+  let order = shuffle(it.a);
+  for (let k=0; k<8 && order.join(" ") === it.a.join(" "); k++) order = shuffle(it.a);
+  let done = false;
+  order.forEach(w => {
+    const t = el("button","tile",w); t.type = "button";
+    t.addEventListener("click", () => {
+      if (done) return;
+      if (t.parentNode === pool) line.append(t); else pool.append(t);
+      if (!pool.children.length) check();
+    });
+    pool.append(t);
+  });
+  function check(){
+    const got = Array.from(line.children).map(c => c.textContent).join(" ");
+    finish(got === it.a.join(" "), true);
+  }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    Array.from(li.querySelectorAll(".tile")).forEach(t => t.disabled = true);
+    if (tried) li.classList.add(ok ? "ok" : "bad");
+    const full = it.a.join(" ");
+    const fb = el("div","fb"); fb.append(sayBtn(full));
+    const m = el("span","mark",full); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  li.append(q, line, pool);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+let lastInput = null;
+function typeItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const fill = el("div","fill");
+  const inp = el("input","gap"); inp.type = "text"; inp.lang = "de";
+  inp.setAttribute("autocomplete","off"); inp.setAttribute("autocapitalize","off"); inp.setAttribute("autocorrect","off"); inp.spellcheck = false;
+  inp.setAttribute("aria-label","Your answer in German for: " + it.en);
+  const btn = el("button","small","Check"); btn.type = "button";
+  inp.addEventListener("focus", () => { lastInput = inp; });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  btn.addEventListener("click", check);
+  let done = false;
+  function check(){ if (!inp.value.trim()) { inp.focus(); return; } finish(it.a.some(a => norm(a) === norm(inp.value)), true); }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    inp.readOnly = true; btn.disabled = true; btn.hidden = true;
+    if (tried){ inp.classList.add(ok ? "ok" : "bad"); li.classList.add(ok ? "ok" : "bad"); }
+    const fb = el("div","fb"); fb.append(sayBtn(it.a[0]));
+    const m = el("span","mark",it.a[0]); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  fill.append(inp, btn); li.append(q, fill);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+function renderSection(sec, card){
+  state[sec.id] = {ok:0, done:0};
+  const old = card.querySelector(".items"); if (old) old.remove();
+  const ul = el("ul","items");
+  shuffle(sec.items).forEach((it,i) => {
+    ul.append(sec.type === "build" ? buildItem(sec,it,i+1) : sec.type === "type" ? typeItem(sec,it,i+1) : mcItem(sec,it,i+1));
+  });
+  card.insertBefore(ul, card.querySelector(".tail"));
+}
+
+function render(){
+  const main = $("sections"), jump = $("jump");
+  main.innerHTML = ""; jump.innerHTML = "";
+  let all = 0;
+  SECTIONS.forEach((sec, si) => {
+    all += total(sec);
+    const card = el("section","card"); card.id = "s-" + sec.id;
+    const h = el("h2");
+    const n = el("span","n",String(si+1)); const t = el("span",null,sec.title); const d = el("span","de",sec.de); d.lang = "de";
+    const sc = el("span","sc"); sc.id = "sc-" + sec.id;
+    h.append(n,t,d,sc);
+    const task = el("p","task",sec.task);
+    const tail = el("div","tail"); tail.style.cssText = "display:flex;flex-direction:column;gap:10px";
+    if (sec.type === "type"){
+      const keys = el("div","keys"); keys.append(el("span",null,"Special letters:"));
+      ["ä","ö","ü","ß"].forEach(ch => { const k = el("button","key",ch); k.type = "button"; k.lang = "de";
+        k.addEventListener("mousedown", e => e.preventDefault());
+        k.addEventListener("click", () => { const inp = lastInput; if (!inp || inp.readOnly) return;
+          const s = inp.selectionStart ?? inp.value.length, e2 = inp.selectionEnd ?? inp.value.length;
+          inp.value = inp.value.slice(0,s) + ch + inp.value.slice(e2); inp.focus(); try { inp.setSelectionRange(s+1,s+1); } catch (e) {} });
+        keys.append(k); });
+      tail.append(keys);
+    }
+    const act = el("div","actions");
+    const again = el("button","btn","Shuffle and try again"); again.type = "button";
+    again.addEventListener("click", () => { renderSection(sec, card); update(); });
+    const show = el("button","btn","Show the answers"); show.type = "button";
+    show.addEventListener("click", () => { card.querySelectorAll(".item").forEach(li => { if (!li.isDone()) li.reveal(); }); });
+    act.append(again, show); tail.append(act);
+    card.append(h, task, tail);
+    main.append(card);
+    renderSection(sec, card);
+    const a = el("a",null,(si+1) + " · " + sec.title); a.href = "#s-" + sec.id; a.id = "j-" + sec.id; jump.append(a);
+  });
+  $("leadCount").textContent = SECTIONS.length + " exercises with " + all + " tasks.";
+  update();
+}
+
+$("resetAll").addEventListener("click", () => { render(); window.scrollTo({top:0, behavior:"smooth"}); });
+renderLearn(); render(); showBest();
+</script>
+</body>
+</html>
