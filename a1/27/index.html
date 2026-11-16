@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Deutsch A1 · Blatt 27 · Prüfungstraining Schreiben</title>
+
+<style>
+/* Layout: one calm learning column; every exercise is a worksheet card with a blue number like on the paper sheet. Correct answers are marked yellow. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 60px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.slow{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.slow input{width:18px;height:18px;accent-color:var(--blue)}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:4px 11px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.note{margin:0;background:var(--bad-soft);border:1px solid var(--bad);border-radius:8px;padding:10px 14px;font-size:13px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+details.merke > *:not(summary){margin-top:10px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.rules{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:14px;margin-bottom:0}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+h3.grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;font-weight:normal}
+.vocab{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:0;font-size:14px;border-top:1px solid var(--line)}
+.vocab > *{padding:6px 8px 6px 0;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.vocab .de{font-weight:bold}
+.vocab .tl{color:var(--muted);font-style:italic}
+.say{font:inherit;display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--blue);cursor:pointer;flex:none;padding:0}
+.say:hover{background:var(--blue-soft);border-color:var(--blue)}
+.say svg{width:17px;height:17px;display:block}
+.say.wide{width:auto;padding:0 12px;gap:6px;font-size:14px;height:36px}
+.dialog{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.dialog .ln{display:flex;gap:8px;align-items:flex-start}
+.dialog .who{color:var(--blue);font-weight:bold;white-space:nowrap}
+.dialog .tx{min-width:0}
+.vtable{border-collapse:collapse;font-size:14px;width:100%;max-width:520px}
+.vtable th,.vtable td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.vtable th{background:var(--blue-soft);color:var(--blue)}
+.vtable td b{color:var(--blue)}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .de{font-size:13px;font-weight:normal;color:var(--muted);font-style:italic}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0;align-items:center;flex-wrap:wrap}
+.q .nr{font-weight:bold;min-width:22px}
+.q .de{font-weight:bold}
+.blank{display:inline-block;min-width:4.5em;border-bottom:2px solid var(--ink);text-align:center;padding:0 4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 13px;cursor:pointer;text-align:left;min-height:38px}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:64px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default;color:var(--ink);opacity:1}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.line{min-height:44px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:6px;padding:4px 0;align-items:center}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:38px}
+.tile{font:inherit;font-size:15px;background:var(--blue-soft);color:var(--ink);border:1px solid var(--blue);border-radius:6px;padding:7px 12px;cursor:pointer;min-height:38px}
+.tile:disabled{cursor:default;opacity:1;color:var(--ink)}
+.fill{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:16px;width:15em;max-width:100%;padding:6px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:0}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.key{font:inherit;font-size:16px;min-width:40px;height:38px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
+.small{font:inherit;font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:8px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+.key-list{margin:0;padding-left:1.3em;font-size:14px}
+.key-list li{margin-bottom:6px}
+footer{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:560px){
+  .rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}
+  .vocab{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr)}
+  .vocab .tl{grid-column:2 / -1;border-bottom:1px solid var(--line);padding-top:0;margin-top:-4px}
+  .vocab .sp.row,.vocab .de,.vocab .en{border-bottom:none}
+  section.card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Deutsch A1 · Blatt 27 von 30 · Online practice</span>
+    <h1><span class="code">27</span> Prüfungstraining Schreiben – Exam training: writing (Schreiben) – fill in a form, write a short message</h1>
+    <p class="lead"><span id="leadCount"></span> Tap an answer or type it – you see at once if it is right. The correct answer is marked <span class="mark">yellow</span>. Tap the speaker button to hear the German. <span id="best"></span></p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 correct</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <label class="slow"><input type="checkbox" id="slow"> slow audio</label>
+  </div>
+  <nav class="jump" id="jump" aria-label="Go to an exercise"></nav>
+
+  <p class="note" id="noVoice" hidden>Your browser cannot read German aloud. Please open this page in Chrome (Android) or Safari (iPhone). You can still do all exercises except the listening exercise.</p>
+
+  <details class="merke" open>
+    <summary><small>STEP 1</small>Listen and repeat: all words of this sheet</summary>
+    <p class="hint">Tap a speaker button, listen, and say the word aloud two times. No sound? Turn off silent mode and turn the volume up.</p>
+    <div id="vocab"></div>
+    <h3 class="grp">The two dialogs</h3>
+    <div id="dialogs" style="display:flex;flex-direction:column;gap:14px"></div>
+  </details>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Cheat sheet: the grammar of this sheet</summary>
+    <dl class="rules">
+      <dt>The exam: Schreiben</dt><dd><span lang="de">Lesen</span> and <span lang="de">Schreiben</span> together: 45 minutes. <span lang="de">Teil 1</span>: fill in a form from a short text (5 points). <span lang="de">Teil 2</span>: write a short message about three points (10 points).</dd>
+      <dt>du or Sie?</dt><dd>
+        <div style="overflow-x:auto"><table class="vtable" style="margin-top:6px;font-size:12px">
+          <tr><th>friend (du)</th><th>boss, teacher (Sie)</th></tr>
+          <tr><td lang="de">Liebe Anna, / Lieber Tom,</td><td lang="de">Sehr geehrte Frau Berg,</td></tr>
+          <tr><td lang="de">Kannst du kommen?</td><td lang="de">Können Sie kommen?</td></tr>
+          <tr><td lang="de">Liebe Grüße / Viele Grüße</td><td lang="de">Mit freundlichen Grüßen</td></tr>
+        </table></div></dd>
+      <dt>A message in 3 steps</dt><dd>1 Greeting. 2 The three points – one short sentence for each. 3 Goodbye with your name. <span lang="de">Liebe Anna, ich bin krank. Ich kann leider nicht kommen. Ich möchte einen Termin. Viele Grüße, Maria</span></dd>
+      <dt>Useful</dt><dd><span lang="de">Ich kann leider nicht kommen.</span> · <span lang="de">Können Sie mir helfen?</span> · <span lang="de">Bitte rufen Sie mich an.</span></dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+
+  <div class="actions" style="justify-content:center"><button class="btn" id="resetAll" type="button">Start all exercises again</button></div>
+
+  <details class="merke" id="key">
+    <summary><small>LÖSUNGEN</small>Answer key for the paper worksheet</summary>
+    <p class="hint">Do the paper exercises first. Then check your answers here.</p>
+    <ol class="key-list" type="A">
+      <li><b>Teil 1: form.</b> <span lang="de">Costa, Ana · 3.5.1998 · Rosenstraße 12, 50667 Köln · Köchin</span></li>
+      <li><b>Teil 2: message.</b> Example: <span lang="de">Sehr geehrte Frau Berg, ich bin krank. Ich kann morgen leider nicht kommen. Ich möchte einen Termin. Mit freundlichen Grüßen, Maria Santos</span></li>
+      <li><b>Greeting and goodbye.</b> <span lang="de">Lieber Tom, … Viele Grüße / Liebe Grüße · Sehr geehrte Frau Berg, … Mit freundlichen Grüßen</span></li>
+      <li><b>Find the mistakes.</b> <span lang="de">Sehr geehrter Herr Becker, ich bin krank. Ich kann morgen nicht kommen. Mit freundlichen Grüßen, Maria</span></li>
+    </ol>
+  </details>
+
+  <footer>Deutsch A1 · Blatt 27 von 30 · Prüfungstraining Schreiben</footer>
+</div>
+
+<script>
+const DATA = {"vocab":[{"group":"The exam","words":[["die Mitteilung","message","mensahe"],["der Punkt","point","punto"],["der Satz","sentence","pangungusap"],["das Wort","word","salita"],["die Anrede","greeting (in a letter)","pambungad na bati"],["der Gruß · die Grüße","greeting, goodbye","pagbati"]]},{"group":"Greetings","words":[["Sehr geehrte Frau …,","Dear Mrs …, (formal)","Mahal na Gng. …"],["Sehr geehrter Herr …,","Dear Mr …, (formal)","Mahal na G. …"],["Mit freundlichen Grüßen","kind regards (formal)","Bumabati"],["Liebe Grüße","love, best wishes","Maraming pagbati"],["Tschüs!","Bye!","Paalam!"]]},{"group":"Useful verbs","words":[["treffen","to meet","makipagkita"],["abholen","to pick up","sunduin"],["mitbringen","to bring along","magdala"],["bestellen","to order","umorder"],["warten","to wait","maghintay"],["helfen","to help","tumulong"]]},{"group":"Phrases","words":[["Können Sie mir helfen?","Can you help me?","Matutulungan ba ninyo ako?"],["Bitte rufen Sie mich an.","Please call me.","Pakitawagan ako."],["Entschuldigen Sie bitte.","Excuse me.","Paumanhin po."],["Gute Besserung!","Get well soon!","Magpagaling ka!"],["Ich habe eine Frage.","I have a question.","May tanong ako."],["Ich brauche Hilfe.","I need help.","Kailangan ko ng tulong."]]},{"group":"More words – listen and repeat","words":[["schreiben · geschrieben","to write","magsulat"],["der Absender","sender","nagpadala"],["der Empfänger","recipient","tatanggap"]],"online":true}],"dialogs":[{"label":"Dialog 1 · informal (du)","intro":"Anna (A) must write a message. Maria (M) helps.","short":{"Maria":"M","Anna":"A"},"lines":[["Anna","Maria, ich muss eine Mitteilung schreiben. Hilfst du mir?"],["Maria","Gern. Was musst du schreiben?"],["Anna","Ich bin krank. Ich möchte einen Termin."],["Maria","Dann schreibst du: Sehr geehrter Herr Becker, ich bin krank."],["Anna","Und am Ende: Mit freundlichen Grüßen, Anna."],["Maria","Super! Das sind drei Punkte und ein Gruß."]]},{"label":"Dialog 2 · formal (Sie)","intro":"Herr Becker (B) has read the message of Frau Santos (S).","short":{"Frau Santos":"S","Herr Becker":"B"},"lines":[["Herr Becker","Frau Santos, ich habe Ihre Mitteilung gelesen. Sie können morgen nicht kommen?"],["Frau Santos","Nein, ich habe Fieber."],["Herr Becker","Gute Besserung! Wann möchten Sie einen Termin?"],["Frau Santos","Am Freitag um zehn Uhr, bitte."],["Herr Becker","Das geht. Ich schreibe eine E-Mail."],["Frau Santos","Vielen Dank! Auf Wiederhören!"]]}]};
+
+const SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+
+const SECTIONS = [
+ { id:"words", type:"mc", title:"What does it mean?", de:"Was bedeutet das?", task:"Tap the English meaning. Tap the speaker button to hear the German word.",
+   items:[
+    ["die Mitteilung",["message","point","sentence","word"]],["der Punkt",["point","message","sentence","word"]],["der Satz",["sentence","word","point","greeting"]],
+    ["das Wort",["word","sentence","message","point"]],["die Anrede",["greeting (in a letter)","goodbye","message","point"]],["Mit freundlichen Grüßen",["kind regards (formal)","Dear Mr …","Bye!","Hello"]],
+    ["Tschüs!",["Bye!","Hello","Kind regards","Excuse me"]],["treffen",["to meet","to pick up","to wait","to order"]],["abholen",["to pick up","to meet","to bring along","to help"]],
+    ["mitbringen",["to bring along","to pick up","to order","to wait"]],["warten",["to wait","to meet","to help","to order"]],["helfen",["to help","to wait","to meet","to order"]]
+   ].map(([q,o]) => ({q, de:true, say:q, opts:o}))
+ },
+ { id:"greet", type:"mc", title:"du or Sie?", de:"Welche Anrede und welcher Gruß passen?", task:"Read the situation. Tap the German sentence that fits.",
+   items:[
+    ["Greeting to your friend Tom.",["Lieber Tom,","Sehr geehrter Tom,","Sehr geehrte Tom,"]],
+    ["Greeting to your teacher, Mrs Berg.",["Sehr geehrte Frau Berg,","Sehr geehrter Frau Berg,","Hallo Frau Berg,"]],
+    ["Greeting to your boss, Mr Becker.",["Sehr geehrter Herr Becker,","Sehr geehrte Herr Becker,","Lieber Herr Becker,"]],
+    ["Greeting to your friend Anna.",["Liebe Anna,","Lieber Anna,","Sehr geehrte Anna,"]],
+    ["Goodbye to a friend.",["Liebe Grüße, Maria","Mit freundlichen Grüßen, Maria","Sehr geehrte Grüße, Maria"]],
+    ["Goodbye to your boss.",["Mit freundlichen Grüßen, Maria Santos","Tschüs, Maria","Hallo, Maria"]],
+    ["A short goodbye to a friend.",["Bis bald!","Sehr geehrter Herr!","Guten Morgen!"]],
+    ["Greeting to a company, Mrs Lang.",["Sehr geehrte Frau Lang,","Liebe Frau Lang,","Hallo Lang,"]],
+    ["You ask your friend Tom to come tomorrow.",["Kannst du morgen kommen?","Können Sie morgen kommen?","Kann Sie morgen kommen?"]],
+    ["You ask your boss, Mr Becker, for help.",["Können Sie mir helfen?","Kannst du mir helfen?","Kann ich dir helfen?"]]
+   ].map(([q,o]) => ({q, opts:o, optsDe:true, sayAfter:o[0]}))
+ },
+ { id:"points", type:"mc", title:"The three points", de:"Welcher Satz passt?", task:"Read the point. Tap the correct German sentence for your message.",
+   items:[
+    ["You cannot come.",["Ich kann leider nicht kommen.","Ich kann leider kommen nicht.","Ich leider nicht kann kommen."]],
+    ["You are ill.",["Ich bin krank.","Ich habe krank.","Ich bin kranke."]],
+    ["You ask for an appointment.",["Ich möchte einen Termin.","Ich möchte ein Termin.","Ich möchten einen Termin."]],
+    ["You thank someone for the invitation.",["Danke für die Einladung!","Danke zu die Einladung!","Danke für der Einladung!"]],
+    ["You ask someone to call you.",["Bitte rufen Sie mich an.","Bitte anrufen Sie mich.","Bitte rufen mich Sie an."]],
+    ["You ask for help.",["Können Sie mir helfen?","Können Sie mich helfen?","Kann Sie mir helfen?"]],
+    ["You arrive on Saturday at 14.30.",["Ich komme am Samstag um 14.30 Uhr an.","Ich ankomme am Samstag um 14.30 Uhr.","Ich komme an am Samstag um 14.30 Uhr."]],
+    ["You will bring a present.",["Ich bringe ein Geschenk mit.","Ich bringe mit ein Geschenk.","Ich mitbringe ein Geschenk."]],
+    ["You ask: Shall we meet on Monday?",["Treffen wir uns am Montag?","Treffen am Montag wir uns?","Wir uns treffen am Montag?"]],
+    ["You say you have a question.",["Ich habe eine Frage.","Ich habe ein Frage.","Ich bin eine Frage."]]
+   ].map(([q,o]) => ({q, opts:o, optsDe:true, sayAfter:o[0]}))
+ },
+ { id:"fix", type:"mc", title:"Complete the sentence", de:"Welche Form passt?", task:"Tap the right word for the message.",
+   items:[
+    ["Ich ___ morgen nicht kommen.",["kann","kannst","können"],"I cannot come tomorrow."],
+    ["Sehr ___ Herr Becker,",["geehrter","geehrte","liebe"],"Dear Mr Becker,"],
+    ["Mit freundlichen ___",["Grüßen","Gruß","Grüße"],"Kind regards"],
+    ["Liebe Anna, danke ___ die Einladung!",["für","zu","von"],"Dear Anna, thank you for the invitation!"],
+    ["Ich komme gern, ___ ich habe kein Geschenk.",["aber","denn","oder"],"I would love to come, but I have no present."],
+    ["Ich war krank, ___ ich bin zu Hause geblieben.",["und","oder","aber"],"I was ill and I stayed at home."],
+    ["___ Sie mir helfen?",["Können","Kannst","Kann"],"Can you help me?"],
+    ["Ich habe gestern eine E-Mail ___.",["geschrieben","geschreibt","schreiben"],"I wrote an e-mail yesterday."],
+    ["Wir ___ uns am Montag.",["treffen","treffe","trifft"],"We are meeting on Monday."],
+    ["Ich ___ einen Termin.",["möchte","möchten","möchtest"],"I would like an appointment."],
+    ["Du ___ mich anrufen.",["kannst","kann","können"],"You can call me."],
+    ["Ich bin am 3. Mai 1998 in Lissabon ___.",["geboren","geborn","gebore"],"I was born on 3 May 1998 in Lisbon."]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"form", type:"mc", title:"Teil 1: fill in the form", de:"Was schreibst du ins Formular?", task:"Read the text. Tap the data for the field after the arrow.",
+   items:[
+    ["„Ich heiße Ana Costa. Ich bin am 3. Mai 1998 in Lissabon geboren. Ich wohne in Köln, Rosenstraße 12, 50667. Ich bin Köchin.“ → Familienname:",["Costa","Ana","Köln"]],
+    ["„Ich heiße Ana Costa. Ich bin am 3. Mai 1998 in Lissabon geboren. Ich wohne in Köln, Rosenstraße 12, 50667. Ich bin Köchin.“ → Vorname:",["Ana","Costa","Köchin"]],
+    ["„Ich heiße Ana Costa. Ich bin am 3. Mai 1998 in Lissabon geboren. Ich wohne in Köln, Rosenstraße 12, 50667. Ich bin Köchin.“ → Geburtsort:",["Lissabon","Köln","Rosenstraße"]],
+    ["„Ich heiße Ana Costa. Ich bin am 3. Mai 1998 in Lissabon geboren. Ich wohne in Köln, Rosenstraße 12, 50667. Ich bin Köchin.“ → Geburtsdatum:",["3.5.1998","5.3.1998","3.5.1988"]],
+    ["„Ich heiße Ana Costa. Ich bin am 3. Mai 1998 in Lissabon geboren. Ich wohne in Köln, Rosenstraße 12, 50667. Ich bin Köchin.“ → Postleitzahl:",["50667","12","1998"]],
+    ["„Ich heiße Ana Costa. Ich bin am 3. Mai 1998 in Lissabon geboren. Ich wohne in Köln, Rosenstraße 12, 50667. Ich bin Köchin.“ → Beruf:",["Köchin","Köln","Ana"]],
+    ["„Mein Name ist Tom Berg. Ich komme aus Wien und wohne in Berlin. Meine Telefonnummer ist 0151 987654. Ich bin verheiratet.“ → Wohnort:",["Berlin","Wien","Berg"]],
+    ["„Mein Name ist Tom Berg. Ich komme aus Wien und wohne in Berlin. Meine Telefonnummer ist 0151 987654. Ich bin verheiratet.“ → Familienstand:",["verheiratet","ledig","geschieden"]],
+    ["„Mein Name ist Tom Berg. Ich komme aus Wien und wohne in Berlin. Meine Telefonnummer ist 0151 987654. Ich bin verheiratet.“ → Telefon:",["0151 987654","0151 98765","0511 987654"]],
+    ["„Mein Name ist Tom Berg. Ich komme aus Wien und wohne in Berlin. Meine Telefonnummer ist 0151 987654. Ich bin verheiratet.“ → Herkunft:",["Wien","Berlin","Berg"]]
+   ].map(([q,o]) => ({q, opts:o, optsDe:true}))
+ },
+ { id:"type", type:"type", title:"Write it in German", de:"Schreib auf Deutsch.", task:"Type the German word and tap “Check”. Capital letters and punctuation are not counted here.",
+   items:[
+    ["message",["Mitteilung"]],["sentence",["Satz"]],["word",["Wort"]],["point",["Punkt"]],["greeting (letter)",["Anrede"]],
+    ["to write",["schreiben"]],["to meet",["treffen"]],["to wait",["warten"]],["to bring along",["mitbringen"]],["to pick up",["abholen"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"build", type:"build", title:"Build the sentence", de:"Bilde den Satz.", task:"Tap the words in the right order. Tap a word in your sentence to take it back.",
+   items:[
+    ["Dear Mr Becker,",["Sehr","geehrter","Herr","Becker,"]],
+    ["Kind regards (formal)",["Mit","freundlichen","Grüßen"]],
+    ["I cannot come tomorrow.",["Ich","kann","morgen","nicht","kommen."]],
+    ["Can you help me?",["Können","Sie","mir","helfen?"]],
+    ["Please call me.",["Bitte","rufen","Sie","mich","an."]],
+    ["I would like an appointment.",["Ich","möchte","einen","Termin."]],
+    ["Thank you for the invitation!",["Danke","für","die","Einladung!"]],
+    ["I am ill and cannot come.",["Ich","bin","krank","und","kann","nicht","kommen."]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"reply", type:"mc", title:"Review of sheets 25 and 26: choose the best answer", de:"Wiederholung: Was antwortest du?", task:"These are sentences from sheets 25 and 26. Someone says this to you. Tap the answer that fits.",
+   items:[
+    ["Wo finden Sie Informationen?",["In der Anzeige.","In die Anzeige.","Bei Anzeige."]],
+    ["Was steht auf dem Schild?",["Rauchen verboten.","Rauchen verbieten.","Rauchen ist verboten sein."]],
+    ["Wann ist das Geschäft geöffnet?",["Von acht bis sechzehn Uhr.","Von acht zu sechzehn Uhr.","Um acht bis sechzehn Uhr."]],
+    ["Was kostet die Wohnung?",["480 Euro Miete.","480 Euro Mieten.","480 Euro Miet."]],
+    ["Ist das richtig?",["Nein, das ist falsch.","Nein, das bin falsch.","Nein, das hat falsch."]],
+    ["Wo steht das?",["Das steht im Text.","Das steht in Text.","Das ist stehen im Text."]],
+    ["Ist die Wohnung frei?",["Ja, ab sofort.","Ja, an sofort.","Ja, auf sofort."]],
+    ["Kann ich hier rauchen?",["Nein, hier ist Rauchen verboten.","Nein, hier ist Rauchen verbieten.","Nein, hier bin Rauchen verboten."]]
+   ].map(([q,o]) => ({q:"„"+q+"“", de:true, say:q, opts:o, optsDe:true, sayAfter:o[0]}))
+ }
+];
+
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.!?,;:„“”"]/g," ").replace(/\s+/g," ").trim()
+  .replace(/ß/g,"ss").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue");
+
+/* ---------- speech ---------- */
+const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+let deVoice = null;
+function pickVoice(){
+  if (!synth) return;
+  const vs = synth.getVoices() || [];
+  deVoice = vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null;
+}
+function speak(text){
+  if (!synth) return;
+  try {
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[„“”]/g,"").replace(/…/g,""));
+    u.lang = "de-DE";
+    if (deVoice) u.voice = deVoice;
+    u.rate = $("slow").checked ? 0.55 : 0.85;
+    synth.speak(u);
+  } catch (e) {}
+}
+if (synth) { pickVoice(); try { synth.addEventListener("voiceschanged", pickVoice); } catch (e) {} }
+else { $("noVoice").hidden = false; }
+function sayBtn(text, label){
+  const b = el("button", label ? "say wide" : "say");
+  b.type = "button"; b.innerHTML = SPK + (label ? "<span>"+label+"</span>" : "");
+  b.setAttribute("aria-label", label ? label : "Listen: " + text);
+  b.addEventListener("click", () => speak(text));
+  return b;
+}
+
+/* ---------- step 1: words and dialogs ---------- */
+function renderLearn(){
+  const box = $("vocab");
+  DATA.vocab.forEach(g => {
+    box.append(el("h3","grp",g.group));
+    const grid = el("div","vocab");
+    g.words.forEach(([de,en,tl]) => {
+      const c0 = el("div","sp row"); c0.append(sayBtn(de.replace(" · ",", ").replace("(aus)","aus").replace("(in)","in").replace("…","")));
+      const c1 = el("div","de",de); c1.lang = "de";
+      const c2 = el("div","en",en);
+      const c3 = el("div","tl",tl); c3.lang = "tl";
+      grid.append(c0,c1,c2,c3);
+    });
+    box.append(grid);
+  });
+  const dbox = $("dialogs");
+  DATA.dialogs.forEach(d => {
+    const wrap = el("div","dialog");
+    wrap.append(el("b",null,d.label));
+    d.lines.forEach(([who,tx]) => {
+      const ln = el("div","ln");
+      ln.append(sayBtn(tx));
+      const t = el("span","tx"); const w = el("span","who",who+": "); const s = el("span",null,tx); s.lang = "de";
+      t.append(w,s); ln.append(t); wrap.append(ln);
+    });
+    dbox.append(wrap);
+  });
+}
+
+/* ---------- exercises ---------- */
+const state = {};
+const total = (sec) => sec.items.length;
+
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s => { const st = state[s.id]; ok += st.ok; ans += st.done; all += total(s);
+    $("sc-"+s.id).textContent = st.ok + " / " + total(s) + " correct";
+    $("j-"+s.id).classList.toggle("done", st.done === total(s)); });
+  $("total").textContent = ok + " / " + all + " correct";
+  $("totalbar").style.width = (ans/all*100) + "%";
+  const box = $("doneBox");
+  if (ans === all){
+    box.hidden = false; const p = ok/all, pct = Math.round(p*100);
+    $("doneText").textContent = "Geschafft! " + ok + " of " + all + " correct (" + pct + " %)";
+    $("doneTip").textContent = p >= 0.9 ? "Sehr gut! You are ready for sheet 28. Come back in two days and repeat this page once."
+      : p >= 0.7 ? "Gut! Tap “Start all exercises again” tomorrow and try to beat your score."
+      : "Read the cheat sheet again, listen to the words once more and then start again. Repeating is how the words stay.";
+    saveBest(pct);
+  } else box.hidden = true;
+}
+function saveBest(pct){
+  try { const old = parseInt(localStorage.getItem("a1-27-best") || "0", 10); if (pct > old) localStorage.setItem("a1-27-best", String(pct)); } catch (e) {}
+  showBest();
+}
+function showBest(){
+  try { const b = localStorage.getItem("a1-27-best"); if (b) $("best").textContent = "Your best result so far: " + b + " %."; } catch (e) {}
+}
+function count(sec, ok){ const st = state[sec.id]; st.done++; if (ok) st.ok++; update(); }
+
+function feedback(li, de, en){
+  if (!de && !en) return;
+  const fb = el("div","fb");
+  if (de){ fb.append(sayBtn(de)); const b = el("b",null,de); b.lang = "de"; fb.append(b); }
+  if (en) fb.append(el("span",null,(de ? "= " : "") + en));
+  li.append(fb);
+}
+
+function mcItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."));
+  let blank = null;
+  if (sec.listen){
+    q.append(sayBtn(it.say,"Play"));
+  } else {
+    if (it.say) q.append(sayBtn(it.say));
+    if (it.q.includes("___")){
+      const parts = it.q.split("___"); const s = el("span","de"); s.lang = "de";
+      blank = el("span","blank"," ");
+      s.append(document.createTextNode(parts[0]), blank, document.createTextNode(parts[1])); q.append(s);
+    } else { const s = el("span", it.de ? "de" : null, it.q); if (it.de) s.lang = "de"; q.append(s); }
+  }
+  const opts = el("div","opts");
+  const order = it.fixed ? it.fixed.map(t => ({t, right: t === it.opts[0]})) : shuffle(it.opts.map((t,i) => ({t, right: i === 0})));
+  const btns = order.map(o => {
+    const b = el("button", sec.code ? "opt code" : "opt", o.t); b.type = "button"; if (it.optsDe) b.lang = "de";
+    b.addEventListener("click", () => finish(o.right, b)); opts.append(b); return {b, right:o.right};
+  });
+  let done = false;
+  function finish(ok, chosen){
+    if (done) return; done = true;
+    btns.forEach(x => { x.b.disabled = true; if (x.right) x.b.classList.add("right"); });
+    if (chosen && !ok) chosen.classList.add("wrong");
+    if (blank){ blank.textContent = it.opts[0]; blank.classList.add("mark"); }
+    if (chosen) li.classList.add(ok ? "ok" : "bad");
+    feedback(li, sec.listen ? it.say : it.sayAfter, it.fb);
+    count(sec, !!ok);
+  }
+  li.append(q, opts);
+  li.reveal = () => finish(false, null);
+  li.isDone = () => done;
+  return li;
+}
+
+function buildItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const line = el("div","line"); line.lang = "de"; line.setAttribute("aria-label","Your sentence");
+  const pool = el("div","pool"); pool.lang = "de";
+  let order = shuffle(it.a);
+  for (let k=0; k<8 && order.join(" ") === it.a.join(" "); k++) order = shuffle(it.a);
+  let done = false;
+  order.forEach(w => {
+    const t = el("button","tile",w); t.type = "button";
+    t.addEventListener("click", () => {
+      if (done) return;
+      if (t.parentNode === pool) line.append(t); else pool.append(t);
+      if (!pool.children.length) check();
+    });
+    pool.append(t);
+  });
+  function check(){
+    const got = Array.from(line.children).map(c => c.textContent).join(" ");
+    finish(got === it.a.join(" "), true);
+  }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    Array.from(li.querySelectorAll(".tile")).forEach(t => t.disabled = true);
+    if (tried) li.classList.add(ok ? "ok" : "bad");
+    const full = it.a.join(" ");
+    const fb = el("div","fb"); fb.append(sayBtn(full));
+    const m = el("span","mark",full); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  li.append(q, line, pool);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+let lastInput = null;
+function typeItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const fill = el("div","fill");
+  const inp = el("input","gap"); inp.type = "text"; inp.lang = "de";
+  inp.setAttribute("autocomplete","off"); inp.setAttribute("autocapitalize","off"); inp.setAttribute("autocorrect","off"); inp.spellcheck = false;
+  inp.setAttribute("aria-label","Your answer in German for: " + it.en);
+  const btn = el("button","small","Check"); btn.type = "button";
+  inp.addEventListener("focus", () => { lastInput = inp; });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  btn.addEventListener("click", check);
+  let done = false;
+  function check(){ if (!inp.value.trim()) { inp.focus(); return; } finish(it.a.some(a => norm(a) === norm(inp.value)), true); }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    inp.readOnly = true; btn.disabled = true; btn.hidden = true;
+    if (tried){ inp.classList.add(ok ? "ok" : "bad"); li.classList.add(ok ? "ok" : "bad"); }
+    const fb = el("div","fb"); fb.append(sayBtn(it.a[0]));
+    const m = el("span","mark",it.a[0]); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  fill.append(inp, btn); li.append(q, fill);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+function renderSection(sec, card){
+  state[sec.id] = {ok:0, done:0};
+  const old = card.querySelector(".items"); if (old) old.remove();
+  const ul = el("ul","items");
+  shuffle(sec.items).forEach((it,i) => {
+    ul.append(sec.type === "build" ? buildItem(sec,it,i+1) : sec.type === "type" ? typeItem(sec,it,i+1) : mcItem(sec,it,i+1));
+  });
+  card.insertBefore(ul, card.querySelector(".tail"));
+}
+
+function render(){
+  const main = $("sections"), jump = $("jump");
+  main.innerHTML = ""; jump.innerHTML = "";
+  let all = 0;
+  SECTIONS.forEach((sec, si) => {
+    all += total(sec);
+    const card = el("section","card"); card.id = "s-" + sec.id;
+    const h = el("h2");
+    const n = el("span","n",String(si+1)); const t = el("span",null,sec.title); const d = el("span","de",sec.de); d.lang = "de";
+    const sc = el("span","sc"); sc.id = "sc-" + sec.id;
+    h.append(n,t,d,sc);
+    const task = el("p","task",sec.task);
+    const tail = el("div","tail"); tail.style.cssText = "display:flex;flex-direction:column;gap:10px";
+    if (sec.type === "type"){
+      const keys = el("div","keys"); keys.append(el("span",null,"Special letters:"));
+      ["ä","ö","ü","ß"].forEach(ch => { const k = el("button","key",ch); k.type = "button"; k.lang = "de";
+        k.addEventListener("mousedown", e => e.preventDefault());
+        k.addEventListener("click", () => { const inp = lastInput; if (!inp || inp.readOnly) return;
+          const s = inp.selectionStart ?? inp.value.length, e2 = inp.selectionEnd ?? inp.value.length;
+          inp.value = inp.value.slice(0,s) + ch + inp.value.slice(e2); inp.focus(); try { inp.setSelectionRange(s+1,s+1); } catch (e) {} });
+        keys.append(k); });
+      tail.append(keys);
+    }
+    const act = el("div","actions");
+    const again = el("button","btn","Shuffle and try again"); again.type = "button";
+    again.addEventListener("click", () => { renderSection(sec, card); update(); });
+    const show = el("button","btn","Show the answers"); show.type = "button";
+    show.addEventListener("click", () => { card.querySelectorAll(".item").forEach(li => { if (!li.isDone()) li.reveal(); }); });
+    act.append(again, show); tail.append(act);
+    card.append(h, task, tail);
+    main.append(card);
+    renderSection(sec, card);
+    const a = el("a",null,(si+1) + " · " + sec.title); a.href = "#s-" + sec.id; a.id = "j-" + sec.id; jump.append(a);
+  });
+  $("leadCount").textContent = SECTIONS.length + " exercises with " + all + " tasks.";
+  update();
+}
+
+$("resetAll").addEventListener("click", () => { render(); window.scrollTo({top:0, behavior:"smooth"}); });
+renderLearn(); render(); showBest();
+</script>
+</body>
+</html>
