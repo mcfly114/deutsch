@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Deutsch A1 · Blatt 2 · Alphabet und Zahlen</title>
+
+<style>
+/* Layout: one calm learning column; every exercise is a worksheet card with a blue number like on the paper sheet. Correct answers are marked yellow. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 60px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.slow{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.slow input{width:18px;height:18px;accent-color:var(--blue)}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:4px 11px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.note{margin:0;background:var(--bad-soft);border:1px solid var(--bad);border-radius:8px;padding:10px 14px;font-size:13px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+details.merke > *:not(summary){margin-top:10px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.rules{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:14px;margin-bottom:0}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+h3.grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;font-weight:normal}
+.vocab{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:0;font-size:14px;border-top:1px solid var(--line)}
+.vocab > *{padding:6px 8px 6px 0;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.vocab .de{font-weight:bold}
+.vocab .tl{color:var(--muted);font-style:italic}
+.say{font:inherit;display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--blue);cursor:pointer;flex:none;padding:0}
+.say:hover{background:var(--blue-soft);border-color:var(--blue)}
+.say svg{width:17px;height:17px;display:block}
+.say.wide{width:auto;padding:0 12px;gap:6px;font-size:14px;height:36px}
+.dialog{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.dialog .ln{display:flex;gap:8px;align-items:flex-start}
+.dialog .who{color:var(--blue);font-weight:bold;white-space:nowrap}
+.dialog .tx{min-width:0}
+.vtable{border-collapse:collapse;font-size:14px;width:100%;max-width:520px}
+.vtable th,.vtable td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.vtable th{background:var(--blue-soft);color:var(--blue)}
+.vtable td b{color:var(--blue)}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .de{font-size:13px;font-weight:normal;color:var(--muted);font-style:italic}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0;align-items:center;flex-wrap:wrap}
+.q .nr{font-weight:bold;min-width:22px}
+.q .de{font-weight:bold}
+.blank{display:inline-block;min-width:4.5em;border-bottom:2px solid var(--ink);text-align:center;padding:0 4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 13px;cursor:pointer;text-align:left;min-height:38px}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:64px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default;color:var(--ink);opacity:1}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.line{min-height:44px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:6px;padding:4px 0;align-items:center}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:38px}
+.tile{font:inherit;font-size:15px;background:var(--blue-soft);color:var(--ink);border:1px solid var(--blue);border-radius:6px;padding:7px 12px;cursor:pointer;min-height:38px}
+.tile:disabled{cursor:default;opacity:1;color:var(--ink)}
+.fill{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:16px;width:15em;max-width:100%;padding:6px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:0}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.key{font:inherit;font-size:16px;min-width:40px;height:38px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
+.small{font:inherit;font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:8px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+.key-list{margin:0;padding-left:1.3em;font-size:14px}
+.key-list li{margin-bottom:6px}
+footer{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:560px){
+  .rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}
+  .vocab{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr)}
+  .vocab .tl{grid-column:2 / -1;border-bottom:1px solid var(--line);padding-top:0;margin-top:-4px}
+  .vocab .sp.row,.vocab .de,.vocab .en{border-bottom:none}
+  section.card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Deutsch A1 · Blatt 2 von 30 · Online practice</span>
+    <h1><span class="code">2</span> Alphabet und Zahlen – The alphabet, numbers 0–20 and your phone number</h1>
+    <p class="lead"><span id="leadCount"></span> Tap an answer or type it – you see at once if it is right. The correct answer is marked <span class="mark">yellow</span>. Tap the speaker button to hear the German. <span id="best"></span></p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 correct</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <label class="slow"><input type="checkbox" id="slow"> slow audio</label>
+  </div>
+  <nav class="jump" id="jump" aria-label="Go to an exercise"></nav>
+
+  <p class="note" id="noVoice" hidden>Your browser cannot read German aloud. Please open this page in Chrome (Android) or Safari (iPhone). You can still do all exercises except the listening exercise.</p>
+
+  <details class="merke" open>
+    <summary><small>STEP 1</small>Listen and repeat: all words and letters of this sheet</summary>
+    <p class="hint">Tap a speaker button, listen, and say the word aloud two times. No sound? Turn off silent mode and turn the volume up.</p>
+    <div id="vocab"></div>
+    <h3 class="grp">The two dialogs</h3>
+    <div id="dialogs" style="display:flex;flex-direction:column;gap:14px"></div>
+  </details>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Cheat sheet: the grammar of this sheet</summary>
+    <dl class="rules">
+      <dt>er · sie · wir</dt><dd><b lang="de">er</b> = he · <b lang="de">sie</b> = she · <b lang="de">wir</b> = we. German has two words for Tagalog <i>siya</i>, like English: <b lang="de">er</b> for a man, <b lang="de">sie</b> for a woman. <b lang="de">wir</b> is both <i>kami</i> and <i>tayo</i>.</dd>
+      <dt>Verb endings</dt><dd>New: er / sie → <b>-t</b> · wir → <b>-en</b> (the same form as Sie)
+        <div style="overflow-x:auto"><table class="vtable" style="margin-top:6px;font-size:12px">
+          <tr><th></th><th lang="de">kommen</th><th lang="de">wohnen</th><th lang="de">buchstabieren</th><th lang="de">sein</th></tr>
+          <tr><td><b>ich</b></td><td lang="de">komm<b>e</b></td><td lang="de">wohn<b>e</b></td><td lang="de">buchstabier<b>e</b></td><td lang="de">bin</td></tr>
+          <tr><td><b>du</b></td><td lang="de">komm<b>st</b></td><td lang="de">wohn<b>st</b></td><td lang="de">buchstabier<b>st</b></td><td lang="de">bist</td></tr>
+          <tr><td style="white-space:nowrap"><b>er / sie</b></td><td lang="de">komm<b>t</b></td><td lang="de">wohn<b>t</b></td><td lang="de">buchstabier<b>t</b></td><td lang="de">ist</td></tr>
+          <tr><td><b>wir</b></td><td lang="de">komm<b>en</b></td><td lang="de">wohn<b>en</b></td><td lang="de">buchstabier<b>en</b></td><td lang="de">sind</td></tr>
+          <tr><td><b>Sie</b></td><td lang="de">komm<b>en</b></td><td lang="de">wohn<b>en</b></td><td lang="de">buchstabier<b>en</b></td><td lang="de">sind</td></tr>
+        </table></div>
+        <span class="hint"><span lang="de">sie</span> (small s) = she: <span lang="de">sie wohnt</span>. <span lang="de">Sie</span> (capital S) = you, formal: <span lang="de">Sie wohnen</span>. <span lang="de">heißen</span> → <span lang="de">er / sie heißt</span>.</span></dd>
+      <dt>Numbers</dt><dd>13 to 19 = number + <b lang="de">zehn</b>: <span lang="de">drei<b>zehn</b> · vier<b>zehn</b> · fünf<b>zehn</b> · acht<b>zehn</b> · neun<b>zehn</b></span>. Careful: 16 = <b lang="de">sechzehn</b> (not sechszehn) · 17 = <b lang="de">siebzehn</b> (not siebenzehn). Phone numbers: say every digit alone. 0 1 7 1 = <span lang="de">null – eins – sieben – eins</span>.</dd>
+      <dt>The alphabet</dt><dd>Read the letter names like Tagalog words:
+        <span style="display:block">A a · B be · C tse · D de · E e · F ef · G ge · H ha · I i · J yot · K ka · L el · M em · N en · O o · P pe · Q ku · R er · S es · T te · U u · V fau · W ve · X iks · Y üpsilon · Z tset · ß es-tset</span>
+        <span class="hint">Careful: E = e and I = i (not like in English). W = ve, with the v of English “very”. Ä, Ö, Ü: tap the speaker button in the word list and listen.</span></dd>
+      <dt>Phrases</dt><dd>Learn these as one piece: <span lang="de">Wie ist <b>deine</b> Telefonnummer?</span> (formal: <span lang="de">Wie ist <b>Ihre</b> Telefonnummer?</span>) – <span lang="de">Meine Telefonnummer ist …</span> · <span lang="de">Wie bitte? Noch einmal, bitte!</span> · <span lang="de">Bitte langsam!</span> · <span lang="de">Buchstabieren Sie, bitte!</span></dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+
+  <div class="actions" style="justify-content:center"><button class="btn" id="resetAll" type="button">Start all exercises again</button></div>
+
+  <details class="merke" id="key">
+    <summary><small>LÖSUNGEN</small>Answer key for the paper worksheet</summary>
+    <p class="hint">Do the paper exercises first. Then check your answers here.</p>
+    <ol class="key-list" type="A">
+      <li><b>Numbers.</b> 1 <span lang="de">drei</span> · 2 <span lang="de">sieben</span> · 3 <span lang="de">zwölf</span> · 4 <span lang="de">sechzehn</span> · 5 <span lang="de">elf</span> · 6 <span lang="de">siebzehn</span> · 7 <span lang="de">zwanzig</span> · 8 <span lang="de">acht</span></li>
+      <li><b>Phone numbers.</b> 1 &nbsp;0 3 0 7 4 6 1 8 · 2 &nbsp;0 1 7 1 9 2 5 3 · 3 &nbsp;11 – 12 – 15 – 19 – 20</li>
+      <li><b>The verb.</b> 1 <span lang="de">kommt</span> · 2 <span lang="de">wohnt</span> · 3 <span lang="de">wohnen</span> · 4 <span lang="de">kommt</span> · 5 <span lang="de">heißt</span> · 6 <span lang="de">sind</span> · 7 <span lang="de">ist</span> · 8 <span lang="de">buchstabiert</span></li>
+      <li><b>About a friend.</b> Example: <span lang="de">Das ist Tom. Er kommt aus Berlin. Er wohnt in Hamburg.</span> For a woman: <span lang="de">Das ist Anna. Sie kommt aus Deutschland. Sie wohnt in Berlin.</span> Ask your partner to check your sentences.</li>
+    </ol>
+  </details>
+
+  <footer>Deutsch A1 · Blatt 2 von 30 · Alphabet und Zahlen</footer>
+</div>
+
+<script>
+const DATA = {"vocab":[{"group":"Numbers 0–6","words":[["null","0 – zero","sero"],["eins","1 – one","isa"],["zwei","2 – two","dalawa"],["drei","3 – three","tatlo"],["vier","4 – four","apat"],["fünf","5 – five","lima"],["sechs","6 – six","anim"]]},{"group":"Numbers 7–12","words":[["sieben","7 – seven","pito"],["acht","8 – eight","walo"],["neun","9 – nine","siyam"],["zehn","10 – ten","sampu"],["elf","11 – eleven","labing-isa"],["zwölf","12 – twelve","labindalawa"]]},{"group":"Numbers 13–20","words":[["dreizehn","13 – thirteen","labintatlo"],["vierzehn","14 – fourteen","labing-apat"],["fünfzehn","15 – fifteen","labinlima"],["sechzehn","16 – sixteen","labing-anim"],["siebzehn","17 – seventeen","labimpito"],["achtzehn","18 – eighteen","labingwalo"],["neunzehn","19 – nineteen","labinsiyam"],["zwanzig","20 – twenty","dalawampu"]]},{"group":"Phone and spelling","words":[["die Telefonnummer","phone number","numero ng telepono"],["buchstabieren","to spell","baybayin"],["Wie bitte?","Pardon? / Sorry?","Ano po?"],["noch einmal","once more / again","ulit / isa pa"],["langsam","slow / slowly","mabagal"]]},{"group":"People","words":[["er","he","siya (lalaki)"],["sie","she","siya (babae)"],["wir","we","kami / tayo"],["Das ist …","This is …","Ito si …"]]},{"group":"The alphabet – listen and repeat","online":true,"words":[["A, B, C, D, E, F, G","a · be · tse · de · e · ef · ge",""],["H, I, J, K, L, M, N","ha · i · yot · ka · el · em · en",""],["O, P, Q, R, S, T, U","o · pe · ku · er · es · te · u",""],["V, W, X, Y, Z","fau · ve · iks · üpsilon · tset",""],["Ä, Ö, Ü","a, o, u with two dots (Umlaut)",""]]}],"dialogs":[{"label":"Dialog 1 · informal (du)","intro":"Anna (A) shows Maria (M) a photo on her phone.","short":{"Anna":"A","Maria":"M"},"lines":[["Anna","Das ist Tom. Er kommt aus Berlin."],["Maria","Und das ist Frau Becker?"],["Anna","Ja. Sie wohnt in Hamburg. Tom und ich, wir wohnen in Berlin."],["Maria","Wie ist deine Telefonnummer, Anna?"],["Anna","Meine Telefonnummer ist 0 3 0  2 3 1 2 5  7 4 6."],["Maria","Wie bitte? Noch einmal, bitte – langsam!"]]},{"label":"Dialog 2 · formal (Sie)","intro":"Herr Becker (B) and Frau Santos (S) are in an office.","short":{"Herr Becker":"B","Frau Santos":"S"},"lines":[["Herr Becker","Guten Tag! Wie heißen Sie, bitte?"],["Frau Santos","Ich heiße Maria Santos."],["Herr Becker","Wie bitte? Buchstabieren Sie, bitte!"],["Frau Santos","S, A, N, T, O, S."],["Herr Becker","Danke. Und wie ist Ihre Telefonnummer?"],["Frau Santos","Meine Telefonnummer ist 0 1 7 1  3 9 2 0 0  5 8."]]}]};
+
+const SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+
+const SECTIONS = [
+ { id:"numbers", type:"mc", title:"Which number is it?", de:"Welche Zahl ist das?", task:"Tap the right number. Tap the speaker button to hear the German word.",
+   items:[
+    ["null",["0","1","9","10"]],
+    ["eins",["1","0","11","2"]],
+    ["drei",["3","13","2","6"]],
+    ["sieben",["7","6","17","2"]],
+    ["acht",["8","18","9","4"]],
+    ["neun",["9","19","8","1"]],
+    ["zehn",["10","2","20","12"]],
+    ["elf",["11","12","1","10"]],
+    ["zwölf",["12","20","2","11"]],
+    ["vierzehn",["14","4","15","13"]],
+    ["fünfzehn",["15","5","14","16"]],
+    ["sechzehn",["16","6","17","15"]],
+    ["siebzehn",["17","7","16","18"]],
+    ["zwanzig",["20","12","2","10"]]
+   ].map(([q,o]) => ({q, de:true, say:q, opts:o}))
+ },
+ { id:"listen", type:"mc", listen:true, title:"Listen: what do you hear?", de:"Was hörst du?", task:"Tap “Play”, listen, and then tap what you heard.",
+   items:[
+    ["zwei",["2","3","12"],"two (2)"],
+    ["sechzehn",["16","6","17"],"sixteen (16)"],
+    ["siebzehn",["17","7","16"],"seventeen (17)"],
+    ["zwölf",["12","20","2"],"twelve (12)"],
+    ["fünf, null, neun",["5 0 9","5 0 1","4 0 9"],"five – zero – nine"],
+    ["E",["E","I","A"],"the letter E"],
+    ["J",["J","G","Y"],"the letter J (yot)"],
+    ["W",["W","V","B"],"the letter W (ve)"],
+    ["M, A, R, I, A",["M – A – R – I – A","M – A – R – E – A","N – A – R – I – A"],"Maria"],
+    ["Wie ist Ihre Telefonnummer?",["Wie ist Ihre Telefonnummer?","Wie ist deine Telefonnummer?","Wie heißen Sie?"],"What is your phone number? (formal)"]
+   ].map(([say,o,en]) => ({say, opts:o, fb:en, optsDe:true}))
+ },
+ { id:"alphabet", type:"mc", title:"How do you say the letter?", de:"Wie heißt der Buchstabe?", task:"Tap the German name of the letter. Read the names like Tagalog words. Tap the speaker button to hear the letter.",
+   items:[
+    ["E",["e","i","a"]],
+    ["I",["i","e","ai"]],
+    ["J",["yot","ye","ge"]],
+    ["G",["ge","yi","yot"]],
+    ["H",["ha","he","eyts"]],
+    ["V",["fau","ve","vi"]],
+    ["W",["ve","fau","u"]],
+    ["Y",["üpsilon","yot","wai"]],
+    ["Z",["tset","si","es"]],
+    ["C",["tse","si","ka"]]
+   ].map(([q,o]) => ({q, de:true, say:q, opts:o}))
+ },
+ { id:"pron", type:"mc", code:true, title:"er, sie or wir?", de:"er, sie oder wir?", task:"Which word can you say instead of the name?",
+   items:[
+    ["Herr Becker","er"],["Maria","sie"],["Anna und ich","wir"],["Tom","er"],
+    ["Frau Santos","sie"],["Tom und ich","wir"],["Anna","sie"],["Maria und ich","wir"]
+   ].map(([q,a]) => ({q, de:true, opts:[a, ...["er","sie","wir"].filter(x => x !== a)], fixed:["er","sie","wir"], optsDe:true}))
+ },
+ { id:"verb", type:"mc", title:"Choose the right verb form", de:"Welche Form passt?", task:"er / sie → -t · wir → -en. Tap the form that fits the gap.",
+   items:[
+    ["Er ___ aus Berlin.",["kommt","komme","kommen"],"He comes from Berlin."],
+    ["Maria ___ in Manila.",["wohnt","wohnst","wohnen"],"Maria lives in Manila."],
+    ["Wir ___ in Hamburg.",["wohnen","wohnt","wohne"],"We live in Hamburg."],
+    ["Das ___ Tom.",["ist","bist","sind"],"This is Tom."],
+    ["Wir ___ Anna und Tom.",["sind","ist","bin"],"We are Anna and Tom."],
+    ["Anna ___ aus Deutschland.",["kommt","kommst","kommen"],"Anna comes from Germany."],
+    ["Er ___ Thomas Becker.",["heißt","heiße","heißen"],"His name is Thomas Becker."],
+    ["Wir ___ aus den Philippinen.",["kommen","kommt","komme"],"We come from the Philippines."],
+    ["Maria ___ „Santos“.",["buchstabiert","buchstabierst","buchstabieren"],"Maria spells “Santos”."],
+    ["Woher ___ er?",["kommt","kommst","komme"],"Where is he from?"],
+    ["Wo ___ Frau Becker?",["wohnt","wohnst","wohne"],"Where does Mrs Becker live?"],
+    ["Tom und ich, wir ___ in Berlin.",["wohnen","wohnt","wohnst"],"Tom and I, we live in Berlin."]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"build", type:"build", title:"Build the sentence", de:"Bilde den Satz.", task:"Tap the words in the right order. Tap a word in your sentence to take it back.",
+   items:[
+    ["This is Tom.",["Das","ist","Tom."]],
+    ["He comes from Berlin.",["Er","kommt","aus","Berlin."]],
+    ["She lives in Hamburg.",["Sie","wohnt","in","Hamburg."]],
+    ["We live in Berlin.",["Wir","wohnen","in","Berlin."]],
+    ["What is your phone number? (to a friend)",["Wie","ist","deine","Telefonnummer?"]],
+    ["What is your phone number? (formal)",["Wie","ist","Ihre","Telefonnummer?"]],
+    ["Once more, please!",["Noch","einmal,","bitte!"]],
+    ["Please spell it! (formal)",["Buchstabieren","Sie,","bitte!"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"type", type:"type", title:"Write it in German", de:"Schreib auf Deutsch.", task:"Type the German word or sentence and tap “Check”. Capital letters and punctuation are not counted here.",
+   items:[
+    ["3 (write the word)",["drei"]],
+    ["8 (write the word)",["acht"]],
+    ["11 (write the word)",["elf"]],
+    ["12 (write the word)",["zwölf"]],
+    ["16 (write the word)",["sechzehn"]],
+    ["17 (write the word)",["siebzehn"]],
+    ["20 (write the word)",["zwanzig"]],
+    ["he lives",["er wohnt"]],
+    ["we come",["wir kommen"]],
+    ["Pardon? (you did not understand)",["Wie bitte"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"reply", type:"mc", title:"Review of sheet 1: choose the best answer", de:"Wiederholung: Was antwortest du?", task:"These are sentences from sheet 1. Someone says this to you. Tap the answer that fits.",
+   items:[
+    ["Wie heißt du?",["Ich heiße Maria.","Ich wohne in Manila.","Danke, gut."]],
+    ["Woher kommen Sie?",["Ich komme aus den Philippinen.","Ich wohne in Berlin.","Guten Tag!"]],
+    ["Wo wohnst du?",["Ich wohne in Manila.","Ich komme aus Manila.","Ich bin Maria."]],
+    ["Wie geht's?",["Danke, gut. Und dir?","Ich heiße Anna.","Gute Nacht!"]],
+    ["Wie geht es Ihnen?",["Danke, gut. Und Ihnen?","Danke, gut. Und dir?","Auf Wiedersehen!"]],
+    ["Danke!",["Bitte!","Nein!","Hallo!"]],
+    ["Guten Morgen, Frau Santos!",["Guten Morgen, Herr Becker!","Gute Nacht, Herr Becker!","Tschüss, Herr Becker!"]],
+    ["Auf Wiedersehen, Frau Santos!",["Auf Wiedersehen, Herr Becker!","Guten Tag, Herr Becker!","Entschuldigung, Herr Becker!"]]
+   ].map(([q,o]) => ({q:"„"+q+"“", de:true, say:q, opts:o, optsDe:true, sayAfter:o[0]}))
+ }
+];
+
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.!?,;:„“”"]/g," ").replace(/\s+/g," ").trim()
+  .replace(/ß/g,"ss").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue");
+
+/* ---------- speech ---------- */
+const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+let deVoice = null;
+function pickVoice(){
+  if (!synth) return;
+  const vs = synth.getVoices() || [];
+  deVoice = vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null;
+}
+function speak(text){
+  if (!synth) return;
+  try {
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[„“”]/g,"").replace(/…/g,""));
+    u.lang = "de-DE";
+    if (deVoice) u.voice = deVoice;
+    u.rate = $("slow").checked ? 0.55 : 0.85;
+    synth.speak(u);
+  } catch (e) {}
+}
+if (synth) { pickVoice(); try { synth.addEventListener("voiceschanged", pickVoice); } catch (e) {} }
+else { $("noVoice").hidden = false; }
+function sayBtn(text, label){
+  const b = el("button", label ? "say wide" : "say");
+  b.type = "button"; b.innerHTML = SPK + (label ? "<span>"+label+"</span>" : "");
+  b.setAttribute("aria-label", label ? label : "Listen: " + text);
+  b.addEventListener("click", () => speak(text));
+  return b;
+}
+
+/* ---------- step 1: words and dialogs ---------- */
+function renderLearn(){
+  const box = $("vocab");
+  DATA.vocab.forEach(g => {
+    box.append(el("h3","grp",g.group));
+    const grid = el("div","vocab");
+    g.words.forEach(([de,en,tl]) => {
+      const c0 = el("div","sp row"); c0.append(sayBtn(de.replace(" · ",", ").replace("(aus)","aus").replace("(in)","in").replace("…","")));
+      const c1 = el("div","de",de); c1.lang = "de";
+      const c2 = el("div","en",en);
+      const c3 = el("div","tl",tl); c3.lang = "tl";
+      grid.append(c0,c1,c2,c3);
+    });
+    box.append(grid);
+  });
+  const dbox = $("dialogs");
+  DATA.dialogs.forEach(d => {
+    const wrap = el("div","dialog");
+    wrap.append(el("b",null,d.label));
+    d.lines.forEach(([who,tx]) => {
+      const ln = el("div","ln");
+      ln.append(sayBtn(tx));
+      const t = el("span","tx"); const w = el("span","who",who+": "); const s = el("span",null,tx); s.lang = "de";
+      t.append(w,s); ln.append(t); wrap.append(ln);
+    });
+    dbox.append(wrap);
+  });
+}
+
+/* ---------- exercises ---------- */
+const state = {};
+const total = (sec) => sec.items.length;
+
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s => { const st = state[s.id]; ok += st.ok; ans += st.done; all += total(s);
+    $("sc-"+s.id).textContent = st.ok + " / " + total(s) + " correct";
+    $("j-"+s.id).classList.toggle("done", st.done === total(s)); });
+  $("total").textContent = ok + " / " + all + " correct";
+  $("totalbar").style.width = (ans/all*100) + "%";
+  const box = $("doneBox");
+  if (ans === all){
+    box.hidden = false; const p = ok/all, pct = Math.round(p*100);
+    $("doneText").textContent = "Geschafft! " + ok + " of " + all + " correct (" + pct + " %)";
+    $("doneTip").textContent = p >= 0.9 ? "Sehr gut! You are ready for sheet 3. Come back in two days and repeat this page once."
+      : p >= 0.7 ? "Gut! Tap “Start all exercises again” tomorrow and try to beat your score."
+      : "Read the cheat sheet again, listen to the words once more and then start again. Repeating is how the words stay.";
+    saveBest(pct);
+  } else box.hidden = true;
+}
+function saveBest(pct){
+  try { const old = parseInt(localStorage.getItem("a1-02-best") || "0", 10); if (pct > old) localStorage.setItem("a1-02-best", String(pct)); } catch (e) {}
+  showBest();
+}
+function showBest(){
+  try { const b = localStorage.getItem("a1-02-best"); if (b) $("best").textContent = "Your best result so far: " + b + " %."; } catch (e) {}
+}
+function count(sec, ok){ const st = state[sec.id]; st.done++; if (ok) st.ok++; update(); }
+
+function feedback(li, de, en){
+  if (!de && !en) return;
+  const fb = el("div","fb");
+  if (de){ fb.append(sayBtn(de)); const b = el("b",null,de); b.lang = "de"; fb.append(b); }
+  if (en) fb.append(el("span",null,(de ? "= " : "") + en));
+  li.append(fb);
+}
+
+function mcItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."));
+  let blank = null;
+  if (sec.listen){
+    q.append(sayBtn(it.say,"Play"));
+  } else {
+    if (it.say) q.append(sayBtn(it.say));
+    if (it.q.includes("___")){
+      const parts = it.q.split("___"); const s = el("span","de"); s.lang = "de";
+      blank = el("span","blank"," ");
+      s.append(document.createTextNode(parts[0]), blank, document.createTextNode(parts[1])); q.append(s);
+    } else { const s = el("span", it.de ? "de" : null, it.q); if (it.de) s.lang = "de"; q.append(s); }
+  }
+  const opts = el("div","opts");
+  const order = it.fixed ? it.fixed.map(t => ({t, right: t === it.opts[0]})) : shuffle(it.opts.map((t,i) => ({t, right: i === 0})));
+  const btns = order.map(o => {
+    const b = el("button", sec.code ? "opt code" : "opt", o.t); b.type = "button"; if (it.optsDe) b.lang = "de";
+    b.addEventListener("click", () => finish(o.right, b)); opts.append(b); return {b, right:o.right};
+  });
+  let done = false;
+  function finish(ok, chosen){
+    if (done) return; done = true;
+    btns.forEach(x => { x.b.disabled = true; if (x.right) x.b.classList.add("right"); });
+    if (chosen && !ok) chosen.classList.add("wrong");
+    if (blank){ blank.textContent = it.opts[0]; blank.classList.add("mark"); }
+    if (chosen) li.classList.add(ok ? "ok" : "bad");
+    feedback(li, sec.listen ? it.say : it.sayAfter, it.fb);
+    count(sec, !!ok);
+  }
+  li.append(q, opts);
+  li.reveal = () => finish(false, null);
+  li.isDone = () => done;
+  return li;
+}
+
+function buildItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const line = el("div","line"); line.lang = "de"; line.setAttribute("aria-label","Your sentence");
+  const pool = el("div","pool"); pool.lang = "de";
+  let order = shuffle(it.a);
+  for (let k=0; k<8 && order.join(" ") === it.a.join(" "); k++) order = shuffle(it.a);
+  let done = false;
+  order.forEach(w => {
+    const t = el("button","tile",w); t.type = "button";
+    t.addEventListener("click", () => {
+      if (done) return;
+      if (t.parentNode === pool) line.append(t); else pool.append(t);
+      if (!pool.children.length) check();
+    });
+    pool.append(t);
+  });
+  function check(){
+    const got = Array.from(line.children).map(c => c.textContent).join(" ");
+    finish(got === it.a.join(" "), true);
+  }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    Array.from(li.querySelectorAll(".tile")).forEach(t => t.disabled = true);
+    if (tried) li.classList.add(ok ? "ok" : "bad");
+    const full = it.a.join(" ");
+    const fb = el("div","fb"); fb.append(sayBtn(full));
+    const m = el("span","mark",full); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  li.append(q, line, pool);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+let lastInput = null;
+function typeItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const fill = el("div","fill");
+  const inp = el("input","gap"); inp.type = "text"; inp.lang = "de";
+  inp.setAttribute("autocomplete","off"); inp.setAttribute("autocapitalize","off"); inp.setAttribute("autocorrect","off"); inp.spellcheck = false;
+  inp.setAttribute("aria-label","Your answer in German for: " + it.en);
+  const btn = el("button","small","Check"); btn.type = "button";
+  inp.addEventListener("focus", () => { lastInput = inp; });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  btn.addEventListener("click", check);
+  let done = false;
+  function check(){ if (!inp.value.trim()) { inp.focus(); return; } finish(it.a.some(a => norm(a) === norm(inp.value)), true); }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    inp.readOnly = true; btn.disabled = true; btn.hidden = true;
+    if (tried){ inp.classList.add(ok ? "ok" : "bad"); li.classList.add(ok ? "ok" : "bad"); }
+    const fb = el("div","fb"); fb.append(sayBtn(it.a[0]));
+    const m = el("span","mark",it.a[0]); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  fill.append(inp, btn); li.append(q, fill);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+function renderSection(sec, card){
+  state[sec.id] = {ok:0, done:0};
+  const old = card.querySelector(".items"); if (old) old.remove();
+  const ul = el("ul","items");
+  shuffle(sec.items).forEach((it,i) => {
+    ul.append(sec.type === "build" ? buildItem(sec,it,i+1) : sec.type === "type" ? typeItem(sec,it,i+1) : mcItem(sec,it,i+1));
+  });
+  card.insertBefore(ul, card.querySelector(".tail"));
+}
+
+function render(){
+  const main = $("sections"), jump = $("jump");
+  main.innerHTML = ""; jump.innerHTML = "";
+  let all = 0;
+  SECTIONS.forEach((sec, si) => {
+    all += total(sec);
+    const card = el("section","card"); card.id = "s-" + sec.id;
+    const h = el("h2");
+    const n = el("span","n",String(si+1)); const t = el("span",null,sec.title); const d = el("span","de",sec.de); d.lang = "de";
+    const sc = el("span","sc"); sc.id = "sc-" + sec.id;
+    h.append(n,t,d,sc);
+    const task = el("p","task",sec.task);
+    const tail = el("div","tail"); tail.style.cssText = "display:flex;flex-direction:column;gap:10px";
+    if (sec.type === "type"){
+      const keys = el("div","keys"); keys.append(el("span",null,"Special letters:"));
+      ["ä","ö","ü","ß"].forEach(ch => { const k = el("button","key",ch); k.type = "button"; k.lang = "de";
+        k.addEventListener("mousedown", e => e.preventDefault());
+        k.addEventListener("click", () => { const inp = lastInput; if (!inp || inp.readOnly) return;
+          const s = inp.selectionStart ?? inp.value.length, e2 = inp.selectionEnd ?? inp.value.length;
+          inp.value = inp.value.slice(0,s) + ch + inp.value.slice(e2); inp.focus(); try { inp.setSelectionRange(s+1,s+1); } catch (e) {} });
+        keys.append(k); });
+      tail.append(keys);
+    }
+    const act = el("div","actions");
+    const again = el("button","btn","Shuffle and try again"); again.type = "button";
+    again.addEventListener("click", () => { renderSection(sec, card); update(); });
+    const show = el("button","btn","Show the answers"); show.type = "button";
+    show.addEventListener("click", () => { card.querySelectorAll(".item").forEach(li => { if (!li.isDone()) li.reveal(); }); });
+    act.append(again, show); tail.append(act);
+    card.append(h, task, tail);
+    main.append(card);
+    renderSection(sec, card);
+    const a = el("a",null,(si+1) + " · " + sec.title); a.href = "#s-" + sec.id; a.id = "j-" + sec.id; jump.append(a);
+  });
+  $("leadCount").textContent = SECTIONS.length + " exercises with " + all + " tasks.";
+  update();
+}
+
+$("resetAll").addEventListener("click", () => { render(); window.scrollTo({top:0, behavior:"smooth"}); });
+renderLearn(); render(); showBest();
+</script>
+</body>
+</html>
