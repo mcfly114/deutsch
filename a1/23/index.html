@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Deutsch A1 · Blatt 23 · Einladungen und Feste</title>
+
+<style>
+/* Layout: one calm learning column; every exercise is a worksheet card with a blue number like on the paper sheet. Correct answers are marked yellow. */
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2430; --muted:#5B6672; --line:#CBD3DB;
+  --blue:#1F5F8B; --blue-soft:#EAF1F7; --mark:#FFE94D; --mark-ink:#1B2430;
+  --ok:#2E7D32; --ok-soft:#E3F1E3; --bad:#C62828; --bad-soft:#F9E1E1;
+  --font:Verdana, Geneva, Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EBF0; --muted:#9AA6B2; --line:#33404C;
+  --blue:#7DB4DD; --blue-soft:#1F2D3A; --mark:#E8CF2E; --mark-ink:#15191D;
+  --ok:#7BC67F; --ok-soft:#1D3220; --bad:#EF8A8A; --bad-soft:#3A1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:18px}
+header.top{display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:24px;margin:0;text-wrap:balance}
+h1 .code{color:var(--blue)}
+.lead{color:var(--muted);margin:0;font-size:14px}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.score{font-weight:bold;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 60px;height:10px;background:var(--blue-soft);border-radius:5px;overflow:hidden;min-width:0}
+.bar span{display:block;height:100%;background:var(--blue);width:0;transition:width .3s}
+.slow{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.slow input{width:18px;height:18px;accent-color:var(--blue)}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump a{font-size:12px;color:var(--blue);text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:4px 11px;font-variant-numeric:tabular-nums}
+.jump a.done{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.note{margin:0;background:var(--bad-soft);border:1px solid var(--bad);border-radius:8px;padding:10px 14px;font-size:13px}
+details.merke{background:var(--paper);border-left:6px solid var(--blue);padding:10px 16px;border-radius:0 8px 8px 0}
+details.merke summary{cursor:pointer;font-weight:bold;color:var(--blue)}
+details.merke summary small{font-size:10px;letter-spacing:.08em;margin-right:6px}
+details.merke > *:not(summary){margin-top:10px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.rules{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:14px;margin-bottom:0}
+.rules dt{font-weight:bold;color:var(--blue)} .rules dd{margin:0;min-width:0}
+h3.grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px;font-weight:normal}
+.vocab{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:0;font-size:14px;border-top:1px solid var(--line)}
+.vocab > *{padding:6px 8px 6px 0;border-bottom:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.vocab .de{font-weight:bold}
+.vocab .tl{color:var(--muted);font-style:italic}
+.say{font:inherit;display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--blue);cursor:pointer;flex:none;padding:0}
+.say:hover{background:var(--blue-soft);border-color:var(--blue)}
+.say svg{width:17px;height:17px;display:block}
+.say.wide{width:auto;padding:0 12px;gap:6px;font-size:14px;height:36px}
+.dialog{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.dialog .ln{display:flex;gap:8px;align-items:flex-start}
+.dialog .who{color:var(--blue);font-weight:bold;white-space:nowrap}
+.dialog .tx{min-width:0}
+.vtable{border-collapse:collapse;font-size:14px;width:100%;max-width:520px}
+.vtable th,.vtable td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+.vtable th{background:var(--blue-soft);color:var(--blue)}
+.vtable td b{color:var(--blue)}
+section.card{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:80px}
+.card h2{font-size:18px;margin:0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.card h2 .n{color:var(--blue)}
+.card h2 .de{font-size:13px;font-weight:normal;color:var(--muted);font-style:italic}
+.card h2 .sc{margin-left:auto;font-size:13px;font-weight:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.task{margin:0;font-size:14px}
+.items{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.item{border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;transition:background .2s}
+.item.ok{background:var(--ok-soft);border-color:var(--ok)}
+.item.bad{background:var(--bad-soft);border-color:var(--bad)}
+.q{display:flex;gap:8px;min-width:0;align-items:center;flex-wrap:wrap}
+.q .nr{font-weight:bold;min-width:22px}
+.q .de{font-weight:bold}
+.blank{display:inline-block;min-width:4.5em;border-bottom:2px solid var(--ink);text-align:center;padding:0 4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{font:inherit;font-size:14px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 13px;cursor:pointer;text-align:left;min-height:38px}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opt.code{min-width:64px;text-align:center;font-weight:bold}
+.opt:disabled{cursor:default;color:var(--ink);opacity:1}
+.opt.right{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.opt.wrong{text-decoration:line-through;color:var(--bad);border-color:var(--bad)}
+.fb{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap} .fb b{color:var(--ink)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+.line{min-height:44px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:6px;padding:4px 0;align-items:center}
+.pool{display:flex;flex-wrap:wrap;gap:6px;min-height:38px}
+.tile{font:inherit;font-size:15px;background:var(--blue-soft);color:var(--ink);border:1px solid var(--blue);border-radius:6px;padding:7px 12px;cursor:pointer;min-height:38px}
+.tile:disabled{cursor:default;opacity:1;color:var(--ink)}
+.fill{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.gap{font:inherit;font-size:16px;width:15em;max-width:100%;padding:6px 6px;border:none;border-bottom:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:0}
+input.gap.ok{border-color:var(--ok);color:var(--ok);font-weight:bold}
+input.gap.bad{border-color:var(--bad);color:var(--bad)}
+.keys{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.key{font:inherit;font-size:16px;min-width:40px;height:38px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);cursor:pointer}
+.small{font:inherit;font-size:13px;padding:8px 12px;border-radius:6px;border:1px solid var(--blue);background:var(--blue);color:var(--paper);cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-size:13px;padding:8px 14px;border-radius:6px;border:1px solid var(--blue);background:var(--paper);color:var(--blue);cursor:pointer}
+.done-box{background:var(--blue-soft);border-radius:8px;padding:16px;text-align:center}
+.done-box strong{font-size:18px}
+.key-list{margin:0;padding-left:1.3em;font-size:14px}
+.key-list li{margin-bottom:6px}
+footer{font-size:12px;color:var(--muted);text-align:center}
+@media (max-width:560px){
+  .rules{grid-template-columns:1fr}.rules dt{margin-top:6px}h1{font-size:20px}
+  .vocab{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr)}
+  .vocab .tl{grid-column:2 / -1;border-bottom:1px solid var(--line);padding-top:0;margin-top:-4px}
+  .vocab .sp.row,.vocab .de,.vocab .en{border-bottom:none}
+  section.card{padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Deutsch A1 · Blatt 23 von 30 · Online practice</span>
+    <h1><span class="code">23</span> Einladungen und Feste – Invitations and parties – und / aber / oder / denn, a short message (Schreiben Teil 2)</h1>
+    <p class="lead"><span id="leadCount"></span> Tap an answer or type it – you see at once if it is right. The correct answer is marked <span class="mark">yellow</span>. Tap the speaker button to hear the German. <span id="best"></span></p>
+  </header>
+
+  <div class="status" role="status" aria-live="polite">
+    <span class="score" id="total">0 / 0 correct</span>
+    <div class="bar" aria-hidden="true"><span id="totalbar"></span></div>
+    <label class="slow"><input type="checkbox" id="slow"> slow audio</label>
+  </div>
+  <nav class="jump" id="jump" aria-label="Go to an exercise"></nav>
+
+  <p class="note" id="noVoice" hidden>Your browser cannot read German aloud. Please open this page in Chrome (Android) or Safari (iPhone). You can still do all exercises except the listening exercise.</p>
+
+  <details class="merke" open>
+    <summary><small>STEP 1</small>Listen and repeat: all words of this sheet</summary>
+    <p class="hint">Tap a speaker button, listen, and say the word aloud two times. No sound? Turn off silent mode and turn the volume up.</p>
+    <div id="vocab"></div>
+    <h3 class="grp">The two dialogs</h3>
+    <div id="dialogs" style="display:flex;flex-direction:column;gap:14px"></div>
+  </details>
+
+  <details class="merke">
+    <summary><small>MERKE</small>Cheat sheet: the grammar of this sheet</summary>
+    <dl class="rules">
+      <dt>Connectors</dt><dd><span lang="de">und, aber, oder, denn</span> join two sentences. After them the word order is normal: subject, then the verb in <b>position 2</b>. Put a comma before <span lang="de">aber</span> and <span lang="de">denn</span>.
+        <div style="overflow-x:auto"><table class="vtable" style="margin-top:6px;font-size:12px">
+          <tr><th>word</th><th>meaning</th><th>example</th></tr>
+          <tr><td><b>und</b></td><td>and</td><td lang="de">Anna und Maria feiern am Samstag.</td></tr>
+          <tr><td><b>aber</b></td><td>but</td><td lang="de">Ich komme gern, aber ich habe kein Geschenk.</td></tr>
+          <tr><td><b>oder</b></td><td>or</td><td lang="de">Kommst du am Freitag oder am Samstag?</td></tr>
+          <tr><td><b>denn</b></td><td>because</td><td lang="de">Ich kann nicht kommen, denn ich habe einen Termin.</td></tr>
+        </table></div></dd>
+      <dt>A short message</dt><dd><span lang="de">Liebe Anna, danke für die Einladung! Ich komme gern, aber ich habe kein Geschenk. Bis Samstag! Viele Grüße, Maria</span><br>Greeting – answer the invitation (yes or no, and why) – wish – goodbye. 2–4 sentences. Answer every point.</dd>
+      <dt>Schreiben Teil 2</dt><dd>Learn these as one piece: <span lang="de">Danke für die Einladung!</span> · <span lang="de">Ich kann leider nicht kommen.</span> · <span lang="de">Alles Gute zum Geburtstag!</span></dd>
+    </dl>
+  </details>
+
+  <main id="sections" style="display:flex;flex-direction:column;gap:18px"></main>
+
+  <div class="done-box" id="doneBox" hidden>
+    <strong id="doneText"></strong>
+    <p id="doneTip" style="margin:6px 0 0"></p>
+  </div>
+
+  <div class="actions" style="justify-content:center"><button class="btn" id="resetAll" type="button">Start all exercises again</button></div>
+
+  <details class="merke" id="key">
+    <summary><small>LÖSUNGEN</small>Answer key for the paper worksheet</summary>
+    <p class="hint">Do the paper exercises first. Then check your answers here.</p>
+    <ol class="key-list" type="A">
+      <li><b>und, aber, oder or denn?</b> 1 <span lang="de">aber</span> · 2 <span lang="de">und</span> · 3 <span lang="de">oder</span> · 4 <span lang="de">denn</span> · 5 <span lang="de">oder</span> · 6 <span lang="de">und</span></li>
+      <li><b>Join the sentences.</b> <span lang="de">Ich komme gern, aber ich habe kein Geschenk. · Ich kann nicht kommen, denn ich habe einen Termin. · Kommst du am Freitag oder am Samstag?</span></li>
+      <li><b>Answer the invitation.</b> Examples: <span lang="de">Danke! Ich komme gern. · Ich kann leider nicht kommen, denn ich habe einen Termin. · Ich komme gern, aber ich habe kein Geschenk.</span></li>
+      <li><b>A message.</b> Example: <span lang="de">Liebe Anna, danke für die Einladung! Ich kann leider nicht kommen, denn ich habe einen Termin. Alles Gute zum Geburtstag! Viele Grüße, Maria</span></li>
+    </ol>
+  </details>
+
+  <footer>Deutsch A1 · Blatt 23 von 30 · Einladungen und Feste</footer>
+</div>
+
+<script>
+const DATA = {"vocab":[{"group":"The party","words":[["die Einladung","invitation","imbitasyon"],["das Fest","party, celebration","pista"],["die Party","party","handaan"],["der Geburtstag","birthday","kaarawan"],["das Geschenk","present","regalo"],["der Gast","guest","panauhin"]]},{"group":"Writing","words":[["die Nachricht","message","mensahe"],["die Karte","card","kard"],["Liebe Anna, · Lieber Tom,","Dear Anna, · Dear Tom,","Mahal kong Anna,"],["Viele Grüße","kind regards","maraming pagbati"],["Bis bald!","See you soon!","Hanggang sa muli!"],["Herzlichen Glückwunsch!","Congratulations!","Binabati kita!"]]},{"group":"Connectors","words":[["und","and","at"],["aber","but","ngunit"],["oder","or","o"],["denn","because","dahil"],["leider","unfortunately","sayang"],["vielleicht","perhaps","marahil"]]},{"group":"Phrases","words":[["Ich lade dich ein.","I invite you.","Inaanyayahan kita."],["Kommst du zur Party?","Are you coming to the party?","Pupunta ka ba sa party?"],["Ich kann leider nicht kommen.","I cannot come, unfortunately.","Hindi ako makakapunta."],["Danke für die Einladung!","Thank you for the invitation!","Salamat sa imbitasyon!"],["Alles Gute zum Geburtstag!","Happy birthday!","Maligayang kaarawan!"]]},{"group":"More words – listen and repeat","words":[["feiern · gefeiert","to celebrate","magdiwang"],["einladen · eingeladen","to invite","mag-imbita"],["gratulieren","to congratulate","bumati"]],"online":true}],"dialogs":[{"label":"Dialog 1 · informal (du)","intro":"Anna (A) invites Maria (M) to her birthday party.","short":{"Maria":"M","Anna":"A"},"lines":[["Anna","Maria, ich lade dich zu meiner Party ein."],["Maria","Danke für die Einladung! Wann ist die Party?"],["Anna","Am Samstag um sieben Uhr. Wir feiern meinen Geburtstag."],["Maria","Ich komme gern, aber ich habe kein Geschenk."],["Anna","Das ist nicht wichtig!"],["Maria","Super, dann bis Samstag!"]]},{"label":"Dialog 2 · formal (Sie)","intro":"Herr Becker (B) invites Frau Santos (S) to a party.","short":{"Frau Santos":"S","Herr Becker":"B"},"lines":[["Herr Becker","Frau Santos, wir feiern am Freitag ein Fest. Kommen Sie?"],["Frau Santos","Danke für die Einladung! Ich kann leider nicht kommen, denn ich habe einen Termin."],["Herr Becker","Schade! Wann ist Ihr Termin?"],["Frau Santos","Um fünf Uhr. Vielleicht komme ich später."],["Herr Becker","Gut. Bis Freitag!"],["Frau Santos","Danke, bis Freitag!"]]}]};
+
+const SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+
+const SECTIONS = [
+ { id:"words", type:"mc", title:"What does it mean?", de:"Was bedeutet das?", task:"Tap the English meaning. Tap the speaker button to hear the German word.",
+   items:[
+    ["die Einladung",["invitation","party","present","guest"]],["das Fest",["party, celebration","birthday","present","card"]],["der Geburtstag",["birthday","party","guest","message"]],
+    ["das Geschenk",["present","card","guest","invitation"]],["der Gast",["guest","present","boss","message"]],["die Nachricht",["message","card","invitation","birthday"]],
+    ["die Karte",["card","message","present","guest"]],["Bis bald!",["See you soon!","Kind regards","Congratulations!","Thank you"]],["Viele Grüße",["kind regards","see you soon","congratulations","dear"]],
+    ["aber",["but","and","or","because"]],["denn",["because","but","and","or"]],["leider",["unfortunately","perhaps","gladly","soon"]]
+   ].map(([q,o]) => ({q, de:true, say:q, opts:o}))
+ },
+ { id:"listen", type:"mc", listen:true, title:"Listen: what do you hear?", de:"Was hörst du?", task:"Tap “Play”, listen, and then tap the sentence you heard.",
+   items:[
+    ["Ich lade dich zur Party ein.",["Ich lade dich zur Party ein.","Ich lade dich zum Fest ein.","Ich lade Sie zur Party ein."],"I invite you to the party."],
+    ["Danke für die Einladung!",["Danke für die Einladung!","Danke für die Karte!","Danke für die Nachricht!"],"Thank you for the invitation!"],
+    ["Wir feiern am Samstag.",["Wir feiern am Samstag.","Wir feiern am Sonntag.","Wir feiern am Freitag."],"We celebrate on Saturday."],
+    ["Ich komme gern, aber ich habe kein Geschenk.",["Ich komme gern, aber ich habe kein Geschenk.","Ich komme gern, denn ich habe kein Geschenk.","Ich komme gern, und ich habe kein Geschenk."],"I would love to come, but I have no present."],
+    ["Ich kann leider nicht kommen.",["Ich kann leider nicht kommen.","Ich kann leider kommen.","Ich will leider nicht kommen."],"Unfortunately I cannot come."],
+    ["Ich kann nicht kommen, denn ich habe einen Termin.",["Ich kann nicht kommen, denn ich habe einen Termin.","Ich kann nicht kommen, aber ich habe einen Termin.","Ich kann nicht kommen, oder ich habe einen Termin."],"I cannot come, because I have an appointment."],
+    ["Alles Gute zum Geburtstag!",["Alles Gute zum Geburtstag!","Alles Gute zum Fest!","Herzlichen Glückwunsch zum Geburtstag!"],"Happy birthday!"],
+    ["Viele Grüße, Maria",["Viele Grüße, Maria","Viele Grüße, Anna","Bis bald, Maria"],"Kind regards, Maria"],
+    ["Liebe Anna, ich komme gern.",["Liebe Anna, ich komme gern.","Lieber Anna, ich komme gern.","Liebe Maria, ich komme gern."],"Dear Anna, I would love to come."],
+    ["Kommst du am Freitag oder am Samstag?",["Kommst du am Freitag oder am Samstag?","Kommst du am Freitag und am Samstag?","Kommst du am Freitag aber am Samstag?"],"Are you coming on Friday or on Saturday?"]
+   ].map(([say,o,en]) => ({say, opts:o, fb:en, optsDe:true}))
+ },
+ { id:"conn", type:"mc", title:"und, aber, oder or denn?", de:"Welches Wort passt?", task:"und = and, aber = but, oder = or, denn = because. Tap the right word.",
+   items:[
+    ["Ich komme gern, ___ ich habe kein Geschenk.",["aber","und","denn"],"I would love to come, but I have no present."],
+    ["Anna ___ Maria feiern am Samstag.",["und","aber","denn"],"Anna and Maria are celebrating on Saturday."],
+    ["Kommst du am Freitag ___ am Samstag?",["oder","und","denn"],"Are you coming on Friday or on Saturday?"],
+    ["Ich kann nicht kommen, ___ ich habe einen Termin.",["denn","aber","oder"],"I cannot come, because I have an appointment."],
+    ["Möchtest du Tee ___ Kaffee?",["oder","denn","aber"],"Would you like tea or coffee?"],
+    ["Ich lade Anna ___ Herrn Becker ein.",["und","oder","denn"],"I invite Anna and Mr Becker."],
+    ["Ich möchte kommen, ___ ich habe keine Zeit.",["aber","denn","oder"],"I would like to come, but I have no time."],
+    ["Ich bleibe zu Hause, ___ ich bin krank.",["denn","aber","oder"],"I stay at home, because I am ill."],
+    ["Feierst du zu Hause ___ im Restaurant?",["oder","und","denn"],"Are you celebrating at home or in a restaurant?"],
+    ["Maria kommt nicht, ___ sie ist in München.",["denn","aber","oder"],"Maria is not coming, because she is in Munich."],
+    ["Ich möchte Brot ___ Käse.",["und","aber","denn"],"I would like bread and cheese."],
+    ["Es ist kalt, ___ die Sonne scheint.",["aber","denn","oder"],"It is cold, but the sun is shining."]
+   ].map(([q,o,en]) => ({q, de:true, opts:o, optsDe:true, fb:en, sayAfter:q.replace("___",o[0])}))
+ },
+ { id:"situation", type:"mc", title:"What do you say?", de:"Was sagst du?", task:"Read the situation. Tap the German sentence that fits.",
+   items:[
+    ["You thank someone for an invitation.",["Danke für die Einladung!","Alles Gute zum Geburtstag!","Bis bald!"]],
+    ["You wish someone a happy birthday.",["Alles Gute zum Geburtstag!","Danke für die Einladung!","Viele Grüße!"]],
+    ["You end a message to a friend.",["Viele Grüße, Maria","Liebe Maria,","Danke für die Karte!"]],
+    ["You start a message to Anna.",["Liebe Anna,","Lieber Anna,","Viele Grüße, Anna"]],
+    ["You cannot come to the party.",["Ich kann leider nicht kommen.","Ich komme gern.","Ich habe kein Geschenk."]],
+    ["You would love to come.",["Ich komme gern!","Ich kann leider nicht kommen.","Ich habe keine Zeit."]],
+    ["You ask someone to come to the party.",["Kommst du zur Party?","Danke für die Party!","Wo ist die Party?"]],
+    ["You say goodbye until soon.",["Bis bald!","Guten Morgen!","Herzlichen Glückwunsch!"]],
+    ["You congratulate someone.",["Herzlichen Glückwunsch!","Bis bald!","Viele Grüße!"]],
+    ["You say the party is on Saturday.",["Die Party ist am Samstag.","Die Party ist im Samstag.","Die Party ist um Samstag."]]
+   ].map(([q,o]) => ({q, opts:o, optsDe:true, sayAfter:o[0]}))
+ },
+ { id:"order", type:"mc", title:"Which sentence is correct?", de:"Welcher Satz stimmt?", task:"Tap the correct German sentence. The verb is in position 2.",
+   items:[
+    ["I am coming, but I have no present.",["Ich komme, aber ich habe kein Geschenk.","Ich komme, aber habe ich kein Geschenk.","Ich komme, aber ich kein Geschenk habe."]],
+    ["I cannot come, because I have an appointment.",["Ich kann nicht kommen, denn ich habe einen Termin.","Ich kann nicht kommen, denn habe ich einen Termin.","Ich kann nicht kommen, denn ich einen Termin habe."]],
+    ["Anna and Maria are celebrating.",["Anna und Maria feiern.","Anna und Maria feiert.","Anna und feiern Maria."]],
+    ["Are you coming on Friday or on Saturday?",["Kommst du am Freitag oder am Samstag?","Kommst du am Freitag oder Samstag am?","Kommst am Freitag du oder am Samstag?"]],
+    ["We are celebrating on Saturday.",["Wir feiern am Samstag.","Wir am Samstag feiern.","Wir feiern Samstag am."]],
+    ["Thank you for the invitation!",["Danke für die Einladung!","Danke zu die Einladung!","Danke für der Einladung!"]],
+    ["I invite you to the party.",["Ich lade dich zur Party ein.","Ich einlade dich zur Party.","Ich lade ein dich zur Party."]],
+    ["Happy birthday!",["Alles Gute zum Geburtstag!","Alles Gute für Geburtstag!","Alles Gute am Geburtstag!"]],
+    ["Unfortunately I cannot come.",["Ich kann leider nicht kommen.","Ich leider kann nicht kommen.","Ich kann nicht leider kommen."]],
+    ["May I come?",["Darf ich kommen?","Ich darf kommen?","Darf kommen ich?"]]
+   ].map(([q,o]) => ({q, opts:o, optsDe:true, sayAfter:o[0]}))
+ },
+ { id:"build", type:"build", title:"Build the sentence", de:"Bilde den Satz.", task:"Tap the words in the right order. Tap a word in your sentence to take it back.",
+   items:[
+    ["I invite you to the party.",["Ich","lade","dich","zur","Party","ein."]],
+    ["Thank you for the invitation!",["Danke","für","die","Einladung!"]],
+    ["I would love to come, but I have no present.",["Ich","komme","gern,","aber","ich","habe","kein","Geschenk."]],
+    ["Unfortunately I cannot come, because I have an appointment.",["Ich","kann","leider","nicht","kommen,","denn","ich","habe","einen","Termin."]],
+    ["Happy birthday!",["Alles","Gute","zum","Geburtstag!"]],
+    ["We celebrate on Saturday.",["Wir","feiern","am","Samstag."]],
+    ["Are you coming on Friday or on Saturday?",["Kommst","du","am","Freitag","oder","am","Samstag?"]],
+    ["Congratulations, Anna!",["Herzlichen","Glückwunsch,","Anna!"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"type", type:"type", title:"Write it in German", de:"Schreib auf Deutsch.", task:"Type the German word and tap “Check”. Capital letters and punctuation are not counted here.",
+   items:[
+    ["invitation",["Einladung"]],["celebration",["Fest"]],["birthday",["Geburtstag"]],["present",["Geschenk"]],["guest",["Gast"]],
+    ["card",["Karte"]],["message",["Nachricht"]],["but",["aber"]],["because",["denn"]],["or",["oder"]]
+   ].map(([en,a]) => ({en, a}))
+ },
+ { id:"reply", type:"mc", title:"Review of sheets 21 and 22: choose the best answer", de:"Wiederholung: Was antwortest du?", task:"These are sentences from sheets 21 and 22. Someone says this to you. Tap the answer that fits.",
+   items:[
+    ["Wie heißen Sie?",["Ich heiße Maria Santos.","Ich heißen Maria Santos.","Ich bin heiße Maria Santos."]],
+    ["Wo wohnen Sie?",["Ich wohne in München.","Ich wohnen in München.","Ich wohne aus München."]],
+    ["Woher kommen Sie?",["Ich komme aus Manila.","Ich komme in Manila.","Ich kommen aus Manila."]],
+    ["Wann sind Sie geboren?",["Ich bin am 12. März geboren.","Ich habe am 12. März geboren.","Ich bin um 12. März geboren."]],
+    ["Wie ist Ihre Telefonnummer?",["Meine Telefonnummer ist 0171 2345678.","Meine Telefonnummer wohne 0171 2345678.","Mein Telefonnummer ist 0171 2345678."]],
+    ["Darf ich Pause machen?",["Ja, du darfst Pause machen.","Ja, du darf Pause machen.","Ja, du dürfen Pause machen."]],
+    ["Muss ich hier unterschreiben?",["Ja, bitte unterschreiben Sie hier.","Ja, bitte unterschreiben hier Sie.","Ja, bitte Sie unterschreiben hier."]],
+    ["Möchten Sie einen Termin?",["Ja, ich möchte einen Termin.","Ja, ich möchten einen Termin.","Ja, ich möchte ein Termin."]]
+   ].map(([q,o]) => ({q:"„"+q+"“", de:true, say:q, opts:o, optsDe:true, sayAfter:o[0]}))
+ }
+];
+
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const norm = (s) => s.toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.!?,;:„“”"]/g," ").replace(/\s+/g," ").trim()
+  .replace(/ß/g,"ss").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue");
+
+/* ---------- speech ---------- */
+const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+let deVoice = null;
+function pickVoice(){
+  if (!synth) return;
+  const vs = synth.getVoices() || [];
+  deVoice = vs.find(v => /^de[-_]DE/i.test(v.lang)) || vs.find(v => /^de/i.test(v.lang)) || null;
+}
+function speak(text){
+  if (!synth) return;
+  try {
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[„“”]/g,"").replace(/…/g,""));
+    u.lang = "de-DE";
+    if (deVoice) u.voice = deVoice;
+    u.rate = $("slow").checked ? 0.55 : 0.85;
+    synth.speak(u);
+  } catch (e) {}
+}
+if (synth) { pickVoice(); try { synth.addEventListener("voiceschanged", pickVoice); } catch (e) {} }
+else { $("noVoice").hidden = false; }
+function sayBtn(text, label){
+  const b = el("button", label ? "say wide" : "say");
+  b.type = "button"; b.innerHTML = SPK + (label ? "<span>"+label+"</span>" : "");
+  b.setAttribute("aria-label", label ? label : "Listen: " + text);
+  b.addEventListener("click", () => speak(text));
+  return b;
+}
+
+/* ---------- step 1: words and dialogs ---------- */
+function renderLearn(){
+  const box = $("vocab");
+  DATA.vocab.forEach(g => {
+    box.append(el("h3","grp",g.group));
+    const grid = el("div","vocab");
+    g.words.forEach(([de,en,tl]) => {
+      const c0 = el("div","sp row"); c0.append(sayBtn(de.replace(" · ",", ").replace("(aus)","aus").replace("(in)","in").replace("…","")));
+      const c1 = el("div","de",de); c1.lang = "de";
+      const c2 = el("div","en",en);
+      const c3 = el("div","tl",tl); c3.lang = "tl";
+      grid.append(c0,c1,c2,c3);
+    });
+    box.append(grid);
+  });
+  const dbox = $("dialogs");
+  DATA.dialogs.forEach(d => {
+    const wrap = el("div","dialog");
+    wrap.append(el("b",null,d.label));
+    d.lines.forEach(([who,tx]) => {
+      const ln = el("div","ln");
+      ln.append(sayBtn(tx));
+      const t = el("span","tx"); const w = el("span","who",who+": "); const s = el("span",null,tx); s.lang = "de";
+      t.append(w,s); ln.append(t); wrap.append(ln);
+    });
+    dbox.append(wrap);
+  });
+}
+
+/* ---------- exercises ---------- */
+const state = {};
+const total = (sec) => sec.items.length;
+
+function update(){
+  let ok=0, all=0, ans=0;
+  SECTIONS.forEach(s => { const st = state[s.id]; ok += st.ok; ans += st.done; all += total(s);
+    $("sc-"+s.id).textContent = st.ok + " / " + total(s) + " correct";
+    $("j-"+s.id).classList.toggle("done", st.done === total(s)); });
+  $("total").textContent = ok + " / " + all + " correct";
+  $("totalbar").style.width = (ans/all*100) + "%";
+  const box = $("doneBox");
+  if (ans === all){
+    box.hidden = false; const p = ok/all, pct = Math.round(p*100);
+    $("doneText").textContent = "Geschafft! " + ok + " of " + all + " correct (" + pct + " %)";
+    $("doneTip").textContent = p >= 0.9 ? "Sehr gut! You are ready for sheet 24. Come back in two days and repeat this page once."
+      : p >= 0.7 ? "Gut! Tap “Start all exercises again” tomorrow and try to beat your score."
+      : "Read the cheat sheet again, listen to the words once more and then start again. Repeating is how the words stay.";
+    saveBest(pct);
+  } else box.hidden = true;
+}
+function saveBest(pct){
+  try { const old = parseInt(localStorage.getItem("a1-23-best") || "0", 10); if (pct > old) localStorage.setItem("a1-23-best", String(pct)); } catch (e) {}
+  showBest();
+}
+function showBest(){
+  try { const b = localStorage.getItem("a1-23-best"); if (b) $("best").textContent = "Your best result so far: " + b + " %."; } catch (e) {}
+}
+function count(sec, ok){ const st = state[sec.id]; st.done++; if (ok) st.ok++; update(); }
+
+function feedback(li, de, en){
+  if (!de && !en) return;
+  const fb = el("div","fb");
+  if (de){ fb.append(sayBtn(de)); const b = el("b",null,de); b.lang = "de"; fb.append(b); }
+  if (en) fb.append(el("span",null,(de ? "= " : "") + en));
+  li.append(fb);
+}
+
+function mcItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."));
+  let blank = null;
+  if (sec.listen){
+    q.append(sayBtn(it.say,"Play"));
+  } else {
+    if (it.say) q.append(sayBtn(it.say));
+    if (it.q.includes("___")){
+      const parts = it.q.split("___"); const s = el("span","de"); s.lang = "de";
+      blank = el("span","blank"," ");
+      s.append(document.createTextNode(parts[0]), blank, document.createTextNode(parts[1])); q.append(s);
+    } else { const s = el("span", it.de ? "de" : null, it.q); if (it.de) s.lang = "de"; q.append(s); }
+  }
+  const opts = el("div","opts");
+  const order = it.fixed ? it.fixed.map(t => ({t, right: t === it.opts[0]})) : shuffle(it.opts.map((t,i) => ({t, right: i === 0})));
+  const btns = order.map(o => {
+    const b = el("button", sec.code ? "opt code" : "opt", o.t); b.type = "button"; if (it.optsDe) b.lang = "de";
+    b.addEventListener("click", () => finish(o.right, b)); opts.append(b); return {b, right:o.right};
+  });
+  let done = false;
+  function finish(ok, chosen){
+    if (done) return; done = true;
+    btns.forEach(x => { x.b.disabled = true; if (x.right) x.b.classList.add("right"); });
+    if (chosen && !ok) chosen.classList.add("wrong");
+    if (blank){ blank.textContent = it.opts[0]; blank.classList.add("mark"); }
+    if (chosen) li.classList.add(ok ? "ok" : "bad");
+    feedback(li, sec.listen ? it.say : it.sayAfter, it.fb);
+    count(sec, !!ok);
+  }
+  li.append(q, opts);
+  li.reveal = () => finish(false, null);
+  li.isDone = () => done;
+  return li;
+}
+
+function buildItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const line = el("div","line"); line.lang = "de"; line.setAttribute("aria-label","Your sentence");
+  const pool = el("div","pool"); pool.lang = "de";
+  let order = shuffle(it.a);
+  for (let k=0; k<8 && order.join(" ") === it.a.join(" "); k++) order = shuffle(it.a);
+  let done = false;
+  order.forEach(w => {
+    const t = el("button","tile",w); t.type = "button";
+    t.addEventListener("click", () => {
+      if (done) return;
+      if (t.parentNode === pool) line.append(t); else pool.append(t);
+      if (!pool.children.length) check();
+    });
+    pool.append(t);
+  });
+  function check(){
+    const got = Array.from(line.children).map(c => c.textContent).join(" ");
+    finish(got === it.a.join(" "), true);
+  }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    Array.from(li.querySelectorAll(".tile")).forEach(t => t.disabled = true);
+    if (tried) li.classList.add(ok ? "ok" : "bad");
+    const full = it.a.join(" ");
+    const fb = el("div","fb"); fb.append(sayBtn(full));
+    const m = el("span","mark",full); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  li.append(q, line, pool);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+let lastInput = null;
+function typeItem(sec, it, n){
+  const li = el("li","item");
+  const q = el("div","q"); q.append(el("span","nr",n+"."), el("span",null,it.en));
+  const fill = el("div","fill");
+  const inp = el("input","gap"); inp.type = "text"; inp.lang = "de";
+  inp.setAttribute("autocomplete","off"); inp.setAttribute("autocapitalize","off"); inp.setAttribute("autocorrect","off"); inp.spellcheck = false;
+  inp.setAttribute("aria-label","Your answer in German for: " + it.en);
+  const btn = el("button","small","Check"); btn.type = "button";
+  inp.addEventListener("focus", () => { lastInput = inp; });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  btn.addEventListener("click", check);
+  let done = false;
+  function check(){ if (!inp.value.trim()) { inp.focus(); return; } finish(it.a.some(a => norm(a) === norm(inp.value)), true); }
+  function finish(ok, tried){
+    if (done) return; done = true;
+    inp.readOnly = true; btn.disabled = true; btn.hidden = true;
+    if (tried){ inp.classList.add(ok ? "ok" : "bad"); li.classList.add(ok ? "ok" : "bad"); }
+    const fb = el("div","fb"); fb.append(sayBtn(it.a[0]));
+    const m = el("span","mark",it.a[0]); m.lang = "de"; fb.append(m);
+    li.append(fb);
+    count(sec, !!ok);
+  }
+  fill.append(inp, btn); li.append(q, fill);
+  li.reveal = () => finish(false, false);
+  li.isDone = () => done;
+  return li;
+}
+
+function renderSection(sec, card){
+  state[sec.id] = {ok:0, done:0};
+  const old = card.querySelector(".items"); if (old) old.remove();
+  const ul = el("ul","items");
+  shuffle(sec.items).forEach((it,i) => {
+    ul.append(sec.type === "build" ? buildItem(sec,it,i+1) : sec.type === "type" ? typeItem(sec,it,i+1) : mcItem(sec,it,i+1));
+  });
+  card.insertBefore(ul, card.querySelector(".tail"));
+}
+
+function render(){
+  const main = $("sections"), jump = $("jump");
+  main.innerHTML = ""; jump.innerHTML = "";
+  let all = 0;
+  SECTIONS.forEach((sec, si) => {
+    all += total(sec);
+    const card = el("section","card"); card.id = "s-" + sec.id;
+    const h = el("h2");
+    const n = el("span","n",String(si+1)); const t = el("span",null,sec.title); const d = el("span","de",sec.de); d.lang = "de";
+    const sc = el("span","sc"); sc.id = "sc-" + sec.id;
+    h.append(n,t,d,sc);
+    const task = el("p","task",sec.task);
+    const tail = el("div","tail"); tail.style.cssText = "display:flex;flex-direction:column;gap:10px";
+    if (sec.type === "type"){
+      const keys = el("div","keys"); keys.append(el("span",null,"Special letters:"));
+      ["ä","ö","ü","ß"].forEach(ch => { const k = el("button","key",ch); k.type = "button"; k.lang = "de";
+        k.addEventListener("mousedown", e => e.preventDefault());
+        k.addEventListener("click", () => { const inp = lastInput; if (!inp || inp.readOnly) return;
+          const s = inp.selectionStart ?? inp.value.length, e2 = inp.selectionEnd ?? inp.value.length;
+          inp.value = inp.value.slice(0,s) + ch + inp.value.slice(e2); inp.focus(); try { inp.setSelectionRange(s+1,s+1); } catch (e) {} });
+        keys.append(k); });
+      tail.append(keys);
+    }
+    const act = el("div","actions");
+    const again = el("button","btn","Shuffle and try again"); again.type = "button";
+    again.addEventListener("click", () => { renderSection(sec, card); update(); });
+    const show = el("button","btn","Show the answers"); show.type = "button";
+    show.addEventListener("click", () => { card.querySelectorAll(".item").forEach(li => { if (!li.isDone()) li.reveal(); }); });
+    act.append(again, show); tail.append(act);
+    card.append(h, task, tail);
+    main.append(card);
+    renderSection(sec, card);
+    const a = el("a",null,(si+1) + " · " + sec.title); a.href = "#s-" + sec.id; a.id = "j-" + sec.id; jump.append(a);
+  });
+  $("leadCount").textContent = SECTIONS.length + " exercises with " + all + " tasks.";
+  update();
+}
+
+$("resetAll").addEventListener("click", () => { render(); window.scrollTo({top:0, behavior:"smooth"}); });
+renderLearn(); render(); showBest();
+</script>
+</body>
+</html>
