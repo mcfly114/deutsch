@@ -126,11 +126,11 @@ const SECTIONS = [
    codes:[{k:'A',l:'Komma'},{k:'B',l:'kein Komma'}],
    items:[
     ['Wir kaufen Brot___ Käse und Wurst.','A'],
-    ['Wir kaufen Brot ___ und Käse.','B'],
     ['Er ist klein___ aber stark.','A'],
-    ['Du kannst gehen ___ oder bleiben.','B'],
+    ['Wir kaufen Brot ___ und Käse.','B'],
     ['Es war ein kalter___ nasser Tag.','A'],
-    ['Sie blieb zu Hause___ denn sie war krank.','A'],
+    ['Du kannst gehen ___ oder bleiben.','B'],
+    ['Es gab Tee ___ und Saft.','B'],
    ].map(([s,a]) => ({s,a}))
  },
  { id:'ri', type:'mc', title:'Welcher Satz ist richtig?', task:'Welcher Satz hat die Kommas richtig gesetzt?',
@@ -145,11 +145,11 @@ const SECTIONS = [
  { id:'re', type:'code', title:'Welche Regel gilt?', task:'Welche Regel erklärt das Komma oder das fehlende Komma?',
    codes:[{k:'A',l:'Aufzählung'},{k:'B',l:'vor aber, denn, sondern'},{k:'C',l:'vor und, oder: kein Komma'}],
    items:[
-    ['Tische, Stühle und Regale','A'],
     ['niedrig, aber gut','B'],
+    ['Tische, Stühle und Regale','A'],
+    ['Äpfel, Birnen, Pflaumen','A'],
     ['Saft und Kuchen','C'],
     ['Er kam nicht, sondern blieb zu Hause.','B'],
-    ['Äpfel, Birnen, Pflaumen','A'],
    ].map(([s,a]) => ({s,a}))
  },
  { id:'an', type:'mc', title:'Wie viele Kommas?', task:'Wie viele Kommas gehören in den Satz?',
