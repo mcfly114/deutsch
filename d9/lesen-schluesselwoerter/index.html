@@ -91,7 +91,7 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
   <header class="top">
     <span class="eyebrow">D9 · Übungen zur Stunde</span>
     <h1><span class="code">L</span> Schlüsselwörter und Abschnitte</h1>
-    <p class="lead">6 Übungen mit 64 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
+    <p class="lead">6 Übungen mit 30 Aufgaben. Klicke eine Antwort an oder wähle ein Wort aus – du siehst sofort, ob sie stimmt. Die richtige Lösung wird <span class="mark">gelb</span> markiert.</p>
   </header>
 
   <div class="status" role="status" aria-live="polite">
@@ -122,79 +122,300 @@ select.gap.ok{border-color:var(--ok);background:var(--ok-soft)} select.gap.bad{b
 <script>
 const LETTERS = (arr) => arr.map(([k,l]) => ({k,l}));
 const SECTIONS = [
- { id:'schluessel', type:'code', title:'Schlüsselwort oder nicht?', task:'Der Text handelt von Plastikmüll im Meer. Ist das Wort ein Schlüsselwort (S) oder unwichtig (U)?',
-   codes:[{k:'S',l:'Schlüsselwort'},{k:'U',l:'unwichtig'}],
-   items:[
-    ['Plastikmüll','S'],['eigentlich','U'],['Fischernetze','S'],['dann','U'],['Mikroplastik','S'],['wirklich','U'],['Meeresschildkröten','S'],
-    ['immer','U'],['Mehrwegflaschen','S'],['ziemlich','U'],['Nahrungskette','S'],['nämlich','U'],['450 Jahre','S'],['gerade','U'],
-   ].map(([s,a]) => ({s,a}))
+ {
+  "id": "schluessel",
+  type:'code',
+  "title": "Schlüsselwort oder nicht?",
+  "task": "Der Text handelt von Plastikmüll im Meer. Ist das Wort ein Schlüsselwort (S) oder unwichtig (U)?",
+  "codes": [
+   {
+    "k": "S",
+    "l": "Schlüsselwort"
+   },
+   {
+    "k": "U",
+    "l": "unwichtig"
+   }
+  ],
+  "items": [
+   {
+    "s": "Plastikmüll",
+    "a": "S"
+   },
+   {
+    "s": "eigentlich",
+    "a": "U"
+   },
+   {
+    "s": "Fischernetze",
+    "a": "S"
+   },
+   {
+    "s": "dann",
+    "a": "U"
+   },
+   {
+    "s": "Mikroplastik",
+    "a": "S"
+   },
+   {
+    "s": "wirklich",
+    "a": "U"
+   }
+  ]
  },
- { id:'abschnitte', type:'code', title:'Zu welchem Abschnitt gehört der Satz?', task:'Ordne jeden Satz dem passenden Abschnitt des Textes „Plastikmüll im Meer“ zu.',
-   codes:[{k:'1',l:'Ein Problem für die Meere'},{k:'2',l:'Wie der Müll ins Meer kommt'},{k:'3',l:'Gefahr für Meerestiere'},{k:'4',l:'Das kann jeder tun'}],
-   items:[
-    ['Jedes Jahr gelangen mehrere Millionen Tonnen Plastik in die Ozeane.','1'],
-    ['Fischer verlieren Netze, die im Wasser treiben.','2'],
-    ['Meeresschildkröten halten Plastiktüten für Quallen.','3'],
-    ['Mehrwegflaschen und Stoffbeutel sparen viel Plastik.','4'],
-    ['Plastik gehört zu unserem Alltag, doch viel davon landet im Meer.','1'],
-    ['Über Flüsse, Kanäle und den Wind kommen Flaschen und Tüten ins Meer.','2'],
-    ['Seevögel verheddern sich in Netzen.','3'],
-    ['Freiwillige sammeln an Stränden Müll ein.','4'],
-    ['Eine Plastikflasche braucht schätzungsweise 450 Jahre.','2'],
-    ['Kleine Fische nehmen Mikroplastik auf.','3'],
-    ['Abfall gehört nie in die Natur.','4'],
-    ['Der meiste Müll stammt vom Land.','2'],
-    ['Wie kommt der Müll ins Meer, und was richtet er an?','1'],
-   ].map(([s,a]) => ({s,a}))
+ {
+  "id": "abschnitte",
+  type:'code',
+  "title": "Zu welchem Abschnitt gehört der Satz?",
+  "task": "Ordne jeden Satz dem passenden Abschnitt des Textes „Plastikmüll im Meer“ zu.",
+  "codes": [
+   {
+    "k": "1",
+    "l": "Ein Problem für die Meere"
+   },
+   {
+    "k": "2",
+    "l": "Wie der Müll ins Meer kommt"
+   },
+   {
+    "k": "3",
+    "l": "Gefahr für Meerestiere"
+   },
+   {
+    "k": "4",
+    "l": "Das kann jeder tun"
+   }
+  ],
+  "items": [
+   {
+    "s": "Jedes Jahr gelangen mehrere Millionen Tonnen Plastik in die Ozeane.",
+    "a": "1"
+   },
+   {
+    "s": "Fischer verlieren Netze, die im Wasser treiben.",
+    "a": "2"
+   },
+   {
+    "s": "Meeresschildkröten halten Plastiktüten für Quallen.",
+    "a": "3"
+   },
+   {
+    "s": "Mehrwegflaschen und Stoffbeutel sparen viel Plastik.",
+    "a": "4"
+   },
+   {
+    "s": "Über Flüsse, Kanäle und den Wind kommen Flaschen und Tüten ins Meer.",
+    "a": "2"
+   },
+   {
+    "s": "Plastik gehört zu unserem Alltag, doch viel davon landet im Meer.",
+    "a": "1"
+   }
+  ]
  },
- { id:'wissen', type:'mc', title:'Schlüsselwörter, Abschnitte, Überschriften', task:'Wähle die richtige Antwort.',
-   items:[
-    ['Was sind Schlüsselwörter?',['die wichtigsten Wörter eines Abschnitts','alle Wörter mit mehr als sechs Buchstaben','Wörter, die man nicht kennt','die Wörter in der Überschrift']],
-    ['Wie viele Schlüsselwörter markierst du etwa je Abschnitt?',['2 bis 4','mindestens 20','genau eins pro Satz','keines']],
-    ['Welche Wörter sind oft Schlüsselwörter?',['Nomen, Zahlen und Fachwörter','Wörter wie „aber“ und „dann“','nur Artikel wie „der“ und „die“','nur Wörter am Satzanfang']],
-    ['Warum markierst du nur wenig?',['damit das Wichtige auffällt','damit der Text kürzer wird','weil Markieren verboten ist','damit du weniger lesen musst']],
-    ['Woran erkennst du einen neuen Abschnitt?',['an einem neuen Thema, oft nach einem Absatz','an einem sehr langen Wort','an einem Fragezeichen','an einer Zahl']],
-    ['Was ist ein Absatz?',['ein Textteil, der in einer neuen Zeile beginnt','ein Wort mit Umlaut','die Quelle des Textes','das Bild zum Text']],
-    ['Was sagt eine Zwischenüberschrift?',['worum es im Abschnitt geht','wer den Text geschrieben hat','wie lang der Text ist','wann der Text erschien']],
-    ['Eine gute Zwischenüberschrift ist …',['kurz und genau','ein langer Satz','nur das Wort „Text“','immer eine Frage']],
-    ['Welche Überschrift passt zu Z. 10–13?',['Gefahr für Meerestiere','Plastik','Alle Tiere im Meer sind in Gefahr, weil überall Müll schwimmt','Tipps gegen Plastikmüll']],
-    ['Welche Überschrift passt zu Z. 14–17?',['Das kann jeder tun','Wie der Müll ins Meer kommt','Müll','Gefahr für Meerestiere']],
-    ['Welche Überschrift passt zu Z. 5–9?',['Wie der Müll ins Meer kommt','Hilfe für das Meer','Plastik','Seevögel in Not']],
-    ['Was machst du zuerst, wenn du einen Text gliederst?',['Abschnitte abgrenzen','Überschriften schreiben','alles markieren','den Text abschreiben']],
-    ['Was ist der Unterschied zwischen Überschrift und Zwischenüberschrift?',['Die Überschrift gilt für den ganzen Text, die Zwischenüberschrift für einen Abschnitt.','Es gibt keinen Unterschied.','Die Zwischenüberschrift steht am Ende des Textes.','Die Überschrift ist immer länger.']],
-    ['Welche Reihenfolge ist richtig?',['Abschnitt abgrenzen, Schlüsselwörter markieren, Überschrift finden','Überschrift finden, Abschnitt abgrenzen, Schlüsselwörter markieren','Schlüsselwörter markieren, Text abschreiben, Überschrift finden','alles markieren, Überschrift finden, Abschnitt abgrenzen']],
-   ].map(([q,o]) => ({q,opts:o,a:0}))
+ {
+  "id": "wissen",
+  type:'mc',
+  "title": "Schlüsselwörter, Abschnitte, Überschriften",
+  "task": "Wähle die richtige Antwort.",
+  "items": [
+   {
+    "q": "Was sind Schlüsselwörter?",
+    "opts": [
+     "die wichtigsten Wörter eines Abschnitts",
+     "alle Wörter mit mehr als sechs Buchstaben",
+     "Wörter, die man nicht kennt",
+     "die Wörter in der Überschrift"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Wie viele Schlüsselwörter markierst du etwa je Abschnitt?",
+    "opts": [
+     "2 bis 4",
+     "mindestens 20",
+     "genau eins pro Satz",
+     "keines"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Woran erkennst du einen neuen Abschnitt?",
+    "opts": [
+     "an einem neuen Thema, oft nach einem Absatz",
+     "an einem sehr langen Wort",
+     "an einem Fragezeichen",
+     "an einer Zahl"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Eine gute Zwischenüberschrift ist …",
+    "opts": [
+     "kurz und genau",
+     "ein langer Satz",
+     "nur das Wort „Text“",
+     "immer eine Frage"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Welche Überschrift passt zu Z. 10–13?",
+    "opts": [
+     "Gefahr für Meerestiere",
+     "Plastik",
+     "Alle Tiere im Meer sind in Gefahr, weil überall Müll schwimmt",
+     "Tipps gegen Plastikmüll"
+    ],
+    "a": 0
+   }
+  ]
  },
- { id:'text', type:'mc', title:'Fragen zum Text „Plastikmüll im Meer“', task:'Beantworte die Fragen zum Text vom Arbeitsblatt.',
-   items:[
-    ['Wie viel Plastikmüll gelangt laut Fachleuten jedes Jahr in die Ozeane?',['mehrere Millionen Tonnen','einige Kilogramm','wenige Tonnen','mehrere Milliarden Tonnen']],
-    ['Woher stammt der meiste Müll?',['vom Land','von Kreuzfahrtschiffen','aus der Tiefsee','von Walen']],
-    ['Was verlieren Fischer manchmal?',['Netze','Boote','Angelschnüre aus Holz','Funkgeräte']],
-    ['Wie lange braucht eine Plastikflasche schätzungsweise zum Zerfallen?',['rund 450 Jahre','rund 45 Jahre','rund 4,5 Jahre','rund 45 000 Jahre']],
-    ['Was nennt man Mikroplastik?',['Teile unter fünf Millimetern','Teile über fünf Meter','Flaschen mit Deckel','Plastik aus Pflanzen']],
-    ['Wofür halten Meeresschildkröten Plastiktüten oft?',['für Quallen','für Steine','für Algen','für Muscheln']],
-    ['Was passiert mit manchen Seevögeln?',['Sie verheddern sich in Netzen oder füllen ihren Magen mit Plastik.','Sie bauen Nester aus Plastik und ziehen weiter.','Sie fressen nur noch Fisch.','Sie fliegen in den Süden.']],
-    ['Wie kann Mikroplastik zum Menschen gelangen?',['über die Nahrungskette','nur über die Luft','durch Sonnenlicht','gar nicht']],
-    ['Was können Menschen laut Text tun?',['Mehrwegflaschen und Stoffbeutel nutzen','mehr Einwegflaschen kaufen','Müll am Strand liegen lassen','weniger Wasser trinken']],
-    ['Was tun Freiwillige an Stränden?',['Sie sammeln Müll ein.','Sie verkaufen Plastikflaschen.','Sie bauen Fischernetze.','Sie zählen Seevögel.']],
-   ].map(([q,o]) => ({q,opts:o,a:0}))
+ {
+  "id": "text",
+  type:'mc',
+  "title": "Fragen zum Text „Plastikmüll im Meer“",
+  "task": "Beantworte die Fragen zum Text vom Arbeitsblatt.",
+  "items": [
+   {
+    "q": "Wie viel Plastikmüll gelangt laut Fachleuten jedes Jahr in die Ozeane?",
+    "opts": [
+     "mehrere Millionen Tonnen",
+     "einige Kilogramm",
+     "wenige Tonnen",
+     "mehrere Milliarden Tonnen"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Woher stammt der meiste Müll?",
+    "opts": [
+     "vom Land",
+     "von Kreuzfahrtschiffen",
+     "aus der Tiefsee",
+     "von Walen"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Wie lange braucht eine Plastikflasche schätzungsweise zum Zerfallen?",
+    "opts": [
+     "rund 450 Jahre",
+     "rund 45 Jahre",
+     "rund 4,5 Jahre",
+     "rund 45 000 Jahre"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Wofür halten Meeresschildkröten Plastiktüten oft?",
+    "opts": [
+     "für Quallen",
+     "für Steine",
+     "für Algen",
+     "für Muscheln"
+    ],
+    "a": 0
+   },
+   {
+    "q": "Was können Menschen laut Text tun?",
+    "opts": [
+     "Mehrwegflaschen und Stoffbeutel nutzen",
+     "mehr Einwegflaschen kaufen",
+     "Müll am Strand liegen lassen",
+     "weniger Wasser trinken"
+    ],
+    "a": 0
+   }
+  ]
  },
- { id:'woerter', type:'mc', title:'Wörter aus dem Text erklären', task:'Was bedeutet das Wort im Text?',
-   items:[
-    ['„Ozeane“ (Z. 3)',['große Meere','kleine Seen','Flüsse','Inseln']],
-    ['„verrottet“ (Z. 7)',['zerfällt und löst sich auf','wächst weiter','schwimmt oben','leuchtet']],
-    ['„schätzungsweise“ (Z. 8)',['ungefähr, nicht ganz genau','sicher bewiesen','verboten','sehr schnell']],
-    ['„Mikroplastik“ (Z. 9)',['winzige Plastikteilchen','große Plastikflaschen','ein Plastikspielzeug','ein Meerestier']],
-    ['„verheddern“ (Z. 11)',['sich verfangen','wegfliegen','tauchen','schlafen']],
-    ['„Nahrungskette“ (Z. 13)',['Reihenfolge, in der Lebewesen einander fressen','eine Kette aus Metall','eine Liste von Speisen','ein Restaurant']],
-    ['„verringern“ (Z. 14)',['weniger machen','vergrößern','verstecken','bezahlen']],
-    ['„Freiwillige“ (Z. 16)',['Menschen, die ohne Bezahlung helfen','Menschen, die Müll verkaufen','Menschen, die im Meer wohnen','Menschen, die Netze flicken']],
-   ].map(([q,o]) => ({q,opts:o,a:0}))
+ {
+  "id": "woerter",
+  type:'mc',
+  "title": "Wörter aus dem Text erklären",
+  "task": "Was bedeutet das Wort im Text?",
+  "items": [
+   {
+    "q": "„verrottet“ (Z. 7)",
+    "opts": [
+     "zerfällt und löst sich auf",
+     "wächst weiter",
+     "schwimmt oben",
+     "leuchtet"
+    ],
+    "a": 0
+   },
+   {
+    "q": "„schätzungsweise“ (Z. 8)",
+    "opts": [
+     "ungefähr, nicht ganz genau",
+     "sicher bewiesen",
+     "verboten",
+     "sehr schnell"
+    ],
+    "a": 0
+   },
+   {
+    "q": "„Nahrungskette“ (Z. 13)",
+    "opts": [
+     "Reihenfolge, in der Lebewesen einander fressen",
+     "eine Kette aus Metall",
+     "eine Liste von Speisen",
+     "ein Restaurant"
+    ],
+    "a": 0
+   }
+  ]
  },
- { id:'merke', type:'cloze', title:'Lückentext: Schlüsselwörter und Abschnitte', task:'Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.',
-   words:['Thema','Abschnitt','Schlüsselwörter','zwei','Zwischenüberschrift','Quelle','alle'],
-   text:['Ein Abschnitt behandelt ein ',{a:['Thema']},'. Beginnt ein neues Thema, beginnt ein neuer ',{a:['Abschnitt']},'. Die wichtigsten Wörter eines Abschnitts heißen ',{a:['Schlüsselwörter']},'. Man markiert nur ',{a:['zwei']},' bis vier davon. Die ',{a:['Zwischenüberschrift']},' ist kurz und sagt, worum es im Abschnitt geht.']
- },
+ {
+  "id": "merke",
+  type:'cloze',
+  "title": "Lückentext: Schlüsselwörter und Abschnitte",
+  "task": "Wähle in jeder Lücke das passende Wort aus. Zwei Wörter bleiben übrig.",
+  "words": [
+   "Thema",
+   "Abschnitt",
+   "Schlüsselwörter",
+   "zwei",
+   "Zwischenüberschrift",
+   "Quelle",
+   "alle"
+  ],
+  "text": [
+   "Ein Abschnitt behandelt ein ",
+   {
+    "a": [
+     "Thema"
+    ]
+   },
+   ". Beginnt ein neues Thema, beginnt ein neuer ",
+   {
+    "a": [
+     "Abschnitt"
+    ]
+   },
+   ". Die wichtigsten Wörter eines Abschnitts heißen ",
+   {
+    "a": [
+     "Schlüsselwörter"
+    ]
+   },
+   ". Man markiert nur ",
+   {
+    "a": [
+     "zwei"
+    ]
+   },
+   " bis vier davon. Die ",
+   {
+    "a": [
+     "Zwischenüberschrift"
+    ]
+   },
+   " ist kurz und sagt, worum es im Abschnitt geht."
+  ]
+ }
 ];
 const shuffle = (a) => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
 const norm = (s) => s.trim().toLowerCase().replace(/\s+/g,' ');
