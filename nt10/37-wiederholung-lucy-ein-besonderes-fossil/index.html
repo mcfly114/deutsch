@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiederholung: Lucy – ein besonderes Fossil</title>
+<style>
+  :root {
+    --blue: #1F5F8B;
+    --bg: #f4f7f9;
+    --card: #ffffff;
+    --text: #1b2430;
+    --muted: #6b7785;
+    --green: #2e8b57;
+    --red: #c0392b;
+    --yellow: #fff3b0;
+    --border: #d7e0e6;
+  }
+  [data-theme="dark"] {
+    --bg: #121a21;
+    --card: #1b2630;
+    --text: #e8eef2;
+    --muted: #9fb0bc;
+    --border: #2b3a46;
+    --yellow: #5a4b12;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Verdana, Geneva, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 16px;
+    transition: background .2s, color .2s;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 1.25rem; color: var(--blue); margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: .85rem; margin-bottom: 16px; }
+  .topbar { display:flex; justify-content: space-between; align-items:center; gap:8px; flex-wrap: wrap;}
+  button {
+    font-family: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); padding: 8px 12px; font-size: .85rem;
+  }
+  button:hover { filter: brightness(0.96); }
+  .progress-wrap { background: var(--border); border-radius: 8px; height: 10px; margin: 12px 0 20px; overflow: hidden; }
+  .progress-bar { background: var(--blue); height: 100%; width: 0%; transition: width .3s; }
+  .score { font-weight: bold; color: var(--blue); }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .qnum { color: var(--muted); font-size: .8rem; margin-bottom: 4px;}
+  .qtext { font-size: 1rem; margin-bottom: 10px; font-weight: bold; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt-btn {
+    text-align: left; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); font-size: .95rem;
+  }
+  .opt-btn.correct { background: #d4f4dd; border-color: var(--green); color: #1d5c37; }
+  .opt-btn.wrong { background: #fbdede; border-color: var(--red); color: #7a1f16; }
+  [data-theme="dark"] .opt-btn.correct { background: #204a30; color: #c9f2d6; }
+  [data-theme="dark"] .opt-btn.wrong { background: #552322; color: #f5c6c3; }
+  .opt-btn.reveal { background: var(--yellow); border-color: #d8b400; }
+  .fill-row { display: flex; gap: 8px; flex-wrap: wrap; align-items:center; }
+  input[type=text] {
+    font-family: inherit; font-size: .95rem; padding: 8px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text); flex: 1; min-width: 140px;
+  }
+  .feedback { margin-top: 8px; font-size: .9rem; font-weight: bold; min-height: 1.2em; }
+  .feedback.ok { color: var(--green); }
+  .feedback.bad { color: var(--red); }
+  .check-btn { margin-top: 8px; }
+  details.cheat {
+    margin: 18px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--card); padding: 10px 14px;
+  }
+  details.cheat summary { cursor: pointer; font-weight: bold; color: var(--blue); }
+  details.cheat ul { margin: 8px 0 0 18px; padding: 0; font-size: .9rem; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; margin: 24px 0 8px; }
+</style>
+</head>
+<body data-theme="light">
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <h1>Wiederholung: Lucy – ein besonderes Fossil</h1>
+      <div class="sub">Wiederholung zur Stunde über Lucy, Gehirnentwicklung und Entwicklungstheorien</div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button id="themeBtn" onclick="toggleTheme()">🌙 Dunkel</button>
+    </div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="topbar" style="margin-bottom:10px;">
+    <div class="score">Punkte: <span id="scoreVal">0</span> / 20</div>
+    <div style="display:flex; gap:8px;">
+      <button onclick="shuffleAndReload()">🔀 Neu mischen</button>
+      <button onclick="showAll()">👁 Alle Lösungen zeigen</button>
+    </div>
+  </div>
+  <div id="quiz"></div>
+  <details class="cheat">
+    <summary>Spickzettel (Kurzübersicht)</summary>
+    <ul>
+      <li>Lucy: 1974 von Donald Johnson in Äthiopien entdeckt, ca. 3,2 Mio. Jahre alt, Gattung Australopithecus.</li>
+      <li>Merkmale: aufrechter Gang (Oberschenkel/Becken), weibliches Becken, noch affenähnliches Gesicht.</li>
+      <li>Gehirnvolumen wächst von 400 ml (Australopithecus) über 600 ml (Homo habilis), 900 ml (Homo erectus) bis 1350 ml (Homo sapiens).</li>
+      <li>Vier Entwicklungstheorien (A-D) ordnen Bodenleben, aufrechten Gang, Kultur/Wortsprache und großes Hirnvolumen unterschiedlich an.</li>
+    </ul>
+  </details>
+  <footer>NT10 &middot; Wiederholung &middot; 20 Aufgaben</footer>
+</div>
+<script>
+const QUESTIONS = [{"type": "mc", "label": "Multiple Choice", "q": "Welche vier Schritte nennen die Entwicklungstheorien?", "options": ["Bodenleben, aufrechter Gang, Kultur/Wortsprache, großes Hirnvolumen", "nur Werkzeuge und Feuer", "nur Jagd und Ackerbau", "nur Sprache und Kleidung"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Welches Merkmal war bei Lucy noch affenähnlich?", "options": ["Überaugenwülste und niedrige Stirn", "die Fußform", "die Beckenbreite", "die Oberschenkelknochen"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wer entdeckte 1974 in Äthiopien das Lucy-Skelett?", "options": ["Donald Johnson", "Charles Darwin", "Louis Leakey", "Jane Goodall"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wie viele verschiedene Theorien (A bis D) werden zur Reihenfolge der Schritte diskutiert?", "options": ["vier", "zwei", "sechs", "acht"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Welches Gehirnvolumen hatte Homo erectus laut Grafik?", "options": ["900 ml", "400 ml", "600 ml", "1350 ml"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wie groß war Lucy ungefähr?", "options": ["etwa 1,05 m", "etwa 1,60 m", "etwa 0,50 m", "etwa 1,80 m"], "correct": 0}, {"type": "tf", "label": "Richtig/Falsch", "q": "Die Breite von Lucys Becken deutet auf ein weibliches Skelett hin.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Warum ist eine Rekonstruktion von Lucys Aussehen nur eine Annäherung?", "options": ["weil Haut und Haare nicht erhalten sind", "weil es kein Skelett gibt", "weil niemand es versucht hat", "weil der Fund zu jung ist"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Was belegt bei Lucy den aufrechten Gang?", "options": ["Oberschenkelknochen und Becken", "die Zahnform", "die Haarfarbe", "die Augenfarbe"], "correct": 0}, {"type": "tf", "label": "Richtig/Falsch", "q": "Die Wissenschaft ist sich einig, in welcher Reihenfolge die vier Entwicklungsschritte stattfanden.", "options": ["Richtig", "Falsch"], "correct": 1}, {"type": "fill", "label": "Lückentext", "q": "Welches Gehirnvolumen hat der heutige Homo sapiens laut Grafik? (in ml)", "answers": ["1350 ml", "1350"]}, {"type": "mc", "label": "Multiple Choice", "q": "Was zeigten die großen, kräftigen Backenzähne von Lucy an?", "options": ["ein Alter von 25 bis 30 Jahren", "ein Alter von unter 5 Jahren", "dass sie krank war", "dass sie männlich war"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Welche Nahrung war für das wachsende Gehirn vermutlich von Vorteil?", "options": ["eiweiß- und fettreiche Nahrung", "ausschließlich Obst", "nur Wasser", "stark gesalzene Nahrung"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Welches Gehirnvolumen hatte Homo habilis laut Grafik?", "options": ["600 ml", "400 ml", "900 ml", "1350 ml"], "correct": 0}, {"type": "fill", "label": "Lückentext", "q": "Welches Gehirnvolumen hatte Australopithecus afarensis laut Grafik? (in ml)", "answers": ["400 ml", "400"]}, {"type": "tf", "label": "Richtig/Falsch", "q": "Mit wachsendem Gehirnvolumen steigt auch der Anteil des Gehirns am Energiebedarf des Körpers.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "fill", "label": "Lückentext", "q": "Welcher Gattung ordnete man den Lucy-Fund zu?", "answers": ["Australopithecus", "australopithecus"]}, {"type": "tf", "label": "Richtig/Falsch", "q": "Lucys Gesicht war bereits vollständig menschenähnlich.", "options": ["Richtig", "Falsch"], "correct": 1}, {"type": "tf", "label": "Richtig/Falsch", "q": "Lucy war etwa 3,2 Millionen Jahre alt.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "fill", "label": "Lückentext", "q": "In welchem Land wurde Lucy gefunden?", "answers": ["Äthiopien", "aethiopien"]}];
+let order = JSON.parse(localStorage.getItem('nt10_order_' + "nt10_37") || 'null');
+if (!order || order.length !== QUESTIONS.length) {
+  order = QUESTIONS.map((_, i) => i);
+}
+let score = 0;
+let answered = new Array(QUESTIONS.length).fill(false);
+
+function toggleTheme() {
+  const b = document.body;
+  const now = b.getAttribute('data-theme');
+  const next = now === 'dark' ? 'light' : 'dark';
+  b.setAttribute('data-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️ Hell' : '🌙 Dunkel';
+  try { localStorage.setItem('nt10_theme', next); } catch (e) {}
+}
+try {
+  const saved = localStorage.getItem('nt10_theme');
+  if (saved) { document.body.setAttribute('data-theme', saved);
+    document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️ Hell' : '🌙 Dunkel'; }
+} catch (e) {}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function shuffleAndReload() {
+  order = shuffle(QUESTIONS.map((_, i) => i));
+  try { localStorage.setItem('nt10_order_' + "nt10_37", JSON.stringify(order)); } catch (e) {}
+  score = 0;
+  answered = new Array(QUESTIONS.length).fill(false);
+  render();
+}
+
+function updateProgress() {
+  const done = answered.filter(Boolean).length;
+  document.getElementById('progressBar').style.width = (done / QUESTIONS.length * 100) + '%';
+  document.getElementById('scoreVal').textContent = score;
+}
+
+function norm(s) {
+  return (s || '').toString().trim().toLowerCase()
+    .replaceAll('ä','ae').replaceAll('ö','oe').replaceAll('ü','ue').replaceAll('ß','ss');
+}
+
+function render() {
+  const root = document.getElementById('quiz');
+  root.innerHTML = '';
+  order.forEach((qi, idx) => {
+    const q = QUESTIONS[qi];
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = 'card-' + idx;
+    const num = document.createElement('div');
+    num.className = 'qnum';
+    num.textContent = 'Aufgabe ' + (idx + 1) + ' von ' + QUESTIONS.length + ' · ' + q.label;
+    card.appendChild(num);
+    const qt = document.createElement('div');
+    qt.className = 'qtext';
+    qt.textContent = q.q;
+    card.appendChild(qt);
+
+    if (q.type === 'mc' || q.type === 'tf') {
+      const opts = document.createElement('div');
+      opts.className = 'options';
+      let optOrder = q.options.map((_, i) => i);
+      if (q.type === 'mc') shuffle(optOrder);
+      optOrder.forEach(oi => {
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.textContent = q.options[oi];
+        b.onclick = () => {
+          if (answered[idx]) return;
+          answered[idx] = true;
+          const correct = oi === q.correct;
+          if (correct) { score++; b.classList.add('correct'); }
+          else {
+            b.classList.add('wrong');
+            opts.children[optOrder.indexOf(q.correct)].classList.add('correct');
+          }
+          Array.from(opts.children).forEach(c => c.disabled = true);
+          fb.textContent = correct ? 'Richtig!' : 'Leider falsch.';
+          fb.className = 'feedback ' + (correct ? 'ok' : 'bad');
+          updateProgress();
+        };
+        opts.appendChild(b);
+      });
+      card.appendChild(opts);
+    } else if (q.type === 'fill') {
+      const row = document.createElement('div');
+      row.className = 'fill-row';
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.placeholder = 'Antwort eintippen...';
+      const btn = document.createElement('button');
+      btn.className = 'check-btn';
+      btn.textContent = 'Prüfen';
+      row.appendChild(inp); row.appendChild(btn);
+      card.appendChild(row);
+      const check = () => {
+        if (answered[idx]) return;
+        const accepted = q.answers.map(norm);
+        const ok = accepted.includes(norm(inp.value));
+        answered[idx] = true;
+        if (ok) { score++; fb.textContent = 'Richtig!'; fb.className = 'feedback ok'; inp.style.borderColor = 'var(--green)'; }
+        else { fb.textContent = 'Richtig wäre: ' + q.answers[0]; fb.className = 'feedback bad'; inp.style.borderColor = 'var(--red)'; }
+        inp.disabled = true; btn.disabled = true;
+        updateProgress();
+      };
+      btn.onclick = check;
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    }
+
+    const fb = document.createElement('div');
+    fb.className = 'feedback';
+    card.appendChild(fb);
+    root.appendChild(card);
+  });
+  updateProgress();
+}
+
+function showAll() {
+  order.forEach((qi, idx) => {
+    const q = QUESTIONS[qi];
+    const card = document.getElementById('card-' + idx);
+    if (!card) return;
+    if (q.type === 'mc' || q.type === 'tf') {
+      const opts = card.querySelector('.options');
+      Array.from(opts.children).forEach(b => {
+        if (b.textContent === q.options[q.correct]) b.classList.add('reveal');
+      });
+    } else if (q.type === 'fill') {
+      const row = card.querySelector('.fill-row');
+      const hint = document.createElement('div');
+      hint.style.marginTop = '6px';
+      hint.innerHTML = 'Lösung: <b style="background:var(--yellow); padding:1px 6px; border-radius:4px;">' + q.answers[0] + '</b>';
+      row.after(hint);
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>
