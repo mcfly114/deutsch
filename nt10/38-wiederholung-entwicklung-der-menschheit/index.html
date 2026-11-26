@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiederholung: Entwicklung der Menschheit</title>
+<style>
+  :root {
+    --blue: #1F5F8B;
+    --bg: #f4f7f9;
+    --card: #ffffff;
+    --text: #1b2430;
+    --muted: #6b7785;
+    --green: #2e8b57;
+    --red: #c0392b;
+    --yellow: #fff3b0;
+    --border: #d7e0e6;
+  }
+  [data-theme="dark"] {
+    --bg: #121a21;
+    --card: #1b2630;
+    --text: #e8eef2;
+    --muted: #9fb0bc;
+    --border: #2b3a46;
+    --yellow: #5a4b12;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Verdana, Geneva, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 16px;
+    transition: background .2s, color .2s;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 1.25rem; color: var(--blue); margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: .85rem; margin-bottom: 16px; }
+  .topbar { display:flex; justify-content: space-between; align-items:center; gap:8px; flex-wrap: wrap;}
+  button {
+    font-family: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); padding: 8px 12px; font-size: .85rem;
+  }
+  button:hover { filter: brightness(0.96); }
+  .progress-wrap { background: var(--border); border-radius: 8px; height: 10px; margin: 12px 0 20px; overflow: hidden; }
+  .progress-bar { background: var(--blue); height: 100%; width: 0%; transition: width .3s; }
+  .score { font-weight: bold; color: var(--blue); }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .qnum { color: var(--muted); font-size: .8rem; margin-bottom: 4px;}
+  .qtext { font-size: 1rem; margin-bottom: 10px; font-weight: bold; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt-btn {
+    text-align: left; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); font-size: .95rem;
+  }
+  .opt-btn.correct { background: #d4f4dd; border-color: var(--green); color: #1d5c37; }
+  .opt-btn.wrong { background: #fbdede; border-color: var(--red); color: #7a1f16; }
+  [data-theme="dark"] .opt-btn.correct { background: #204a30; color: #c9f2d6; }
+  [data-theme="dark"] .opt-btn.wrong { background: #552322; color: #f5c6c3; }
+  .opt-btn.reveal { background: var(--yellow); border-color: #d8b400; }
+  .fill-row { display: flex; gap: 8px; flex-wrap: wrap; align-items:center; }
+  input[type=text] {
+    font-family: inherit; font-size: .95rem; padding: 8px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text); flex: 1; min-width: 140px;
+  }
+  .feedback { margin-top: 8px; font-size: .9rem; font-weight: bold; min-height: 1.2em; }
+  .feedback.ok { color: var(--green); }
+  .feedback.bad { color: var(--red); }
+  .check-btn { margin-top: 8px; }
+  details.cheat {
+    margin: 18px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--card); padding: 10px 14px;
+  }
+  details.cheat summary { cursor: pointer; font-weight: bold; color: var(--blue); }
+  details.cheat ul { margin: 8px 0 0 18px; padding: 0; font-size: .9rem; }
+  footer { text-align: center; color: var(--muted); font-size: .75rem; margin: 24px 0 8px; }
+</style>
+</head>
+<body data-theme="light">
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <h1>Wiederholung: Entwicklung der Menschheit</h1>
+      <div class="sub">Wiederholung zur Stunde über Besiedlung Europas/Asiens, Neandertaler, Homo sapiens und Kulturentwicklung</div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button id="themeBtn" onclick="toggleTheme()">🌙 Dunkel</button>
+    </div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="topbar" style="margin-bottom:10px;">
+    <div class="score">Punkte: <span id="scoreVal">0</span> / 20</div>
+    <div style="display:flex; gap:8px;">
+      <button onclick="shuffleAndReload()">🔀 Neu mischen</button>
+      <button onclick="showAll()">👁 Alle Lösungen zeigen</button>
+    </div>
+  </div>
+  <div id="quiz"></div>
+  <details class="cheat">
+    <summary>Spickzettel (Kurzübersicht)</summary>
+    <ul>
+      <li>Homo erectus verließ vor etwa 2 Millionen Jahren als Erster Afrika Richtung Europa und Asien.</li>
+      <li>Der Neandertaler (Nachkomme des Homo erectus) breitete sich in Europa aus und starb vor etwa 40 000 Jahren aus, ohne direkte Nachfahren.</li>
+      <li>Homo sapiens brach vor etwa 100 000 Jahren aus dem Gebiet des heutigen Israel auf: vor 40 000 Jahren Australien, vor 25 000 Jahren über eine Landbrücke Sibirien–Alaska nach Amerika.</li>
+      <li>Aufrechter Gang befreite die Hände für Werkzeuge (z. B. 450 000 Jahre alte Speerspitze, 18 000 Jahre alte Elfenbeinfigur).</li>
+      <li>Sprache gab Wissen an nachfolgende Generationen weiter; Schrift speicherte Wissen dauerhaft; Landwirtschaft sicherte ab etwa 12 000 Jahren die Ernährung.</li>
+    </ul>
+  </details>
+  <footer>NT10 &middot; Wiederholung &middot; 20 Aufgaben</footer>
+</div>
+<script>
+const QUESTIONS = [{"type": "tf", "label": "Richtig/Falsch", "q": "Durch die Sprache konnten Fähigkeiten und Wissen an nachfolgende Generationen weitergegeben werden.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Was passierte in Europa, nachdem Homo erectus Afrika verlassen hatte?", "options": ["Ausbreitung eines Nachkommens: des Neandertalers", "sofortige Ankunft des Homo sapiens", "sofortiges Aussterben aller Menschenarten", "Rückkehr nach Afrika"], "correct": 0}, {"type": "fill", "label": "Lückentext", "q": "Vor wie vielen Jahren wanderten die ersten Vorfahren des Menschen aus Afrika aus? (Zahl in Worten oder Ziffern, z. B. '2 Millionen')", "answers": ["2 millionen", "zwei millionen", "2000000"]}, {"type": "fill", "label": "Lückentext", "q": "Vor wie vielen Jahren starb der Neandertaler etwa aus? (z. B. '40 000')", "answers": ["40 000", "40000", "vor etwa 40 000 jahren"]}, {"type": "mc", "label": "Multiple Choice", "q": "Woher brach der Homo sapiens vor etwa 100 000 Jahren auf, um die Welt zu besiedeln?", "options": ["aus dem Gebiet des heutigen Israel", "aus dem heutigen Mitteleuropa", "aus dem heutigen Südamerika", "aus dem heutigen Nordpolargebiet"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Welche Reihenfolge der Besiedlung durch Homo sapiens ist laut Karte richtig?", "options": ["zuerst Asien/Australien, dann zuletzt Amerika", "zuerst Amerika, dann Afrika", "zuerst Europa, dann Afrika", "gleichzeitig überall auf der Welt"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wodurch wurden beim Menschen die Hände für die Werkzeugherstellung frei?", "options": ["durch den aufrechten Gang", "durch das Sprechen", "durch das Schreiben", "durch das Jagen"], "correct": 0}, {"type": "fill", "label": "Lückentext", "q": "Über welche geografische Verbindung gelangte der Homo sapiens nach Amerika?", "answers": ["landbrücke", "eine landbrücke", "landbruecke"]}, {"type": "fill", "label": "Lückentext", "q": "Wie alt ist die gezeigte Frauenfigur aus Elfenbein etwa? (z. B. '18 000')", "answers": ["18 000", "18000", "18 000 jahre"]}, {"type": "tf", "label": "Richtig/Falsch", "q": "Fossilienfunde belegen, dass der Ursprung des Menschen in Afrika liegt.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "tf", "label": "Richtig/Falsch", "q": "Der Homo sapiens gelangte über eine Landbrücke zwischen Sibirien und Alaska nach Amerika.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wer verließ als erster Vorfahre des Menschen Afrika Richtung Europa und Asien?", "options": ["Homo erectus", "der Neandertaler", "Homo sapiens", "Australopithecus afarensis"], "correct": 0}, {"type": "tf", "label": "Richtig/Falsch", "q": "Der Neandertaler hat keine direkten Nachfahren.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wer sind die heutigen Aborigines in Australien?", "options": ["Nachfahren der ersten Besiedlung vor etwa 40 000 Jahren", "die ersten Bewohner Europas", "Nachfahren des Neandertalers", "Erfinder der Landwirtschaft"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Ab wann sicherte die Landwirtschaft die Ernährung der wachsenden Bevölkerung?", "options": ["ab etwa 12 000 Jahren", "ab etwa 1 200 Jahren", "ab etwa 120 000 Jahren", "ab etwa 12 Millionen Jahren"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wie alt ist die im Unterricht gezeigte Speerspitze aus Holz etwa?", "options": ["450 000 Jahre", "4 500 Jahre", "45 000 Jahre", "4,5 Millionen Jahre"], "correct": 0}, {"type": "tf", "label": "Richtig/Falsch", "q": "Zwischen dem Faustkeil des Homo erectus und der Computermaus des Homo sapiens liegen 500 000 Jahre.", "options": ["Richtig", "Falsch"], "correct": 0}, {"type": "mc", "label": "Multiple Choice", "q": "Wer war der Neandertaler?", "options": ["ein Nachkomme des Homo erectus in Europa", "ein Vorfahre aller Affen", "der erste moderne Homo sapiens", "ein Werkzeug der Steinzeit"], "correct": 0}, {"type": "fill", "label": "Lückentext", "q": "Welches Material wurde für die im Unterricht gezeigte Speerspitze des Homo erectus verwendet?", "answers": ["holz"]}, {"type": "mc", "label": "Multiple Choice", "q": "Wodurch konnte Wissen dauerhaft gespeichert und abgerufen werden?", "options": ["durch die Entwicklung einer Schrift", "durch das Feuer", "durch Werkzeuge", "durch die Jagd"], "correct": 0}];
+let order = JSON.parse(localStorage.getItem('nt10_order_' + "nt10_38") || 'null');
+if (!order || order.length !== QUESTIONS.length) {
+  order = QUESTIONS.map((_, i) => i);
+}
+let score = 0;
+let answered = new Array(QUESTIONS.length).fill(false);
+
+function toggleTheme() {
+  const b = document.body;
+  const now = b.getAttribute('data-theme');
+  const next = now === 'dark' ? 'light' : 'dark';
+  b.setAttribute('data-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️ Hell' : '🌙 Dunkel';
+  try { localStorage.setItem('nt10_theme', next); } catch (e) {}
+}
+try {
+  const saved = localStorage.getItem('nt10_theme');
+  if (saved) { document.body.setAttribute('data-theme', saved);
+    document.getElementById('themeBtn').textContent = saved === 'dark' ? '☀️ Hell' : '🌙 Dunkel'; }
+} catch (e) {}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function shuffleAndReload() {
+  order = shuffle(QUESTIONS.map((_, i) => i));
+  try { localStorage.setItem('nt10_order_' + "nt10_38", JSON.stringify(order)); } catch (e) {}
+  score = 0;
+  answered = new Array(QUESTIONS.length).fill(false);
+  render();
+}
+
+function updateProgress() {
+  const done = answered.filter(Boolean).length;
+  document.getElementById('progressBar').style.width = (done / QUESTIONS.length * 100) + '%';
+  document.getElementById('scoreVal').textContent = score;
+}
+
+function norm(s) {
+  return (s || '').toString().trim().toLowerCase()
+    .replaceAll('ä','ae').replaceAll('ö','oe').replaceAll('ü','ue').replaceAll('ß','ss');
+}
+
+function render() {
+  const root = document.getElementById('quiz');
+  root.innerHTML = '';
+  order.forEach((qi, idx) => {
+    const q = QUESTIONS[qi];
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = 'card-' + idx;
+    const num = document.createElement('div');
+    num.className = 'qnum';
+    num.textContent = 'Aufgabe ' + (idx + 1) + ' von ' + QUESTIONS.length + ' · ' + q.label;
+    card.appendChild(num);
+    const qt = document.createElement('div');
+    qt.className = 'qtext';
+    qt.textContent = q.q;
+    card.appendChild(qt);
+
+    if (q.type === 'mc' || q.type === 'tf') {
+      const opts = document.createElement('div');
+      opts.className = 'options';
+      let optOrder = q.options.map((_, i) => i);
+      if (q.type === 'mc') shuffle(optOrder);
+      optOrder.forEach(oi => {
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.textContent = q.options[oi];
+        b.onclick = () => {
+          if (answered[idx]) return;
+          answered[idx] = true;
+          const correct = oi === q.correct;
+          if (correct) { score++; b.classList.add('correct'); }
+          else {
+            b.classList.add('wrong');
+            opts.children[optOrder.indexOf(q.correct)].classList.add('correct');
+          }
+          Array.from(opts.children).forEach(c => c.disabled = true);
+          fb.textContent = correct ? 'Richtig!' : 'Leider falsch.';
+          fb.className = 'feedback ' + (correct ? 'ok' : 'bad');
+          updateProgress();
+        };
+        opts.appendChild(b);
+      });
+      card.appendChild(opts);
+    } else if (q.type === 'fill') {
+      const row = document.createElement('div');
+      row.className = 'fill-row';
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.placeholder = 'Antwort eintippen...';
+      const btn = document.createElement('button');
+      btn.className = 'check-btn';
+      btn.textContent = 'Prüfen';
+      row.appendChild(inp); row.appendChild(btn);
+      card.appendChild(row);
+      const check = () => {
+        if (answered[idx]) return;
+        const accepted = q.answers.map(norm);
+        const ok = accepted.includes(norm(inp.value));
+        answered[idx] = true;
+        if (ok) { score++; fb.textContent = 'Richtig!'; fb.className = 'feedback ok'; inp.style.borderColor = 'var(--green)'; }
+        else { fb.textContent = 'Richtig wäre: ' + q.answers[0]; fb.className = 'feedback bad'; inp.style.borderColor = 'var(--red)'; }
+        inp.disabled = true; btn.disabled = true;
+        updateProgress();
+      };
+      btn.onclick = check;
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    }
+
+    const fb = document.createElement('div');
+    fb.className = 'feedback';
+    card.appendChild(fb);
+    root.appendChild(card);
+  });
+  updateProgress();
+}
+
+function showAll() {
+  order.forEach((qi, idx) => {
+    const q = QUESTIONS[qi];
+    const card = document.getElementById('card-' + idx);
+    if (!card) return;
+    if (q.type === 'mc' || q.type === 'tf') {
+      const opts = card.querySelector('.options');
+      Array.from(opts.children).forEach(b => {
+        if (b.textContent === q.options[q.correct]) b.classList.add('reveal');
+      });
+    } else if (q.type === 'fill') {
+      const row = card.querySelector('.fill-row');
+      const hint = document.createElement('div');
+      hint.style.marginTop = '6px';
+      hint.innerHTML = 'Lösung: <b style="background:var(--yellow); padding:1px 6px; border-radius:4px;">' + q.answers[0] + '</b>';
+      row.after(hint);
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>
